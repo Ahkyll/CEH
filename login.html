@@ -5,42 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/login.css">
 
-
-    <style>
-        * {
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: black;
-        }
-
-        .title {
-            align-items: center;
-            right: 50%;
-            position: absolute;
-        }
-
-        .box {
-            align-items: center;
-            text-align: center;
-            position: absolute;
-            left: 50%;
-            width: 50%;
-            height: 100%;
-            background-color: green;
-
-        }
-
-        .container {
-            background-color: aqua;
-            margin: 200px;
-            padding: 100px;
-        }
-    </style>
 </head>
 
 
@@ -49,40 +15,38 @@
 
 <body>
     <div class="title">
-        <div class="logo"> <img src="img/simpson v.png" alt="" width="50px" height="50px"></div>
+        <div class="logo"> <img src="img/collaborate_logo.png" alt="" width="100px" height="100px"></div>
         <div class="text">
-            <h1>Welcome <br> to CPSU <br> Student Collaboration Space</h1>
+            <h1>Welcome to <br> Collaborate Ed Hub</h1>
+            <h6>A CENTRAL PHILIPPINE STATE UNIVERSITY STUDENT COLLABORATION SPACE</h6>
         </div>
     </div>
 
 
     <div class="box">
+        <div class="signin-text">
+            <h1>Sign in</h1>
+        </div>
+
         <div class="container">
-            <h2>Login</h2>
             <form method="#">
                 <input type="text" id="email" placeholder="Email" name="username"> <br>
                 <input type="password" id="password" placeholder="Password" name="password"><br>
 
-                <a href="#">
+                <a href="#" class="fpass">
                     Forgot Password?
                 </a>
+
                 <br>
                 <input type="submit" value="Login" class="button" name="btn">
             </form>
 
-            <div class="signinw">
-                <p>or sign in with</p>
-
-                <div class="glogo">
-                    <img src="img/simpson v.png" alt="" width="50" height="50">
-                    <img src="img/simpson v.png" alt="" width="50" height="50">
-                </div>
 
 
-                <div class="create-account">
-                    Don't have an account? <a href="signup.html">Create Account</a>
-                </div>
+            <div class="create-account">
+                Don't have an account? <a href="signup.html">Create Account</a>
             </div>
+
 
         </div>
 </body>
