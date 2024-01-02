@@ -14,9 +14,15 @@ body {
 }
 
 .title {
-  padding: 10%;
+  padding: 8%;
+  right: 50%;
   position: absolute;
   text-align: center;
+  font-size: 25px;
+  color: white;
+}
+.text h6 {
+  margin: 20px;
 }
 
 .box {
@@ -27,17 +33,24 @@ body {
   height: 50%;
   width: 50%;
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.334);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    308deg,
+    rgb(2, 0, 36) 0%,
+    rgba(9, 9, 121, 0.845) 35%,
+    rgb(0, 213, 255) 100%
+  );
 }
 
 .signin-text {
-  margin: 100px 0px 40px 0px;
+  margin: 100px 0px 50px 0px;
   color: white;
   font-size: 25px;
 }
 
 input[type="text"],
 input[type="password"] {
+  font-size: 15px;
   width: 70%;
   height: 60px;
   padding: 30px;
@@ -49,9 +62,9 @@ input[type="password"] {
 
 .fpass {
   color: white;
-  font-size: 15px;
+  font-size: 18px;
   position: absolute;
-  left: 70%;
+  left: 65%;
 }
 
 .button {
@@ -61,6 +74,18 @@ input[type="password"] {
   width: 150px;
   height: 50px;
   border-radius: 20px;
-  margin: 30px;
+  margin: 50px;
   border: #ccc;
+}
+.button:hover {
+  background-color: rgb(120, 120, 255);
+}
+.create-account {
+  margin: 80px;
+  color: white;
+  font-size: 20px;
+}
+.create-account a {
+  color: white;
+  font-size: 20px;
 }
