@@ -6,41 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/landingpage.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
 </head>
 
 <body>
     <div class="nav">
-        <div class="logo"></div>
-        <div class="logout"></div>
+        <ul>
+            <li><img src="img/collaborate_logo.png" alt="" width="100px" height="100px"></li>
+            <li><i class='bx bx-lock-alt'></i></li>
+        </ul>
+
     </div>
 
-    <div class="container">
-        <div class="course1">
-            <a href="#">
-                <img src="img/ccslogo.png" alt="">
-            </a>
+
+        <!-- Icon to trigger the popup form -->
+        <div class="container">
+            <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup()"><img src="img/ccslogo.png"
+                    alt=""></div>
         </div>
-        <div class="course2">
-            <a href="#">
-                <img src="img/ccslogo.png" alt="">
-            </a>
+        <h6>College of Computer Studies </h6>
+
+        <!-- Popup form container -->
+        <div id="popup-container">
+            <div id="close-btn" onclick="closePopup()">✖</div>
+            <h2>Fill up</h2>
+            <form>
+                <!-- Your form fields go here -->
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="username">Name:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="username">Year:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="username">Section:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="username">Upload ID:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <button type="submit">Join</button>
+            </form>
         </div>
-        <div class="course3">
-            <a href="#">
-                <img src="img/ccslogo.png" alt="">
-            </a>
-        </div>
-        <div class="course4">
-            <a href="#">
-                <img src="img/ccslogo.png" alt="">
-            </a>
-        </div>
-        <div class="course5">
-            <a href="#">
-                <img src="img/ccslogo.png" alt="">
-            </a>
-        </div>
-    </div>
+
+        <script>
+            // JavaScript functions to show and hide the popup
+            function openPopup() {
+                document.getElementById('popup-container').style.display = 'block';
+            }
+
+            function closePopup() {
+                document.getElementById('popup-container').style.display = 'none';
+            }
+        </script>
+
+
+
 </body>
 
 </html>

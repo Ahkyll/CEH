@@ -4,23 +4,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Your Website</title>
+    <style>
+        /* Add your styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="https://un pkg.com/boxicons@latest/css/boxicons.min.css">
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-icon,
+        .notification-icon {
+            cursor: pointer;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+
+        .logo {
+            flex-grow: 1;
+            /* Grow to fill available space */
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .search-bar {
+            flex-grow: 2;
+            /* Grow to fill available space */
+            text-align: center;
+        }
+
+        .filter-dropdown {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 
 <body>
- <div class="navbar">
-    <div class="menu"></div>
-    <div class="logo"></div>
-    <div class="searchbar"></div>
-    <div class="filters"></div>
-    <div class="notif"></div>
- </div>
 
- .    
+    <header>
+        <div class="menu-icon">&#9776;</div>
+        <div class="logo">Your Logo</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+        <div class="notification-icon">&#128276;</div>
+        <div class="filter-dropdown">
+            <select>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
+        </div>
+    </header>
 
+    <!-- Rest of your HTML content goes here -->
 
 </body>
 
