@@ -45,28 +45,87 @@
         .filter-dropdown {
             margin-right: 10px;
         }
+
+        /* Dropdown styles */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .dropdown-content img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        #close-btn {
+            cursor: pointer;
+            font-size: 18px;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+
+        .menu-icon.dropdown.active .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
 
     <header>
-        <div class="menu-icon">&#9776;</div>
-        <div class="logo">Your Logo</div>
+        <div class="menu-icon dropdown">&#9776;
+            <div class="dropdown-content">
+                <span id="close-btn" onclick="toggleDropdown()">&#10006;</span>
+                <img src="/img/profile_picture.jpg" alt="Profile Picture">
+                <p>Username</p>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+        <div class="logo">
+            <img src="/img/collaborate_logo.png" width="100px" height="100px">
+        </div>
         <div class="search-bar">
             <input type="text" placeholder="Search...">
         </div>
         <div class="notification-icon">&#128276;</div>
-        <div class="filter-dropdown">
-            <select>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-            </select>
-        </div>
     </header>
 
     <!-- Rest of your HTML content goes here -->
+
+    <!-- Rest of your HTML content goes here -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var menuIcon = document.querySelector('.menu-icon.dropdown');
+            menuIcon.addEventListener('click', function () {
+                toggleDropdown();
+            });
+
+            var closeBtn = document.getElementById('close-btn');
+            closeBtn.addEventListener('click', function () {
+                toggleDropdown();
+            });
+        });
+
+        function toggleDropdown() {
+            var menuIcon = document.querySelector('.menu-icon.dropdown');
+            menuIcon.classList.toggle('active');
+        }
+
+        function logout() {
+            // Add your logout logic here
+            alert('Logout clicked');
+        }
+    </script>
 
 </body>
 
