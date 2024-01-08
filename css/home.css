@@ -4,6 +4,73 @@
   padding: 0;
   text-decoration: none;
 }
+/* Add your styles here */
 body {
-  background-color: beige;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-icon,
+.notification-icon {
+  cursor: pointer;
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+.logo {
+  flex-grow: 1;
+  /* Grow to fill available space */
+  text-align: center;
+  font-size: 24px;
+}
+
+.search-bar {
+  flex-grow: 2;
+  /* Grow to fill available space */
+  text-align: center;
+}
+
+.filter-dropdown {
+  margin-right: 10px;
+}
+
+/* Dropdown styles */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 10px;
+  text-align: center;
+}
+
+.dropdown-content img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+#close-btn {
+  cursor: pointer;
+  font-size: 18px;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.menu-icon.dropdown.active .dropdown-content {
+  display: block;
 }

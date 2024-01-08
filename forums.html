@@ -151,3 +151,133 @@
 </body>
 
 </html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .forum-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .forum-category {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .thread {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .join-btn {
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .create-thread-form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="forum-container">
+        <div class="forum-category">
+            <h2>Academic Subjects</h2>
+            <p>Featured discussions or popular threads in academic subjects.</p>
+        </div>
+
+        <div class="thread">
+            <h3>Thread Title 1</h3>
+            <p>Contributors: User1, User2</p>
+            <p>Latest Comments:</p>
+            <ul>
+                <li>User1: This is an interesting discussion!</li>
+                <li>User2: I have a similar question.</li>
+            </ul>
+            <button class="join-btn">Join Discussion</button>
+        </div>
+
+        <div class="thread">
+            <h3>Thread Title 2</h3>
+            <p>Contributors: User3, User4</p>
+            <p>Latest Comments:</p>
+            <ul>
+                <li>User3: Any recommendations for books on this topic?</li>
+                <li>User4: I'm interested in collaborating on a project related to this thread.</li>
+            </ul>
+            <button class="join-btn">Join Discussion</button>
+        </div>
+
+        <!-- Add more threads as needed -->
+
+        <div class="create-thread-form">
+            <h2>Create a New Thread</h2>
+            <form>
+                <label for="thread-title">Thread Title:</label>
+                <input type="text" id="thread-title" name="thread-title" required>
+
+                <label for="category">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="academic">Academic Subjects</option>
+                    <option value="project">Project Types</option>
+                    <option value="general">General Discussions</option>
+                </select>
+
+                <label for="tags">Tags (comma-separated):</label>
+                <input type="text" id="tags" name="tags">
+
+                <label for="thread-content">Thread Content:</label>
+                <textarea id="thread-content" name="thread-content" rows="4" required></textarea>
+
+                <button type="submit">Create Thread</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
