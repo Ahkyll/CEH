@@ -15,7 +15,8 @@
     <div class="nav">
         <ul>
             <li><img src="img/collaborate_logo.png" alt="" width="100px" height="100px"></li>
-            <li><h1>Choose your course</h1></li>
+            <li><h1>Choose your Department</h1></li>
+            <li><i class='bx bx-log-out' id="logout-icon" onclick="logout()"></i></li>
         </ul>
     </div>
 
@@ -24,7 +25,7 @@
         <div class="course" id="course1">
             <div class="container">
                 <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course1')">
-                    <img src="img/ccslogo.png" alt="">
+                    <img src="img/ccslogo.png" alt="ccs logo">
                 </div>
             </div>
             <h6>College of Computer Studies</h6>
@@ -33,37 +34,37 @@
         <div class="course" id="course2">
             <div class="container">
                 <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course2')">
-                    <img src="img/ccslogo.png" alt="">
+                    <img src="img/collaborate_logo.png" alt="ccje logo">
                 </div>
             </div>
-            <h6>Course 2</h6>
+            <h6>College of Criminal Justice Education</h6>
         </div>
 
         <div class="course" id="course3">
             <div class="container">
                 <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course3')">
-                    <img src="img/ccslogo.png" alt="">
+                    <img src="img/collaborate_logo.png" alt="coted logo">
                 </div>
             </div>
-            <h6>Course 3</h6>
+            <h6>College of Teacher Education</h6>
         </div>
 
         <div class="course" id="course4">
             <div class="container">
                 <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course4')">
-                    <img src="img/ccslogo.png" alt="">
+                    <img src="img/collaborate_logo.png" alt="caf logo">
                 </div>
             </div>
-            <h6>Course 4</h6>
+            <h6>College of Agriculture and Forestry</h6>
         </div>
 
         <div class="course" id="course5">
             <div class="container">
                 <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course5')">
-                    <img src="img/ccslogo.png" alt="">
+                    <img src="img/collaborate_logo.png" alt="cbm logo">
                 </div>
             </div>
-            <h6>Course 5</h6>
+            <h6>College of Business and Management</h6>
         </div>
         <!-- Repeat for other courses -->
     </div>
@@ -87,21 +88,42 @@
             </select>
 
             <label for="section">Section:</label>
-            <input type="text" id="section" name="section" required>
+            <select id="section" name="section" required>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+                <option value="4">D</option>
+                <option value="5">E</option>
+            </select>
+<br>
+            <div id="additional-info" style="display: none;">
+                <label for="major">Major</label>
+                <select id="major" name="major" required>
+                    <option value="1">Bachelor of Science in Elementary Education</option>
+                    <option value="2">Bachelor of Science in Education Major in Science</option>
+                    <option value="3">Bachelor of Science in Education Major in Math</option>
+                </select>
+            </div>
 
             <label for="profile-pic">Profile Picture:</label>
             <input type="file" id="profile-pic" name="profile-pic" accept="image/*">
-
-            <label for="upload-id">Upload ID:</label>
-            <input type="file" id="upload-id" name="upload-id" accept=".pdf, .doc, .docx">
 
             <button type="submit">Join</button>
         </form>
     </div>
 
     <script>
-        function openPopup(courseId) {
+         function openPopup(courseId) {
             document.getElementById('popup-title').innerText = document.getElementById(courseId).querySelector('h6').innerText;
+
+            // Show additional information section based on the selected course
+            var additionalInfo = document.getElementById('additional-info');
+            if (courseId === 'course3') {
+                additionalInfo.style.display = 'block';  // No additional info for course1
+            } else {
+                additionalInfo.style.display = 'none';
+            }
+
             document.getElementById('popup-container').style.display = 'block';
         }
 
@@ -115,22 +137,72 @@
                 case 'collegeofcomputerstudies':
                     // Handle form submission for College of Computer Studies
                     break;
-                case 'course2':
+                case 'collegeofcriminaljusticeeducation':
                     // Handle form submission for Course 2
                     break;
-                case 'course3':
+                case 'Collegeofteachereducation':
                     // Handle form submission for Course 3
                     break;
-                case 'course4':
+                case 'collegeofagricultureandforestry':
                     // Handle form submission for Course 4
                     break;
-                case 'course5':
+                case 'collegeofbusinesandmanagement':
                     // Handle form submission for Course 5
                     break;
                 // Add more cases as needed for additional courses
             }
         }
+
+        function logout() {
+            // Implement your logout logic here
+            alert('Logout clicked');  // Replace this with actual logout logic
+        }
     </script>
 </body>
 
 </html>
+
+<!--<body>
+    <h1>User Registration</h1>
+
+    <form id="registrationForm" onsubmit="validateRegistration(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        function validateRegistration(event) {
+            event.preventDefault();
+
+            // Get user input
+            const nameInput = document.getElementById('name').value;
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
+
+            // Simulate checking against the school's database
+            if (isNameInDatabase(nameInput)) {
+                // Proceed with registration
+                alert('Registration successful!');
+            } else {
+                // Display an error message
+                alert('Error: Your name is not found in the school\'s database.');
+            }
+        }
+
+        function isNameInDatabase(name) {
+            // Simulate checking against the school's database
+            // Replace this with actual logic to query the school's database
+            const schoolDatabase = ['John Doe', 'Jane Smith', 'Bob Johnson'];
+            return schoolDatabase.includes(name);
+        }
+    </script>
+</body>
+-->

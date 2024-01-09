@@ -29,6 +29,12 @@ body {
   margin-right: 20px;
 }
 
+.nav ul li i{
+ font-size: 40px;
+ color: white;
+ margin-left: 450px;
+}
+
 .nav img {
   margin-right: 10px;
 }
@@ -44,8 +50,8 @@ body {
   background: linear-gradient(
     308deg,
     rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
+    #090979 35%,
+    #00d4ff 100%
   );
   width: 450px;
   height: 300px;
@@ -65,6 +71,7 @@ body {
 h6 {
   color: white;
   text-align: center;
+  font-size: 20px;
 }
 
 .courses-container {
@@ -126,7 +133,7 @@ select {
 }
 
 button {
-  background-color: #4caf50;
+  background-color: #1010be;
   color: white;
   padding: 10px;
   border: none;
@@ -136,5 +143,5 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #090979;
 }
