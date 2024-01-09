@@ -74,3 +74,59 @@ header {
 .menu-icon.dropdown.active .dropdown-content {
   display: block;
 }
+
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.profile-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-name {
+  margin-top: 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+.profile-overview {
+  margin-bottom: 30px;
+}
+
+.contributions {
+  margin-bottom: 30px;
+}
+
+.badges {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 5px;
+}
