@@ -4,68 +4,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Choose Your Course</title>
     <link rel="stylesheet" href="css/landingpage.css">
 
+    <!-- Add boxicons CSS directly to the head for simplicity -->
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-</head>
 </head>
 
 <body>
     <div class="nav">
         <ul>
             <li><img src="img/collaborate_logo.png" alt="" width="100px" height="100px"></li>
-            <li><i class='bx bx-lock-alt'></i></li>
+            <li><h1>Choose your course</h1></li>
         </ul>
-
     </div>
 
-
-        <!-- Icon to trigger the popup form -->
-        <div class="container">
-            <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup()"><img src="img/ccslogo.png"
-                    alt=""></div>
-        </div>
-        <h6>College of Computer Studies </h6>
-
-        <!-- Popup form container -->
-        <div id="popup-container">
-            <div id="close-btn" onclick="closePopup()">✖</div>
-            <h2>Fill up</h2>
-            <form>
-                <!-- Your form fields go here -->
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="username">Name:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="username">Year:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="username">Section:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <label for="username">Upload ID:</label>
-                <input type="text" id="username" name="username" required>
-                <br>
-                <button type="submit">Join</button>
-            </form>
+    <div class="courses-container">
+        <!-- Repeat the structure for other courses with unique IDs (e.g., course2, course3, etc.) -->
+        <div class="course" id="course1">
+            <div class="container">
+                <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course1')">
+                    <img src="img/ccslogo.png" alt="">
+                </div>
+            </div>
+            <h6>College of Computer Studies</h6>
         </div>
 
-        <script>
-            // JavaScript functions to show and hide the popup
-            function openPopup() {
-                document.getElementById('popup-container').style.display = 'block';
+        <div class="course" id="course2">
+            <div class="container">
+                <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course2')">
+                    <img src="img/ccslogo.png" alt="">
+                </div>
+            </div>
+            <h6>Course 2</h6>
+        </div>
+
+        <div class="course" id="course3">
+            <div class="container">
+                <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course3')">
+                    <img src="img/ccslogo.png" alt="">
+                </div>
+            </div>
+            <h6>Course 3</h6>
+        </div>
+
+        <div class="course" id="course4">
+            <div class="container">
+                <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course4')">
+                    <img src="img/ccslogo.png" alt="">
+                </div>
+            </div>
+            <h6>Course 4</h6>
+        </div>
+
+        <div class="course" id="course5">
+            <div class="container">
+                <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course5')">
+                    <img src="img/ccslogo.png" alt="">
+                </div>
+            </div>
+            <h6>Course 5</h6>
+        </div>
+        <!-- Repeat for other courses -->
+    </div>
+
+    <div id="popup-container">
+        <div id="close-btn" onclick="closePopup()">✖</div>
+        <h2 id="popup-title">Fill up</h2>
+        <form id="course-form" onsubmit="submitForm()">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="year">Year:</label>
+            <select id="year" name="year" required>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+            </select>
+
+            <label for="section">Section:</label>
+            <input type="text" id="section" name="section" required>
+
+            <label for="profile-pic">Profile Picture:</label>
+            <input type="file" id="profile-pic" name="profile-pic" accept="image/*">
+
+            <label for="upload-id">Upload ID:</label>
+            <input type="file" id="upload-id" name="upload-id" accept=".pdf, .doc, .docx">
+
+            <button type="submit">Join</button>
+        </form>
+    </div>
+
+    <script>
+        function openPopup(courseId) {
+            document.getElementById('popup-title').innerText = document.getElementById(courseId).querySelector('h6').innerText;
+            document.getElementById('popup-container').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup-container').style.display = 'none';
+        }
+
+        function submitForm() {
+            var courseId = document.getElementById('popup-title').innerText.toLowerCase().replace(/\s+/g, '');
+            switch (courseId) {
+                case 'collegeofcomputerstudies':
+                    // Handle form submission for College of Computer Studies
+                    break;
+                case 'course2':
+                    // Handle form submission for Course 2
+                    break;
+                case 'course3':
+                    // Handle form submission for Course 3
+                    break;
+                case 'course4':
+                    // Handle form submission for Course 4
+                    break;
+                case 'course5':
+                    // Handle form submission for Course 5
+                    break;
+                // Add more cases as needed for additional courses
             }
-
-            function closePopup() {
-                document.getElementById('popup-container').style.display = 'none';
-            }
-        </script>
-
-
-
+        }
+    </script>
 </body>
 
 </html>
