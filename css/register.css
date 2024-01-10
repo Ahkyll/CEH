@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   text-decoration: none;
+  font-family: "Arial", sans-serif;
 }
 
 body {
@@ -40,12 +41,13 @@ body {
     rgba(9, 9, 121, 0.845) 35%,
     rgb(0, 213, 255) 100%
   );
+  border: 3px solid black;
 }
 
 .signin-text {
   margin: 100px 0px 50px 0px;
   color: white;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 input[type="text"],
@@ -58,27 +60,29 @@ input[type="password"] {
   border: #ccc;
   border-radius: 30px;
   box-sizing: border-box;
+  border: 3px solid black;
 }
 
 .fpass {
   color: white;
-  font-size: 18px;
+  font-size: 15px;
   position: absolute;
   left: 65%;
 }
 
 .button {
-  background-color: rgb(112, 224, 112);
+  background-color: #0f96fe;
   font-size: 20px;
   padding: 10px;
   width: 150px;
   height: 50px;
-  border-radius: 20px;
   margin: 50px;
   border: #ccc;
+  border: 3px solid black;
 }
 .button:hover {
-  background-color: rgb(120, 120, 255);
+  background-color: rgb(1, 1, 154);
+  color: white;
 }
 .create-account {
   margin: 80px;
@@ -88,4 +92,24 @@ input[type="password"] {
 .create-account a {
   color: white;
   font-size: 20px;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-label {
+  position: relative;
+}
+
+#password {
+  padding-right: 30px; /* Adjust the value based on your icon size */
+}
+
+#togglePassword {
+  position: absolute;
+  right: 20px; /* Adjust the value based on your icon position */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }

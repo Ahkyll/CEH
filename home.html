@@ -14,137 +14,138 @@
         <div class="menu-icon dropdown">&#9776;
             <div class="dropdown-content">
                 <span id="close-btn" onclick="toggleDropdown()">&#10006;</span>
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>User Profile</title>
-                    <style>
-                        body {
-                            font-family: 'Arial', sans-serif;
-                            margin: 0;
-                            padding: 0;
-                            background-color: #f5f5f5;
-                        }
-                
-                        .profile-container {
-                            max-width: 800px;
-                            margin: 20px auto;
-                            padding: 20px;
-                            background-color: #fff;
-                            border-radius: 8px;
-                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                        }
-                
-                        .profile-header {
-                            text-align: center;
-                            margin-bottom: 20px;
-                        }
-                
-                        .profile-image {
-                            width: 100px;
-                            height: 100px;
-                            border-radius: 50%;
-                            object-fit: cover;
-                        }
-                
-                        .profile-name {
-                            margin-top: 10px;
-                            font-size: 24px;
-                            color: #333;
-                        }
-                
-                        .profile-overview {
-                            margin-bottom: 30px;
-                        }
-                
-                        .contributions {
-                            margin-bottom: 30px;
-                        }
-                
-                        .badges {
-                            text-align: center;
-                        }
-                
-                        .badge {
-                            display: inline-block;
-                            margin: 10px;
-                            padding: 10px;
-                            background-color: #3498db;
-                            color: #fff;
-                            border-radius: 5px;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="profile-container">
-                        <div class="profile-header">
-                            <img src="user-profile-image.jpg" alt="User Profile" class="profile-image">
-                            <div class="profile-name">John Doe</div>
-                        </div>
-                
-                        <div class="profile-overview">
-                            <h2>Profile Overview</h2>
-                            <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <p>Skills: Web Development, Data Science, Graphic Design</p>
-                            <p>Interests: Open-source projects, Machine Learning, UI/UX Design</p>
-                        </div>
-                
-                        <div class="contributions">
-                            <h2>Project and Forum Contributions</h2>
-                            <div>
-                                <h3>Projects:</h3>
-                                <ul>
-                                    <li><a href="#">Project Title 1</a></li>
-                                    <li><a href="#">Project Title 2</a></li>
-                                    <!-- Add more projects as needed -->
-                                </ul>
-                            </div>
-                            <div>
-                                <h3>Forum Discussions:</h3>
-                                <ul>
-                                    <li><a href="#">Discussion Title 1</a></li>
-                                    <li><a href="#">Discussion Title 2</a></li>
-                                    <!-- Add more discussions as needed -->
-                                </ul>
-                            </div>
-                        </div>
-                
-                        <div class="badges">
-                            <h2>Badges and Achievements</h2>
-                            <div class="badge">Active Contributor</div>
-                            <div class="badge">Project Guru</div>
-                            <div class="badge">Forum Expert</div>
-                            <!-- Add more badges as needed -->
-                        </div>
+
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <img src="user-profile-image.jpg" alt="User Profile" class="profile-image">
+                        <div class="profile-name">John Doe</div>
                     </div>
-                </body>
-                </html>
-                
-                <button onclick="logout()">Logout</button>
+                    <button onclick="logout()">Logout</button>
+                </div>
             </div>
+
+            <div class="logo">
+                <img src="/img/collaborate_logo.png" width="100px" height="100px">
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="notification-icon">&#128276;</div>
         </div>
-        <div class="logo">
-            <img src="/img/collaborate_logo.png" width="100px" height="100px">
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-        </div>
-        <div class="notification-icon">&#128276;</div>
     </header>
 
-    <!-- Rest of your HTML content goes here -->
+    <!-- Navigation links -->
+    <nav>
+        <a href="home.html">
+            <h1>Home</h1>
+        </a>
+        <a href="projects.html">
+            <h1>Projects</h1>
+        </a>
+        <a href="resources.html">
+            <h1>Resources</h1>
+        </a>
+        <a href="forums.html">
+            <h1>Forums</h1>
+        </a>
+    </nav>
 
-    <p>events, tasks</p>
+    <div class="events">
+        <h1>Events</h1>
+        <p>Welcome to our events section! Here, you can find information about upcoming events, conferences, and
+            activities happening in our community.</p>
+        <ul>
+            <li>
+                <img class="event-image" src="event1.jpg" alt="Event 1">
+                <div class="event-details">
+                    <h3>Event 1: Title</h3>
+                    <p>Date: [Event Date]</p>
+                    <p>Details: [Event Details]</p>
+                </div>
+            </li>
+            <li>
+                <img class="event-image" src="event2.jpg" alt="Event 2">
+                <div class="event-details">
+                    <h3>Event 2: Title</h3>
+                    <p>Date: [Event Date]</p>
+                    <p>Details: [Event Details]</p>
+                </div>
+            </li>
+            <!-- Repeat this pattern for a total of 5 events -->
+        </ul>
+    </div>
 
 
-
-    <a href="home.html"><h1>Home</h1></a>
-    <a href="projects.html"><h1>Projects</h1></a>
-    <a href="resources.html"><h1>resources</h1></a>
-    <a href="forums.html"><h1>forums</h1></a>
-
+    <div class="faculty">
+        <h1>Faculty Members</h1>
+        <p>Meet our dedicated faculty members who contribute to the success of our institution.</p>
+        <ul>
+            <li>
+                <img src="img/simpson v.png" alt="Faculty 1">
+                <div>
+                    <strong>Faculty Member 1</strong><br>
+                    Department: Computer Science
+                </div>
+            </li>
+            <li>
+                <img src="img/simpson v.png" alt="Faculty 2">
+                <div>
+                    <strong>Faculty Member 2</strong><br>
+                    Department: Mathematics
+                </div>
+            </li>
+            <li>
+                <img src="img/simpson v.png" alt="Faculty 2">
+                <div>
+                    <strong>Faculty Member 2</strong><br>
+                    Department: Mathematics
+                </div>
+            </li>
+            <li>
+                <img src="img/simpson v.png" alt="Faculty 2">
+                <div>
+                    <strong>Faculty Member 2</strong><br>
+                    Department: Mathematics
+                </div>
+            </li>
+            <li>
+                <img src="img/simpson v.png" alt="Faculty 2">
+                <div>
+                    <strong>Faculty Member 2</strong><br>
+                    Department: Mathematics
+                </div>
+            </li>
+            <li>
+                <img src="img/simpson v.png" alt="Faculty 2">
+                <div>
+                    <strong>Faculty Member 2</strong><br>
+                    Department: Mathematics
+                </div>
+            </li>
+            <li>
+                <img src="img/simpson v.png" alt="Faculty 2">
+                <div>
+                    <strong>Faculty Member 2</strong><br>
+                    Department: Mathematics
+                </div>
+            </li>
+            <li>
+                <img src="img/simpson v.png" alt="Faculty 2">
+                <div>
+                    <strong>Faculty Member 2</strong><br>
+                    Department: Mathematics
+                </div>
+            </li>
+            <li>
+                <img src="img/simpson v.png" alt="Faculty 2">
+                <div>
+                    <strong>Faculty Member 2</strong><br>
+                    Department: Mathematics
+                </div>
+            </li>
+            <!-- Repeat this pattern for a total of 10 faculty members -->
+        </ul>
+    </div>
 
     <script src="/js/home.js"></script>
 

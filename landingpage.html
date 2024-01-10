@@ -15,13 +15,15 @@
     <div class="nav">
         <ul>
             <li><img src="img/collaborate_logo.png" alt="" width="100px" height="100px"></li>
-            <li><h1>Choose your Department</h1></li>
+            <li>
+                <h1>Choose your Department</h1>
+            </li>
             <li><i class='bx bx-log-out' id="logout-icon" onclick="logout()"></i></li>
         </ul>
     </div>
 
     <div class="courses-container">
-        <!-- Repeat the structure for other courses with unique IDs (e.g., course2, course3, etc.) -->
+
         <div class="course" id="course1">
             <div class="container">
                 <div id="icon" style="cursor: pointer; font-size: 24px;" onclick="openPopup('course1')">
@@ -95,7 +97,7 @@
                 <option value="4">D</option>
                 <option value="5">E</option>
             </select>
-<br>
+            <br>
             <div id="additional-info" style="display: none;">
                 <label for="major">Major</label>
                 <select id="major" name="major" required>
@@ -112,17 +114,11 @@
         </form>
     </div>
 
+    <!-- ... Your existing HTML code ... -->
+
     <script>
         function openPopup(courseId) {
-            document.getElementById('popup-title').innerText = document.getElementById(courseId).querySelector('h6').innerText;
-
-            // Show additional information section based on the selected course
-            var additionalInfo = document.getElementById('additional-info');
-            if (courseId === 'course3') {
-                additionalInfo.style.display = 'block';  // No additional info for course1
-            } else {
-                additionalInfo.style.display = 'none';
-            }
+            // ... Your existing code ...
 
             document.getElementById('popup-container').style.display = 'block';
         }
@@ -132,7 +128,11 @@
         }
 
         function submitForm() {
+
+            // Get the selected course name from the popup title
             var courseId = document.getElementById('popup-title').innerText.toLowerCase().replace(/\s+/g, '');
+
+            // You can replace the following switch statement with your own logic
             switch (courseId) {
                 case 'collegeofcomputerstudies':
                     // Handle form submission for College of Computer Studies
@@ -140,7 +140,7 @@
                 case 'collegeofcriminaljusticeeducation':
                     // Handle form submission for Course 2
                     break;
-                case 'Collegeofteachereducation':
+                case 'collegeofteachereducation':
                     // Handle form submission for Course 3
                     break;
                 case 'collegeofagricultureandforestry':
@@ -151,13 +151,25 @@
                     break;
                 // Add more cases as needed for additional courses
             }
+
+            // Close the popup
+            closePopup();
+
+            // Redirect to another page (e.g., landingpage.html)
+            window.location.href = 'home.html';
+
+            return false; // Prevent the default form submission
         }
+
 
         function logout() {
             // Implement your logout logic here
             alert('Logout clicked');  // Replace this with actual logout logic
         }
     </script>
+
+    <!-- ... Your existing HTML code ... -->
+
 </body>
 
 </html>
