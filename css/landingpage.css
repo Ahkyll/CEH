@@ -16,7 +16,7 @@ body {
   align-items: center;
   padding: 10px;
   background-color: #333;
-  border: 3px solid white;
+  border: 3px solid black;
 }
 
 .nav ul {
@@ -134,7 +134,7 @@ select {
   border: 2px solid black;
 }
 
-button {
+.button {
   background-color: #0f96fe;
   color: white;
   padding: 10px;

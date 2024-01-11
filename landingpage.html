@@ -74,7 +74,7 @@
     <div id="popup-container">
         <div id="close-btn" onclick="closePopup()">✖</div>
         <h2 id="popup-title">Fill up</h2>
-        <form id="course-form" onsubmit="submitForm()">
+        <form method="POST" action="home.html" onsubmit="return authenticateUser()">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
 
@@ -110,15 +110,23 @@
             <label for="profile-pic">Profile Picture:</label>
             <input type="file" id="profile-pic" name="profile-pic" accept="image/*">
 
-            <button type="submit">Join</button>
+            <input type="submit" value="Join" class="button" name="btn">
         </form>
     </div>
 
-    <!-- ... Your existing HTML code ... -->
+
 
     <script>
         function openPopup(courseId) {
-            // ... Your existing code ...
+            document.getElementById('popup-title').innerText = document.getElementById(courseId).querySelector('h6').innerText;
+
+            // Show additional information section based on the selected course
+            var additionalInfo = document.getElementById('additional-info');
+            if (courseId === 'course3') {
+                additionalInfo.style.display = 'block';  // No additional info for course1
+            } else {
+                additionalInfo.style.display = 'none';
+            }
 
             document.getElementById('popup-container').style.display = 'block';
         }
@@ -127,48 +135,34 @@
             document.getElementById('popup-container').style.display = 'none';
         }
 
-        function submitForm() {
+        function authenticateUser() {
+            var usernameInput = document.getElementById("username").value;
+            var nameInput = document.getElementById("name").value;
 
-            // Get the selected course name from the popup title
-            var courseId = document.getElementById('popup-title').innerText.toLowerCase().replace(/\s+/g, '');
+            // Replace these values with your predefined username and name
+            var correctUsername = "@ahkyl";
+            var correctName = "Lykah Gomo";
 
-            // You can replace the following switch statement with your own logic
-            switch (courseId) {
-                case 'collegeofcomputerstudies':
-                    // Handle form submission for College of Computer Studies
-                    break;
-                case 'collegeofcriminaljusticeeducation':
-                    // Handle form submission for Course 2
-                    break;
-                case 'collegeofteachereducation':
-                    // Handle form submission for Course 3
-                    break;
-                case 'collegeofagricultureandforestry':
-                    // Handle form submission for Course 4
-                    break;
-                case 'collegeofbusinesandmanagement':
-                    // Handle form submission for Course 5
-                    break;
-                // Add more cases as needed for additional courses
+            if (usernameInput === correctUsername && nameInput === correctName) {
+                // Authentication successful, redirect to landing page
+                window.location.href = "home.html";
+            } else {
+                // Authentication failed, show an error message or handle it as needed
+                alert("Incorrect username or name. Please try again.");
             }
 
-            // Close the popup
-            closePopup();
-
-            // Redirect to another page (e.g., landingpage.html)
-            window.location.href = 'home.html';
-
-            return false; // Prevent the default form submission
+            return false;
         }
-
 
         function logout() {
             // Implement your logout logic here
-            alert('Logout clicked');  // Replace this with actual logout logic
+            window.location.href = "index.html";
+
+            return false;
+            // Replace this with actual logout logic
         }
     </script>
 
-    <!-- ... Your existing HTML code ... -->
 
 </body>
 

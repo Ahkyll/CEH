@@ -1,0 +1,211 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f5f5f5;
+}
+
+header {
+  background-color: #333;
+  color: #ffffff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #000;
+}
+
+.menu-icon {
+  cursor: pointer;
+  font-size: 25px;
+  margin: 0 10px;
+  color: rgb(255, 255, 255);
+}
+
+/* Dropdown styles */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 10px;
+  text-align: center;
+  color: black;
+}
+
+.dropdown-content img {
+  max-width: 100px;
+  max-height: 100px;
+  margin-bottom: 10px;
+}
+
+#close-btn {
+  cursor: pointer;
+  font-size: 18px;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.menu-icon.dropdown.active .dropdown-content {
+  display: block;
+}
+
+.profile-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ebe2e2;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid black;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-name {
+  margin-top: 10px;
+  font-size: 30px;
+  color: black;
+}
+
+.username {
+  font-size: 20px;
+  color: black;
+}
+
+nav {
+  padding: 20px;
+  text-align: center;
+}
+
+nav a {
+  display: inline-block;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #0f96fe;
+}
+
+h1 {
+  margin: 0;
+}
+
+.search-bar {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 70%;
+}
+
+button {
+  background-color: #0f96fe;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 2px solid black;
+}
+
+button:hover {
+  background-color: #085eab;
+}
+
+.project-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.project-card {
+  width: 300px;
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.project-card h3 {
+  margin-top: 0;
+  color: #0f96fe;
+}
+
+.project-card p {
+  color: #555;
+}
+
+.collaborate-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.collaborate-button:hover {
+  background-color: #45a049;
+}
+
+.project-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.create-project-button {
+  background-color: #f44336; /* Red color, you can change this */
+  color: white;
+  font-size: 20px;
+  padding: 20px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  margin-bottom: 20px;/* Adjust as needed */
+  margin-left: 85%;
+  border: 3px solid black;
+}
+
+.create-project-button:hover {
+  background-color: #d32f2f; /* Darker red on hover, you can change this */
+}

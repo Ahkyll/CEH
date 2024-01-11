@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website</title>
-    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/css/project.css">
 </head>
 
 <body>
@@ -14,371 +14,168 @@
         <div class="menu-icon dropdown">&#9776;
             <div class="dropdown-content">
                 <span id="close-btn" onclick="toggleDropdown()">&#10006;</span>
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>User Profile</title>
-                    <style>
-                        body {
-                            font-family: 'Arial', sans-serif;
-                            margin: 0;
-                            padding: 0;
-                            background-color: #f5f5f5;
-                        }
-                
-                        .profile-container {
-                            max-width: 800px;
-                            margin: 20px auto;
-                            padding: 20px;
-                            background-color: #fff;
-                            border-radius: 8px;
-                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                        }
-                
-                        .profile-header {
-                            text-align: center;
-                            margin-bottom: 20px;
-                        }
-                
-                        .profile-image {
-                            width: 100px;
-                            height: 100px;
-                            border-radius: 50%;
-                            object-fit: cover;
-                        }
-                
-                        .profile-name {
-                            margin-top: 10px;
-                            font-size: 24px;
-                            color: #333;
-                        }
-                
-                        .profile-overview {
-                            margin-bottom: 30px;
-                        }
-                
-                        .contributions {
-                            margin-bottom: 30px;
-                        }
-                
-                        .badges {
-                            text-align: center;
-                        }
-                
-                        .badge {
-                            display: inline-block;
-                            margin: 10px;
-                            padding: 10px;
-                            background-color: #3498db;
-                            color: #fff;
-                            border-radius: 5px;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="profile-container">
-                        <div class="profile-header">
-                            <img src="user-profile-image.jpg" alt="User Profile" class="profile-image">
-                            <div class="profile-name">John Doe</div>
-                        </div>
-                
-                        <div class="profile-overview">
-                            <h2>Profile Overview</h2>
-                            <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <p>Skills: Web Development, Data Science, Graphic Design</p>
-                            <p>Interests: Open-source projects, Machine Learning, UI/UX Design</p>
-                        </div>
-                
-                        <div class="contributions">
-                            <h2>Project and Forum Contributions</h2>
-                            <div>
-                                <h3>Projects:</h3>
-                                <ul>
-                                    <li><a href="#">Project Title 1</a></li>
-                                    <li><a href="#">Project Title 2</a></li>
-                                    <!-- Add more projects as needed -->
-                                </ul>
-                            </div>
-                            <div>
-                                <h3>Forum Discussions:</h3>
-                                <ul>
-                                    <li><a href="#">Discussion Title 1</a></li>
-                                    <li><a href="#">Discussion Title 2</a></li>
-                                    <!-- Add more discussions as needed -->
-                                </ul>
-                            </div>
-                        </div>
-                
-                        <div class="badges">
-                            <h2>Badges and Achievements</h2>
-                            <div class="badge">Active Contributor</div>
-                            <div class="badge">Project Guru</div>
-                            <div class="badge">Forum Expert</div>
-                            <!-- Add more badges as needed -->
-                        </div>
+
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <img src="/img/simpson v.png" alt="User Profile" class="profile-image">
+                        <div class="profile-name">Lykah Gomo</div>
+                        <div class="username">@ahkyl</div>
                     </div>
-                </body>
-                </html>
-                
-                <button onclick="logout()">Logout</button>
+                    <br>
+                    <button onclick="logout()">Logout</button>
+                </div>
             </div>
         </div>
-        <div class="logo">
-            <img src="/img/collaborate_logo.png" width="100px" height="100px">
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-        </div>
-        <div class="notification-icon">&#128276;</div>
+
+        <nav>
+            <a href="home.html">
+                <h1>Home</h1>
+            </a>
+            <a href="projects.html">
+                <h1><span style="color: #0f96fe;">Projects</span></h1>
+            </a>
+            <a href="resources.html">
+                <h1>Resources</h1>
+            </a>
+            <a href="forums.html">
+                <h1>Forums</h1>
+            </a>
+
+        </nav>
     </header>
 
-    <!-- Rest of your HTML content goes here -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search projects or users">
+        <button onclick="searchProjects()">Search</button>
+    </div>
 
-    <p>events, tasks</p>
+    <section class="project-cards" id="projectCards">
+        <!-- Project cards will be dynamically added here using JavaScript -->
+    </section>
 
-
-
-    <a href="home.html"><h1>Home</h1></a>
-    <a href="projects.html"><h1>Projects</h1></a>
-    <a href="resources.html"><h1>resources</h1></a>
-    <a href="forums.html"><h1>forums</h1></a>
-
-
-    <script src="/js/home.js"></script>
-
-</body>
-
-</html>
+    <button onclick="createProject()" class="create-project-button">Create a Project</button>
 
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Projects Section</title>
-        <style>
-            body {
-                font-family: 'Arial', sans-serif;
-                margin: 0;
-                padding: 0;
-                background-color: #f5f5f5;
-            }
-    
-            .projects-container {
-                max-width: 800px;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
-    
-            .filters {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 20px;
-            }
-    
-            .search-bar {
-                flex-grow: 1;
-                margin-right: 10px;
-                padding: 8px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-            }
-    
-            .project-card {
-                background-color: #f9f9f9;
-                padding: 10px;
-                margin-bottom: 15px;
-                border-radius: 8px;
-            }
-    
-            .collaborate-btn {
-                background-color: #3498db;
-                color: #fff;
-                padding: 8px 12px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-    
-            .project-details {
-                margin-top: 20px;
-            }
-    
-            .comment-section {
-                margin-top: 20px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="projects-container">
-            <div class="filters">
-                <div>
-                    <label for="subject-category">Subject Category:</label>
-                    <select id="subject-category">
-                        <!-- Add options for subject categories -->
-                        <option value="category1">Category 1</option>
-                        <option value="category2">Category 2</option>
-                        <!-- Add more options as needed -->
-                    </select>
-                </div>
-                <div>
-                    <label for="project-type">Project Type:</label>
-                    <select id="project-type">
-                        <!-- Add options for project types -->
-                        <option value="type1">Type 1</option>
-                        <option value="type2">Type 2</option>
-                        <!-- Add more options as needed -->
-                    </select>
-                </div>
-                <div>
-                    <label for="collaboration-preference">Collaboration Preference:</label>
-                    <select id="collaboration-preference">
-                        <!-- Add options for collaboration preferences -->
-                        <option value="anonymous">Anonymous</option>
-                        <option value="reveal-identity">Reveal Identity</option>
-                        <!-- Add more options as needed -->
-                    </select>
-                </div>
-                <div>
-                    <input type="text" id="search-bar" class="search-bar" placeholder="Search projects or users">
-                    <button id="search-btn">Search</button>
-                </div>
-            </div>
-    
-            <div class="project-card">
-                <h3>Project Title 1</h3>
-                <p>Brief description of the project.</p>
-                <p>Contributors: User1, User2</p>
-                <button class="collaborate-btn">Collaborate</button>
-            </div>
-    
-            <div class="project-card">
-                <h3>Project Title 2</h3>
-                <p>Brief description of the project.</p>
-                <p>Contributors: User3, User4</p>
-                <button class="collaborate-btn">Collaborate</button>
-            </div>
-    
-            <!-- Add more project cards as needed -->
-    
-            <div class="project-details">
-                <h2>Project Title</h2>
-                <p>Detailed project description goes here.</p>
-                <p>Contributors: User1, User2, User3</p>
-                <p>Progress: In Progress</p>
-            </div>
-    
-            <!DOCTYPE html>
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Projects Section</title>
-                <style>
-                    /* Your existing styles remain unchanged */
-                    .comment {
-                        border: 1px solid #ddd;
-                        padding: 8px;
-                        margin-top: 10px;
-                        border-radius: 4px;
-                        position: relative;
-                    }
-            
-                    .delete-btn {
-                        position: absolute;
-                        top: 5px;
-                        right: 5px;
-                        background-color: #ff6262;
-                        color: #fff;
-                        border: none;
-                        border-radius: 4px;
-                        padding: 4px 8px;
-                        cursor: pointer;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="projects-container">
-                    <!-- Your existing HTML content remains unchanged -->
-            
-                    <div class="comment-section" id="commentSection">
-                        <h3>Comments</h3>
-                        <!-- Add a form for adding comments -->
-                        <form id="commentForm">
-                            <label for="comment">Add your comment:</label>
-                            <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
-                            <br>
-                            <button type="button" onclick="postComment()">Post Comment</button>
-                        </form>
-                        <!-- Display existing comments here -->
-                    </div>
-                </div>
-            
-                <script>
-                    function postComment() {
-                        var commentText = document.getElementById('comment').value;
-            
-                        if (commentText.trim() === '') {
-                            alert('Please enter a comment before posting.');
-                            return;
-                        }
-            
-                        var commentSection = document.getElementById('commentSection');
-                        var commentDiv = document.createElement('div');
-                        commentDiv.classList.add('comment');
-            
-                        var commentParagraph = document.createElement('p');
-                        commentParagraph.innerHTML = '<strong>User:</strong> ' + commentText;
-            
-                        var deleteButton = document.createElement('button');
-                        deleteButton.classList.add('delete-btn');
-                        deleteButton.innerHTML = 'Delete';
-                        deleteButton.onclick = function () {
-                            commentSection.removeChild(commentDiv);
-                        };
-            
-                        commentDiv.appendChild(commentParagraph);
-                        commentDiv.appendChild(deleteButton);
-                        commentSection.appendChild(commentDiv);
-            
-                        // Clear the textarea after posting a comment
-                        document.getElementById('comment').value = '';
-                    }
-                </script>
-            </body>
-            </html>
-            
-    
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var menuIcon = document.querySelector(".menu-icon.dropdown");
+            menuIcon.addEventListener("click", function () {
+                toggleDropdown();
+            });
+
+            var closeBtn = document.getElementById("close-btn");
+            closeBtn.addEventListener("click", function () {
+                toggleDropdown();
+            });
+        });
+
+        function toggleDropdown() {
+            var menuIcon = document.querySelector(".menu-icon.dropdown");
+            menuIcon.classList.toggle("active");
+        }
+
+        function logout() {
+            // Implement your logout logic here
+            window.location.href = "index.html";
+
+            return false;
+            // Replace this with actual logout logic
+        }
 
 
 
+        // Sample data for projects
+        const projectsData = [
+            {
+                title: 'Web Development Project',
+                description: 'Building a responsive website using HTML, CSS, and JavaScript.',
+                contributors: ['John Doe', 'Jane Smith'],
+                image: '/img/collaborate_logo.png', // Add the image path
+            },
+            {
+                title: 'Mobile App Development',
+                description: 'Creating a mobile app for both Android and iOS platforms.',
+                contributors: ['Alice Johnson', 'Bob Williams', 'Charlie Brown'],
+                image: '/img/collaborate_logo.png', // Add the image path
+            },
+            {
+                title: 'Data Science Research',
+                description: 'Analyzing large datasets to derive meaningful insights and patterns.',
+                contributors: ['Eve Davis', 'Frank White', 'Grace Lee'],
+                image: '/img/collaborate_logo.png', // Add the image path
+            },
+            // Add more projects as needed
+        ];
+
+        function createProjectCards(projects) {
+            const projectCardsContainer = document.getElementById('projectCards');
+            projectCardsContainer.innerHTML = '';
+
+            projects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+
+                const title = document.createElement('h3');
+                title.textContent = project.title;
+
+                const image = document.createElement('img');
+                image.src = project.image;
+                image.alt = project.title;
+                image.className = 'project-image';
+
+                const description = document.createElement('p');
+                description.textContent = project.description;
+
+                const contributors = document.createElement('p');
+                contributors.textContent = `Contributors: ${project.contributors.join(', ')}`;
+
+                const collaborateButton = document.createElement('button');
+                collaborateButton.className = 'collaborate-button';
+                collaborateButton.textContent = 'Collaborate';
+                collaborateButton.addEventListener('click', () => collaborate(project.title));
+
+                card.appendChild(title);
+                card.appendChild(image);
+                card.appendChild(description);
+                card.appendChild(contributors);
+                card.appendChild(collaborateButton);
+
+                projectCardsContainer.appendChild(card);
+            });
+        }
+
+        createProjectCards(projectsData);
+
+        // Function to handle project search
+        function searchProjects() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+            const filteredProjects = projectsData.filter(project =>
+                project.title.toLowerCase().includes(searchInput) ||
+                project.description.toLowerCase().includes(searchInput) ||
+                project.contributors.some(contributor => contributor.toLowerCase().includes(searchInput))
+            );
+
+            createProjectCards(filteredProjects);
+        }
+
+        // Function to simulate collaboration (replace with actual collaboration logic)
+        function collaborate(projectTitle) {
+            alert(`You expressed interest in collaborating on: ${projectTitle}`);
+        }
+
+        // Initial project cards creation
+        createProjectCards(projectsData);
+
+        function createProject() {
+            // Implement logic to navigate to the "Create Project" page or perform other actions.
+            // For example, you can use window.location.href to redirect the user.
+            alert('Redirect to create project page or perform other actions.');
+        }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script src="/js/home.js"></script>
+    </script>
 
 </body>
 

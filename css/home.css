@@ -7,7 +7,7 @@
 /* Add your styles here */
 body {
   font-family: "Arial", sans-serif;
-  background-color: #f5f5f5;
+  background-color: rgb(26, 25, 25);
 }
 
 header {
@@ -17,30 +17,14 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 3px solid black;
 }
 
-.menu-icon,
-.notification-icon {
+.menu-icon {
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
   margin: 0 10px;
-}
-
-.logo {
-  flex-grow: 1;
-  /* Grow to fill available space */
-  text-align: center;
-  font-size: 24px;
-}
-
-.search-bar {
-  flex-grow: 2;
-  /* Grow to fill available space */
-  text-align: center;
-}
-
-.filter-dropdown {
-  margin-right: 10px;
+  color: white;
 }
 
 /* Dropdown styles */
@@ -58,7 +42,6 @@ header {
 .dropdown-content img {
   max-width: 100px;
   max-height: 100px;
-  border-radius: 50%;
   margin-bottom: 10px;
 }
 
@@ -78,15 +61,12 @@ header {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: #ebe2e2;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid black;
 }
 
-.profile-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
 
 .profile-image {
   width: 100px;
@@ -97,14 +77,23 @@ header {
 
 .profile-name {
   margin-top: 10px;
-  font-size: 24px;
-  color: #333;
+  font-size: 30px;
+  color: black;
 }
 
-.profile-overview {
-  margin-bottom: 30px;
+.username{
+  font-size: 20px;
 }
-
+button {
+  background-color: #0f96fe;
+  font-size: 20px;
+  padding: 10px;
+  width: 150px;
+  height: 50px;
+  margin: 30px;
+  border: #ccc;
+  border: 3px solid black;
+}
 nav {
   padding: 20px;
   text-align: center;
@@ -113,73 +102,38 @@ nav {
 nav a {
   display: inline-block;
   margin: 0 10px;
-  color: white;
   text-decoration: none;
   font-size: 15px;
   font-weight: bold;
 }
 
-nav a:hover {
-  text-decoration: underline;
-  color: blue;
+nav a h1 {
+  color: white;
+}
+
+nav h1:hover {
+  color: #0f96fe;
 }
 
 .events,
 .faculty {
-  max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
+  background-color: #ebe2e2;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.events h1,
-.faculty h1 {
-  color: #333;
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
-.events p,
-.faculty p {
-  color: #555;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.events ul,
-.faculty ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.events li,
-.faculty li {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.faculty {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 3px solid black;
 }
 
 .faculty h1 {
-  color: #333;
-  font-size: 28px;
+  color: #000000;
+  font-size: 30px;
   margin-bottom: 20px;
 }
 
 .faculty p {
   color: #555;
-  font-size: 16px;
+  font-size: 20px;
   margin-bottom: 20px;
 }
 
@@ -188,7 +142,9 @@ nav a:hover {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Spread items across the row */
+  justify-content: space-between;
+  font-size: 20px;
+  /* Spread items across the row */
 }
 
 .faculty li {
@@ -198,33 +154,32 @@ nav a:hover {
   border: 1px solid #ddd;
   border-radius: 4px;
   text-align: center;
+  background: linear-gradient(
+    308deg,
+    rgb(2, 0, 36) 0%,
+    rgba(9, 9, 121, 0.845) 35%,
+    rgb(0, 213, 255) 100%
+  );
+  border: 3px solid black;
 }
 
 .faculty img {
-  width: 100%;
-  height: auto;
-  border-radius: 50%;
+  width: 80%;
+  height: 80%;
+  border-radius: 100%;
   margin-bottom: 10px;
-}
-
-.events {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 3px solid black;
 }
 
 .events h1 {
-  color: #333;
-  font-size: 28px;
+  color: #000000;
+  font-size: 30px;
   margin-bottom: 20px;
 }
 
 .events p {
   color: #555;
-  font-size: 16px;
+  font-size: 20px;
   margin-bottom: 20px;
 }
 
@@ -236,9 +191,14 @@ nav a:hover {
 .events li {
   margin-bottom: 20px;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
   overflow: hidden;
+  background: linear-gradient(
+    308deg,
+    rgb(2, 0, 36) 0%,
+    rgba(9, 9, 121, 0.845) 35%,
+    rgb(0, 213, 255) 100%
+  );
+  border: 3px solid black;
 }
 
 .event-image {
@@ -246,7 +206,7 @@ nav a:hover {
   margin-right: 20px;
   width: 100px;
   height: auto;
-  border-radius: 8px;
+  border: 3px solid rgb(255, 255, 255);
 }
 
 .event-details {
@@ -254,12 +214,38 @@ nav a:hover {
 }
 
 .event-details h3 {
-  color: #333;
-  font-size: 18px;
+  color: #000000;
+  font-size: 25px;
   margin-bottom: 10px;
 }
 
 .event-details p {
-  color: #555;
-  font-size: 14px;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.enlarged-image-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.enlarged-image {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 8px;
+}
+
+.faculty div {
+  color: white;
+}
+
+strong {
+  color: white;
 }

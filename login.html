@@ -31,7 +31,7 @@
         </div>
 
         <div class="container">
-            <form method="POST" action="landingpage.html" onsubmit="return redirectToPage()">
+            <form method="POST" action="landingpage.html" onsubmit="return authenticateUser()">
                 <input type="text" id="email" placeholder="Email" name="username" required> <br>
                 <div class="password-container">
                     <label for="password" class="password-label">
@@ -58,12 +58,25 @@
     </div>
 
     <script>
-        function redirectToPage() {
+        function authenticateUser() {
+            var emailInput = document.getElementById("email").value;
+            var passwordInput = document.getElementById("password").value;
 
-            window.location.href = "landingpage.html";
+            // Replace these values with your predefined email and password
+            var correctEmail = "gomo.cpsu@gmail.com";
+            var correctPassword = "password123";
+
+            if (emailInput === correctEmail && passwordInput === correctPassword) {
+                // Authentication successful, redirect to landing page
+                window.location.href = "landingpage.html";
+            } else {
+                // Authentication failed, show an error message or handle it as needed
+                alert("Incorrect email or password. Please try again.");
+            }
 
             return false;
         }
+
 
         function togglePasswordVisibility() {
             var passwordInput = document.getElementById("password");
