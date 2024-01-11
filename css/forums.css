@@ -109,24 +109,9 @@ h1 {
   margin: 0;
 }
 
-body {
-  font-family: "Arial", sans-serif;
-  background-color: #f5f5f5;
-  margin: 0;
-}
-
-header {
-  background-color: #333;
-  color: #ffffff;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 3px solid #000;
-}
-
-.resource-library,
-.submit-resource {
+.forum-categories,
+.thread-display,
+.create-thread {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
@@ -136,50 +121,61 @@ header {
   border: 2px solid black;
 }
 
-.resource-library h2,
-.submit-resource h2 {
+.forum-categories h2,
+.thread-display h2,
+.create-thread h2 {
   color: #333;
-  margin-bottom: 40px;
 }
 
-.resource-category {
-  margin-bottom: 10px;
+.category,
+.thread {
+  margin-bottom: 20px;
 }
 
-.resource h4 {
+.thread h3,
+.category h3 {
   color: #0f96fe;
 }
 
+.thread a {
+  text-decoration: none;
+  color: #0f96fe;
+}
+
+.thread p,
+.category ul {
+  color: #555;
+}
+
 button {
-  background-color: #0f96fe;
+  background-color: #4caf50;
   color: white;
-  font-size: 16px;
-  padding: 10px 20px;
   border: none;
+  padding: 10px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border: 2px solid black;
 }
 
 button:hover {
-  background-color: #085eab;
+  background-color: #45a049;
 }
 
-.submit-resource form {
+.create-thread form {
   display: flex;
   flex-direction: column;
 }
 
-.submit-resource label {
+.create-thread label {
   margin-top: 10px;
 }
 
-.submit-resource input,
-.submit-resource select {
+.create-thread input,
+.create-thread select {
   padding: 10px;
   margin-bottom: 10px;
 }
 
-.submit-resource button {
+.create-thread button {
   align-self: flex-start;
 }

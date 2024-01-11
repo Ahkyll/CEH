@@ -5,297 +5,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website</title>
-    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <link rel="stylesheet" href="css/resources.css">
 </head>
 
 <body>
-
     <header>
         <div class="menu-icon dropdown">&#9776;
             <div class="dropdown-content">
                 <span id="close-btn" onclick="toggleDropdown()">&#10006;</span>
-                <!DOCTYPE html>
-                <html lang="en">
 
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>User Profile</title>
-                    <style>
-                        body {
-                            font-family: 'Arial', sans-serif;
-                            margin: 0;
-                            padding: 0;
-                            background-color: #f5f5f5;
-                        }
-
-                        .profile-container {
-                            max-width: 800px;
-                            margin: 20px auto;
-                            padding: 20px;
-                            background-color: #fff;
-                            border-radius: 8px;
-                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                        }
-
-                        .profile-header {
-                            text-align: center;
-                            margin-bottom: 20px;
-                        }
-
-                        .profile-image {
-                            width: 100px;
-                            height: 100px;
-                            border-radius: 50%;
-                            object-fit: cover;
-                        }
-
-                        .profile-name {
-                            margin-top: 10px;
-                            font-size: 24px;
-                            color: #333;
-                        }
-
-                        .profile-overview {
-                            margin-bottom: 30px;
-                        }
-
-                        .contributions {
-                            margin-bottom: 30px;
-                        }
-
-                        .badges {
-                            text-align: center;
-                        }
-
-                        .badge {
-                            display: inline-block;
-                            margin: 10px;
-                            padding: 10px;
-                            background-color: #3498db;
-                            color: #fff;
-                            border-radius: 5px;
-                        }
-                    </style>
-                </head>
-
-                <body>
-                    <div class="profile-container">
-                        <div class="profile-header">
-                            <img src="user-profile-image.jpg" alt="User Profile" class="profile-image">
-                            <div class="profile-name">John Doe</div>
-                        </div>
-
-                        <div class="profile-overview">
-                            <h2>Profile Overview</h2>
-                            <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.</p>
-                            <p>Skills: Web Development, Data Science, Graphic Design</p>
-                            <p>Interests: Open-source projects, Machine Learning, UI/UX Design</p>
-                        </div>
-
-                        <div class="contributions">
-                            <h2>Project and Forum Contributions</h2>
-                            <div>
-                                <h3>Projects:</h3>
-                                <ul>
-                                    <li><a href="#">Project Title 1</a></li>
-                                    <li><a href="#">Project Title 2</a></li>
-                                    <!-- Add more projects as needed -->
-                                </ul>
-                            </div>
-                            <div>
-                                <h3>Forum Discussions:</h3>
-                                <ul>
-                                    <li><a href="#">Discussion Title 1</a></li>
-                                    <li><a href="#">Discussion Title 2</a></li>
-                                    <!-- Add more discussions as needed -->
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="badges">
-                            <h2>Badges and Achievements</h2>
-                            <div class="badge">Active Contributor</div>
-                            <div class="badge">Project Guru</div>
-                            <div class="badge">Forum Expert</div>
-                            <!-- Add more badges as needed -->
-                        </div>
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <img src="/img/simpson v.png" alt="User Profile" class="profile-image">
+                        <div class="profile-name">Lykah Gomo</div>
+                        <div class="username">@ahkyl</div>
                     </div>
-                </body>
-
-                </html>
-
-                <button onclick="logout()">Logout</button>
+                    <br>
+                    <button onclick="logout()">Logout</button>
+                </div>
             </div>
         </div>
-        <div class="logo">
-            <img src="/img/collaborate_logo.png" width="100px" height="100px">
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-        </div>
-        <div class="notification-icon">&#128276;</div>
+
+        <nav>
+            <a href="home.html">
+                <h1>Home</h1>
+            </a>
+            <a href="projects.html">
+                <h1>Projects</h1>
+            </a>
+            <a href="resources.html">
+                <h1><span style="color: #0f96fe;">Resources</span></h1>
+            </a>
+            <a href="forums.html">
+                <h1>Forums</h1>
+            </a>
+        </nav>
     </header>
 
-    <!-- Rest of your HTML content goes here -->
-
-    <p>events, tasks</p>
-
-
-
-    <a href="home.html">
-        <h1>Home</h1>
-    </a>
-    <a href="projects.html">
-        <h1>Projects</h1>
-    </a>
-    <a href="resources.html">
-        <h1>resources</h1>
-    </a>
-    <a href="forums.html">
-        <h1>forums</h1>
-    </a>
-
-
-    <script src="/js/home.js"></script>
-
-</body>
-
-</html>
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resource Library</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-
-        .library-container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .resource-category {
-            background-color: #3498db;
-            color: #fff;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-
-        .resource {
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-        }
-
-        .ratings {
-            color: #f39c12;
-            font-weight: bold;
-        }
-
-        .submit-resource-form {
-            margin-top: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #3498db;
-            color: #fff;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="library-container">
-        <div class="resource-category">
-            <h2>Research Papers</h2>
-            <p>Categorized repository of research papers with ratings and reviews.</p>
-        </div>
-
-        <div class="resource">
-            <h3>Resource Title 1</h3>
-            <p>Description of the resource.</p>
-            <p>Ratings: <span class="ratings">4.5</span></p>
-            <p>Reviews:</p>
-            <ul>
-                <li>User1: Excellent resource!</li>
-                <li>User2: Very informative.</li>
-            </ul>
-        </div>
-
-        <div class="resource">
-            <h3>Resource Title 2</h3>
-            <p>Description of the resource.</p>
-            <p>Ratings: <span class="ratings">3.8</span></p>
-            <p>Reviews:</p>
-            <ul>
-                <li>User3: Helpful content.</li>
-                <li>User4: Could use more examples.</li>
-            </ul>
-        </div>
-
-        <!-- Add more resources as needed -->
-
-        <div class="submit-resource-form">
-            <h2>Submit a Resource</h2>
-            <form>
-                <label for="resource-title">Resource Title:</label>
-                <input type="text" id="resource-title" name="resource-title" required>
-
-                <label for="category">Category:</label>
-                <select id="category" name="category" required>
-                    <option value="research-papers">Research Papers</option>
-                    <option value="study-guides">Study Guides</option>
-                    <option value="templates">Templates</option>
-                </select>
-
-                <label for="resource-description">Resource Description:</label>
-                <textarea id="resource-description" name="resource-description" rows="4" required></textarea>
-
-                <label for="ratings">Ratings (out of 5):</label>
-                <input type="number" id="ratings" name="ratings" min="0" max="5" step="0.1" required>
-
-                <button type="submit">Submit Resource</button>
-            </form>
-        </div>
+    <div class="resource-library" id="resourceLibrary">
+        <h2>Resource Library</h2>
+        <!-- Content will be dynamically added here using JavaScript -->
     </div>
+
+    <div class="submit-resource" id="submitResource">
+        <h2>Submit a Resource</h2>
+        <form onsubmit="submitResource(event)">
+            <label for="resourceTitle">Resource Title:</label>
+            <input type="text" id="resourceTitle" name="resourceTitle" required>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="research_papers">Research Papers</option>
+                <option value="study_guides">Study Guides</option>
+                <option value="templates">Templates</option>
+            </select>
+
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required>
+
+            <label for="rating">Rating (out of 5):</label>
+            <input type="number" id="rating" name="rating" min="0" max="5" step="0.1" required>
+
+            <label for="reviews">Reviews:</label>
+            <input type="number" id="reviews" name="reviews" min="0" required>
+
+            <label for="resourceFile">Upload File:</label>
+            <input type="file" id="resourceFile" name="resourceFile" accept=".pdf, .doc, .docx" required>
+
+            <button type="submit">Submit Resource</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var menuIcon = document.querySelector(".menu-icon.dropdown");
+            menuIcon.addEventListener("click", function () {
+                toggleDropdown();
+            });
+
+            var closeBtn = document.getElementById("close-btn");
+            closeBtn.addEventListener("click", function () {
+                toggleDropdown();
+            });
+        });
+
+        function toggleDropdown() {
+            var menuIcon = document.querySelector(".menu-icon.dropdown");
+            menuIcon.classList.toggle("active");
+        }
+
+        function logout() {
+            // Implement your logout logic here
+            window.location.href = "index.html";
+
+            return false;
+            // Replace this with actual logout logic
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Sample data for resource library
+            const resourceData = {
+                'Research Papers': [
+                    {
+                        title: 'Paper Title 1',
+                        author: 'John Doe',
+                        rating: 4.5,
+                        reviews: 10,
+                        fileUrl: 'files/paper_title_1.pdf', // Example file URL
+                    },
+                    {
+                        title: 'Paper Title 2',
+                        author: 'Jane Smith',
+                        rating: 3.8,
+                        reviews: 8,
+                        fileUrl: 'files/paper_title_2.docx', // Example file URL
+                    },
+                    // Add more resources for 'Research Papers' as needed
+                ],
+                'Study Guides': [
+                    {
+                        title: 'Human Computer Interaction',
+                        author: 'Ms. Deli',
+                        rating: 4.5,
+                        reviews: 10,
+                        fileUrl: 'files/HCI-1.pptx', // Example file URL
+                    },
+                    {
+                        title: 'Data Structures and Algorithms',
+                        author: 'Mr. Ul',
+                        rating: 3.8,
+                        reviews: 8,
+                        fileUrl: 'files/dsa.pdf', // Example file URL
+                    },
+                    // Add more resources for 'Study Guides' as needed
+                ],
+                'Templates': [
+                    // Resources for 'Templates'
+                    // ...
+                ],
+                // Add more categories as needed
+            };
+
+            const resourceLibrary = document.getElementById('resourceLibrary');
+            const submitResource = document.getElementById('submitResource');
+
+            // Function to create resource cards
+            function createResourceCards(category, resources) {
+                const categoryHeader = document.createElement('h3');
+                categoryHeader.className = 'resource-category';
+                categoryHeader.textContent = category;
+                resourceLibrary.appendChild(categoryHeader);
+
+                resources.forEach(resource => {
+                    const resourceCard = document.createElement('div');
+                    resourceCard.className = 'resource';
+                    resourceCard.innerHTML = `
+                    <h4>${resource.title}</h4>
+                    <p>Author: ${resource.author}</p>
+                    <p>Rating: ${resource.rating}/5</p>
+                    <p>Reviews: ${resource.reviews}</p>
+                    <p>File: <a href="${resource.fileUrl}" target="_blank">View File</a></p>
+                `;
+                    resourceLibrary.appendChild(resourceCard);
+                });
+            }
+
+            // Initial resource cards creation
+            for (const category in resourceData) {
+                if (resourceData.hasOwnProperty(category)) {
+                    createResourceCards(category, resourceData[category]);
+                }
+            }
+        });
+
+        function toggleDropdown() {
+            var menuIcon = document.querySelector(".menu-icon.dropdown");
+            menuIcon.classList.toggle("active");
+        }
+
+        function logout() {
+            // Implement your logout logic here
+            window.location.href = "index.html";
+
+            return false;
+            // Replace this with actual logout logic
+        }
+
+        function submitResource(event) {
+            event.preventDefault();
+            // Handle form submission, including file upload, on the server side
+            // Update resourceData with the information of the uploaded file
+        }
+    </script>
+
 </body>
 
 </html>
