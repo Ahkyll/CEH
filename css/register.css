@@ -11,7 +11,7 @@ body {
   min-height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url(/img/cpsu\ bg.jpeg);
+  background-image: url(img/cpsu\ bg.jpeg);
 }
 
 .title {
@@ -33,7 +33,7 @@ body {
   left: 50%;
   height: 50%;
   width: 50%;
-  min-height: 100vh;
+  min-height: 115vh;
   background: rgb(2, 0, 36);
   background: linear-gradient(
     308deg,

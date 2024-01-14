@@ -67,7 +67,6 @@ header {
   border: 2px solid black;
 }
 
-
 .profile-image {
   width: 100px;
   height: 100px;
@@ -81,7 +80,7 @@ header {
   color: black;
 }
 
-.username{
+.username {
   font-size: 20px;
 }
 button {

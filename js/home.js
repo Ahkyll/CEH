@@ -15,13 +15,6 @@ function toggleDropdown() {
   menuIcon.classList.toggle("active");
 }
 
-function logout() {
-  // Implement your logout logic here
-  window.location.href = "index.html";
-
-  return false;
-  // Replace this with actual logout logic
-}
 document.addEventListener("DOMContentLoaded", function () {
   var eventImages = document.querySelectorAll(".event-image");
   var enlargedImageContainer = document.createElement("div");
@@ -43,3 +36,33 @@ document.addEventListener("DOMContentLoaded", function () {
     this.style.display = "none";
   });
 });
+
+function showAll() {
+  toggleCourseVisibility("school");
+}
+
+function showOtherCourses(course) {
+  toggleCourseVisibility(course);
+}
+
+function toggleCourseVisibility(course) {
+  // Toggle visibility for events
+  var eventItems = document.querySelectorAll(".events li");
+  eventItems.forEach((item) => {
+    if (item.getAttribute("data-course") === course || course === "all") {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+
+  var facultyItems = document.querySelectorAll(".faculty li");
+  facultyItems.forEach((item) => {
+    if (item.getAttribute("data-course") === course || course === "all") {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+  
+}

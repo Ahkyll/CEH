@@ -1,3 +1,37 @@
+<?php
+session_start();
+include 'server/connect.php';
+
+if (isset($_POST['submit'])) {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = md5($_POST['password']); // This should be improved to use bcrypt or another secure hashing algorithm
+    $userType = mysqli_real_escape_string($conn, $_POST['user_type']); // Get the selected user type from the form
+
+    $select = "SELECT * FROM signup WHERE email = '$email' AND user_type = '$userType'";
+    $result = mysqli_query($conn, $select);
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+
+        if ($row['password'] == $password) {
+            if ($row['user_type'] == 'admin') {
+                $_SESSION['admin_name'] = $row['name'];
+                header('location: admin_page.php');
+                exit();
+            } elseif ($row['user_type'] == 'user') {
+                $_SESSION['user_name'] = $row['name'];
+                header('location: user_home.php');
+                exit();
+            }
+        } else {
+            $error[] = 'Incorrect password!';
+        }
+    } else {
+        $error[] = 'Incorrect email or user type!';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,10 +44,6 @@
 
 </head>
 
-
-
-
-
 <body>
     <div class="title">
         <div class="logo"> <a href="index.html"><img src="img/collaborate_logo.png" alt="" width="200px"
@@ -24,60 +54,46 @@
         </div>
     </div>
 
-
     <div class="box">
         <div class="signin-text">
             <h1>Sign in</h1>
         </div>
 
         <div class="container">
-            <form method="POST" action="landingpage.html" onsubmit="return authenticateUser()">
-                <input type="text" id="email" placeholder="Email" name="username" required> <br>
+            <form action="" method="POST">
+
+                <?php
+                if (!empty($error)) {
+                    foreach ($error as $error_message) {
+                        echo '<span class="error-msg">' . $error_message . '</span>';
+                    }
+                }
+                ?>
+                <input type="text" id="email" placeholder="Email" name="email" required> <br>
                 <div class="password-container">
                     <label for="password" class="password-label">
                         <input type="password" id="password" name="password" required placeholder="Password">
                         <i class="fas fa-eye-slash" id="togglePassword" onclick="togglePasswordVisibility()"></i>
                     </label>
+                    <select name="user_type">
+                        <option value="user">user</option>
+                        <option value="admin">admin</option>
+                    </select>
                 </div>
                 <a href="#" class="fpass">
                     Forgot Password?
                 </a>
                 <br>
-                <input type="submit" value="Login" class="button" name="btn">
+                <input type="submit" name="submit" value="login now" class="form-btn">
             </form>
 
-
-
-
             <div class="create-account">
-                Don't have an account? <a href="signup.html">Create Account</a>
+                Don't have an account? <a href="signup.php">Create Account</a>
             </div>
-
-
         </div>
     </div>
 
     <script>
-        function authenticateUser() {
-            var emailInput = document.getElementById("email").value;
-            var passwordInput = document.getElementById("password").value;
-
-            // Replace these values with your predefined email and password
-            var correctEmail = "gomo.cpsu@gmail.com";
-            var correctPassword = "password123";
-
-            if (emailInput === correctEmail && passwordInput === correctPassword) {
-                // Authentication successful, redirect to landing page
-                window.location.href = "landingpage.html";
-            } else {
-                // Authentication failed, show an error message or handle it as needed
-                alert("Incorrect email or password. Please try again.");
-            }
-
-            return false;
-        }
-
-
         function togglePasswordVisibility() {
             var passwordInput = document.getElementById("password");
             var toggleIcon = document.getElementById("togglePassword");

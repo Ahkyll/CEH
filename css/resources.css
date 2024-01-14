@@ -6,38 +6,38 @@
 
 body {
   font-family: "Arial", sans-serif;
-  background-color: #f5f5f5;
+  background-color: #f0f5f9; /* Light blue-gray background */
   margin: 0;
 }
 
 header {
-  background-color: #333;
-  color: #ffffff;
+  background-color: #2c3e50; /* Dark blue header */
+  color: #ecf0f1; /* White text */
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 3px solid #000;
+  border-bottom: 3px solid #34495e; /* Slightly darker border */
 }
 
 .menu-icon {
   cursor: pointer;
   font-size: 25px;
   margin: 0 10px;
-  color: rgb(255, 255, 255);
+  color: #ecf0f1;
 }
 
 /* Dropdown styles */
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: #ecf0f1; /* Light gray dropdown background */
   min-width: 200px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
   padding: 10px;
   text-align: center;
-  color: black;
+  color: #333; /* Dark text */
 }
 
 .dropdown-content img {
@@ -62,10 +62,10 @@ header {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #ebe2e2;
+  background-color: #ecf0f1;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 2px solid black;
+  border: 2px solid #34495e; /* Slightly darker border */
 }
 
 .profile-image {
@@ -78,12 +78,12 @@ header {
 .profile-name {
   margin-top: 10px;
   font-size: 30px;
-  color: black;
+  color: #333;
 }
 
 .username {
   font-size: 20px;
-  color: black;
+  color: #333;
 }
 
 nav {
@@ -97,12 +97,12 @@ nav a {
   text-decoration: none;
   font-size: 15px;
   font-weight: bold;
-  color: white;
+  color: #ecf0f1;
   transition: color 0.3s ease;
 }
 
 nav a:hover {
-  color: #0f96fe;
+  color: #3498db; /* Highlight color on hover */
 }
 
 h1 {
@@ -111,21 +111,83 @@ h1 {
 
 body {
   font-family: "Arial", sans-serif;
-  background-color: #f5f5f5;
+  background-color: #f0f5f9;
   margin: 0;
 }
 
-header {
-  background-color: #333;
-  color: #ffffff;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 3px solid #000;
+.resource-library {
+  max-width: 1000px;
+  margin: 20px auto;
+  overflow-x: auto; /* Enable horizontal scrolling */
 }
 
-.resource-library,
+.resource-category {
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  width: 100%;
+  font-size: 24px;
+  color: #0f96fe;
+  margin-bottom: 10px;
+}
+
+.resource-row {
+  white-space: nowrap; /* Prevent flex items from wrapping */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  display: flex;
+  justify-content: flex-start; /* Adjust as needed */
+  margin-bottom: 20px;
+  padding-bottom: 10px; /* Add padding at the bottom to account for scrollbar */
+}
+
+.resource {
+  flex: 0 0 48%;
+  margin-right: 10px; /* Add spacing between resources */
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.resource:last-child {
+  margin-right: 0; /* Remove margin for the last resource in the row */
+}
+
+.resource:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.resource h4 {
+  margin-top: 0;
+  color: #0f96fe;
+  font-size: 20px;
+}
+
+.resource p {
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.resource img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.resource a {
+  color: #0f96fe;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.resource a:hover {
+  text-decoration: underline;
+}
+
+
+
 .submit-resource {
   max-width: 800px;
   margin: 20px auto;
@@ -133,53 +195,38 @@ header {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 2px solid black;
+  border: 2px solid #34495e;
 }
 
-.resource-library h2,
 .submit-resource h2 {
   color: #333;
-  margin-bottom: 40px;
-}
-
-.resource-category {
-  margin-bottom: 10px;
-}
-
-.resource h4 {
-  color: #0f96fe;
-}
-
-button {
-  background-color: #0f96fe;
-  color: white;
-  font-size: 16px;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  border: 2px solid black;
-}
-
-button:hover {
-  background-color: #085eab;
-}
-
-.submit-resource form {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .submit-resource label {
   margin-top: 10px;
+  color: #333;
 }
 
 .submit-resource input,
 .submit-resource select {
   padding: 10px;
   margin-bottom: 10px;
+  border: 2px solid #3498db; /* Border color for form elements */
+  border-radius: 4px;
 }
 
 .submit-resource button {
-  align-self: flex-start;
+  background-color: #3498db;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 2px solid #34495e;
+}
+
+.submit-resource button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
 }
