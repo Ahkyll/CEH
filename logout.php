@@ -1,6 +1,6 @@
 <?php
 
-@include 'classes/connect.php';
+include 'server/connect.php';
 
 session_start();
 session_unset();

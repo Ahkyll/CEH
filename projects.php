@@ -1,3 +1,14 @@
+<?php
+
+include 'server/connect.php';
+
+session_start();
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +16,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website</title>
-    <link rel="stylesheet" type="text/css" href="/css/project.css">
+    <link rel="stylesheet" type="text/css" href="css/project.css">
 </head>
 
 <body>
@@ -17,39 +28,39 @@
 
                 <div class="profile-container">
                     <div class="profile-header">
-                        <img src="/img/simpson v.png" alt="User Profile" class="profile-image">
+                        <img src="img/simpson v.png" alt="User Profile" class="profile-image">
                         <div class="profile-name">Lykah Gomo</div>
                         <div class="username">@ahkyl</div>
                     </div>
                     <br>
-                    <button onclick="logout()">Logout</button>
+                    <a href="logout.php" class="btn">Logout</a>
                 </div>
             </div>
         </div>
 
         <nav>
-            <a href="home.html">
+            <a href="user_home.php">
                 <h1>Home</h1>
             </a>
-            <a href="projects.html">
+            <a href="projects.php">
                 <h1><span style="color: #0f96fe;">Projects</span></h1>
             </a>
-            <a href="resources.html">
+            <a href="resources.php">
                 <h1>Resources</h1>
             </a>
             <a href="#">
-                <h1>About us</h1>
+                <h1>Forum</h1>
             </a>
             <a href="#">
                 <h1>Contact us</h1>
             </a>
-    
+
 
         </nav>
     </header>
 
     <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search projects or users">
+        <input type="text" id="searchInput" placeholder="Search projects">
         <button onclick="searchProjects()">Search</button>
     </div>
 
@@ -79,15 +90,6 @@
             menuIcon.classList.toggle("active");
         }
 
-        function logout() {
-            // Implement your logout logic here
-            window.location.href = "index.html";
-
-            return false;
-            // Replace this with actual logout logic
-        }
-
-
 
         // Sample data for projects
         const projectsData = [
@@ -95,19 +97,25 @@
                 title: 'Web Development Project',
                 description: 'Building a responsive website using HTML, CSS, and JavaScript.',
                 contributors: ['John Doe', 'Jane Smith'],
-                image: '/img/collaborate_logo.png', // Add the image path
+                image: 'img/collaborate_logo.png', // Add the image path
             },
             {
                 title: 'Mobile App Development',
                 description: 'Creating a mobile app for both Android and iOS platforms.',
                 contributors: ['Alice Johnson', 'Bob Williams', 'Charlie Brown'],
-                image: '/img/collaborate_logo.png', // Add the image path
+                image: 'img/collaborate_logo.png', // Add the image path
             },
             {
                 title: 'Data Science Research',
                 description: 'Analyzing large datasets to derive meaningful insights and patterns.',
                 contributors: ['Eve Davis', 'Frank White', 'Grace Lee'],
-                image: '/img/collaborate_logo.png', // Add the image path
+                image: 'img/collaborate_logo.png', // Add the image path
+            },
+            {
+                title: 'Data Science Research',
+                description: 'Analyzing large datasets to derive meaningful insights and patterns.',
+                contributors: ['Eve Davis', 'Frank White', 'Grace Lee'],
+                image: 'img/collaborate_logo.png', // Add the image path
             },
             // Add more projects as needed
         ];

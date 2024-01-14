@@ -3,18 +3,22 @@ session_start();
 include 'server/connect.php';
 
 if (isset($_POST['submit'])) {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $email = $_POST['email'];
     $password = md5($_POST['password']); // This should be improved to use bcrypt or another secure hashing algorithm
-    $userType = mysqli_real_escape_string($conn, $_POST['user_type']); // Get the selected user type from the form
+    $userType = $_POST['user_type']; // Get the selected user type from the form
 
-    $select = "SELECT * FROM signup WHERE email = '$email' AND user_type = '$userType'";
-    $result = mysqli_query($conn, $select);
+    $select = "SELECT * FROM signup WHERE email = :email AND user_type = :user_type";
+    $stmt = $pdo->prepare($select);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':user_type', $userType);
+    $stmt->execute();
 
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_array($result);
+    if ($stmt->rowCount() > 0) {
+        $row = $stmt->fetch();
 
         if ($row['password'] == $password) {
             if ($row['user_type'] == 'admin') {
+                $_SESSION['user_type'] = 'admin'; // Set the consistent session variable name
                 $_SESSION['admin_name'] = $row['name'];
                 header('location: admin_page.php');
                 exit();
@@ -31,6 +35,8 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
+<!-- Rest of your HTML code remains unchanged -->
+
 
 <!DOCTYPE html>
 <html lang="en">

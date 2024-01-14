@@ -8,20 +8,25 @@ document.addEventListener("DOMContentLoaded", function () {
   closeBtn.addEventListener("click", function () {
     toggleDropdown();
   });
-});
 
-function toggleDropdown() {
-  var menuIcon = document.querySelector(".menu-icon.dropdown");
-  menuIcon.classList.toggle("active");
-}
+  var courseButtons = document.querySelectorAll("button[data-course]");
+  courseButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      var courseCategory = this.getAttribute("data-course");
+      showOtherCourses(courseCategory);
+    });
+  });
 
-document.addEventListener("DOMContentLoaded", function () {
+  function toggleDropdown() {
+    var menuIcon = document.querySelector(".menu-icon.dropdown");
+    menuIcon.classList.toggle("active");
+  }
+
   var eventImages = document.querySelectorAll(".event-image");
   var enlargedImageContainer = document.createElement("div");
   enlargedImageContainer.className = "enlarged-image-container";
   enlargedImageContainer.innerHTML =
     '<img class="enlarged-image" id="enlarged-image" alt="Enlarged Image">';
-
   document.body.appendChild(enlargedImageContainer);
 
   eventImages.forEach(function (image) {
@@ -37,8 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function showAll() {
-  toggleCourseVisibility("school");
+function showAll(general) {
+  toggleCourseVisibility(general);
 }
 
 function showOtherCourses(course) {
@@ -46,23 +51,12 @@ function showOtherCourses(course) {
 }
 
 function toggleCourseVisibility(course) {
-  // Toggle visibility for events
   var eventItems = document.querySelectorAll(".events li");
   eventItems.forEach((item) => {
-    if (item.getAttribute("data-course") === course || course === "all") {
+    if (item.getAttribute("data-course") === course || course === "general") {
       item.style.display = "block";
     } else {
       item.style.display = "none";
     }
   });
-
-  var facultyItems = document.querySelectorAll(".faculty li");
-  facultyItems.forEach((item) => {
-    if (item.getAttribute("data-course") === course || course === "all") {
-      item.style.display = "block";
-    } else {
-      item.style.display = "none";
-    }
-  });
-  
 }

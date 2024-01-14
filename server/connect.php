@@ -1,5 +1,14 @@
 <?php
+// Replace these values with your actual database credentials
+$host = 'localhost';
+$dbname = 'ceh';
+$user = 'root';
+$password = '';
 
-$conn = mysqli_connect('localhost','root','','ceh');
-
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+    // Other PDO configurations can be added if needed
+} catch (PDOException $e) {
+    die("Error: " . $e->getMessage());
+}
 ?>
