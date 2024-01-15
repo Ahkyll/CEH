@@ -50,7 +50,12 @@ if (isset($_POST['submit'])) {
 
 </head>
 
-<body>
+<body style="height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(img/cpsubg.jpeg);">
     <div class="title">
         <div class="logo"> <a href="index.html"><img src="img/collaborate_logo.png" alt="" width="200px"
                     height="200px"></a></div>
@@ -65,26 +70,28 @@ if (isset($_POST['submit'])) {
             <h1>Sign in</h1>
         </div>
 
-        <div class="container">
-            <form action="" method="POST">
-
-                <?php
+        <?php
                 if (!empty($error)) {
                     foreach ($error as $error_message) {
                         echo '<span class="error-msg">' . $error_message . '</span>';
                     }
                 }
                 ?>
+        <div class="container">
+            <form action="" method="POST">
+            <select name="user_type" class="user_type">
+                        <option value="user">user</option>
+                        <option value="admin">admin</option>
+                    </select>
+
+                
                 <input type="text" id="email" placeholder="Email" name="email" required> <br>
                 <div class="password-container">
                     <label for="password" class="password-label">
                         <input type="password" id="password" name="password" required placeholder="Password">
                         <i class="fas fa-eye-slash" id="togglePassword" onclick="togglePasswordVisibility()"></i>
                     </label>
-                    <select name="user_type">
-                        <option value="user">user</option>
-                        <option value="admin">admin</option>
-                    </select>
+                   
                 </div>
                 <a href="#" class="fpass">
                     Forgot Password?

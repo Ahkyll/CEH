@@ -29,13 +29,6 @@ button:hover {
   color: white;
 }
 
-.hero-section {
-  text-align: center;
-  padding: 90px 0;
-  background-image: url(/img/cpsu\ bg.jpeg);
-  background: no-repeat contain;
-}
-
 .hero-section img {
   max-width: 100%;
   height: auto;

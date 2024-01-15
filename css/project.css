@@ -201,7 +201,7 @@ button:hover {
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-top: 20px;
-  margin-bottom: 20px;/* Adjust as needed */
+  margin-bottom: 20px; /* Adjust as needed */
   margin-left: 85%;
   border: 3px solid black;
 }

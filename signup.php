@@ -2,28 +2,38 @@
 include 'server/connect.php';
 
 if (isset($_POST['submit'])) {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $email = $_POST['email'];
     $pass = md5($_POST['password']);
     $cpass = md5($_POST['cpassword']);
     $user_type = $_POST['user_type'];
 
-    $select = "SELECT * FROM signup WHERE email = '$email'";
-    $result = mysqli_query($conn, $select);
+    // Using prepared statements to prevent SQL injection
+    $select = "SELECT * FROM signup WHERE email = :email";
+    $stmt = $pdo->prepare($select);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
 
-    if (mysqli_num_rows($result) > 0) {
+    if ($stmt->rowCount() > 0) {
         $error[] = 'User already exists!';
     } else {
         if ($pass != $cpass) {
             $error[] = 'Passwords do not match!';
         } else {
-            $insert = "INSERT INTO signup (email, password, user_type) VALUES ('$email','$pass','$user_type')";
-            mysqli_query($conn, $insert);
+            // Using prepared statements to prevent SQL injection
+            $insert = "INSERT INTO signup (email, password, user_type) VALUES (:email, :password, :user_type)";
+            $stmt = $pdo->prepare($insert);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $pass);
+            $stmt->bindParam(':user_type', $user_type);
+            $stmt->execute();
+
             header('location: login.php');
             exit();
         }
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,9 +43,16 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
-<body>
+<body style="height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(img/cpsubg.jpeg);">
+
     <div class="title">
         <div class="logo"><a href="index.html"> <img src="img/collaborate_logo.png" alt="" width="200px" height="200px"></a></div>
         <div class="text">
@@ -48,23 +65,36 @@ if (isset($_POST['submit'])) {
         <div class="signin-text">
             <h1>Sign up</h1>
         </div>
-
-        <div class="container">
-            <form action="" method="POST">
-                <?php
+        <?php
                 if (isset($error)) {
                     foreach ($error as $error) {
                         echo '<span class="error-msg">' . $error . '</span>';
                     }
                 }
                 ?>
-                <input type="text" id="email" placeholder="Email" name="email" required> <br>
-                <input type="password" id="password" placeholder="Password" name="password" required><br>
-                <input type="password" name="cpassword" required placeholder="Confirm your password">
-                <select name="user_type">
+
+<div class="container">
+            <form action="" method="POST">
+                <select name="user_type" class="user_type">
                     <option value="user">user</option>
                     <option value="admin">admin</option>
                 </select>
+
+                <input type="text" id="email" placeholder="Email" name="email" required> <br>
+                <div class="password-container">
+                    <label for="password" class="password-label">
+                        <input type="password" id="password" name="password" required placeholder="Password">
+                        <i class="fas fa-eye-slash toggle-password" onclick="togglePasswordVisibility('password')"></i>
+                    </label>
+                </div>
+
+                <div class="password-container">
+                    <label for="cpassword" class="password-label">
+                        <input type="password" id="cpassword" name="cpassword" required placeholder="Confirm your password">
+                        <i class="fas fa-eye-slash toggle-password" onclick="togglePasswordVisibility('cpassword')"></i>
+                    </label>
+                </div>
+                
                 <input type="submit" name="submit" value="Register Now" class="form-btn">
             </form>
 
@@ -75,5 +105,21 @@ if (isset($_POST['submit'])) {
     </div>
 
 </body>
+<script>
+        function togglePasswordVisibility(fieldId) {
+            var passwordInput = document.getElementById(fieldId);
+            var toggleIcon = passwordInput.nextElementSibling;
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove("fa-eye-slash");
+                toggleIcon.classList.add("fa-eye");
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove("fa-eye");
+                toggleIcon.classList.add("fa-eye-slash");
+            }
+        }
+    </script>
 
 </html>
