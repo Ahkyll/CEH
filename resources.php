@@ -1,12 +1,211 @@
+<?php
+session_start();
+include 'connect.php';
+
+// Fetch resources from the database (replace with your actual database query)
+$query = "SELECT * FROM resources";
+$stmt = $pdo->query($query);
+
+// Fetch data as an associative array
+$resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head>  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website</title>
-    <link rel="stylesheet" href="css/resources.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+</head>
+<style> 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+    background-color: #f0f5f9; /* Light blue-gray background */
+}
+
+header {
+    background-color: #2c3e50; /* Dark blue header */
+    color: #ecf0f1; /* White text */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #34495e; /* Slightly darker border */
+}
+
+.menu-icon {
+    cursor: pointer;
+    font-size: 25px;
+    margin: 0 10px;
+    color: #ecf0f1;
+}
+
+/* Dropdown styles */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ecf0f1; /* Light gray dropdown background */
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 10px;
+    text-align: center;
+    color: #333; /* Dark text */
+}
+
+#close-btn {
+    cursor: pointer;
+    font-size: 18px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.menu-icon.dropdown.active .dropdown-content {
+    display: block;
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #34495e; /* Slightly darker border */
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-name {
+    margin-top: 10px;
+    font-size: 30px;
+    color: #333;
+}
+
+.username {
+    font-size: 20px;
+    color: #333;
+}
+
+nav {
+    padding: 20px;
+    text-align: center;
+}
+
+nav a {
+    display: inline-block;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ecf0f1;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #3498db; /* Highlight color on hover */
+}
+
+.resources {
+    margin: 20px;
+}
+
+.resource-details {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.resource-details h3 {
+    color: #333;
+}
+
+.resource-details p {
+    color: #666;
+}
+
+.btn {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.menu-icon {
+    cursor: pointer;
+}
+
+.active {
+    display: block;
+}
+
+.submit-button {
+    position: fixed;
+    bottom: 20px;
+    right: 50px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.submit-button:hover::before {
+    content: "Submit Resources";
+    position: fixed;
+    right: 20px; /* Adjust the distance from the button */
+    background-color: white;
+    color:black;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.submit-button:hover::before {
+    opacity: 1;
+}
+/* Media query for mobile responsiveness */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        margin-top: 10px;
+    }
+
+    .menu-icon {
+        margin-top: 10px;
+    }
+}
+
+</style>
 
 <body>
     <header>
@@ -15,63 +214,48 @@
                 <span id="close-btn" onclick="toggleDropdown()">&#10006;</span>
 
                 <div class="profile-container">
-                    <div class="profile-header">
-                        <img src="/img/simpson v.png" alt="User Profile" class="profile-image">
-                        <div class="profile-name">Lykah Gomo</div>
-                        <div class="username">@ahkyl</div>
-                    </div>
-                    <br>
-                    <button onclick="logout()">Logout</button>
-                </div>
+    <div class="profile-header">
+        <img src="img/simpson v.png" alt="User Profile" class="profile-image">
+        <div class="profile-name" id="profileName"><?= htmlspecialchars($_SESSION['user_name']) ?></div>
+        <div class="username" id="profileUsername"><?= htmlspecialchars($_SESSION['username']) ?></div>
+    </div>
+    <br>
+    <a href="logout.php" class="btn">Logout</a>
+    <a href="edit_profile.php" class="btn">Edit Profile</a> <!-- Add this line -->
+</div>
             </div>
         </div>
 
         <nav>
-            <a href="home.html">
+            <a href="user_home.php">
                 <h1>Home</h1>
             </a>
-            <a href="projects.html">
-                <h1>Projects</h1>
-            </a>
-            <a href="resources.html">
+            <a href="resources.php">
                 <h1><span style="color: #0f96fe;">Resources</span></h1>
+            </a>
+            <a href="#">
+                <h1>Forum</h1>
+            </a>
+            <a href="about.php">
+                <h1>About us</h1>
             </a>
         </nav>
     </header>
 
-    <div class="resource-library" id="resourceLibrary">
-        <h2>Resource Library</h2>
-        <!-- Content will be dynamically added here using JavaScript -->
+    <div class="resources">
+        <h1>Resources Library</h1>
+        <?php foreach ($resources as $resource) : ?>
+            <div class="resource-details">
+                <h3><?= htmlspecialchars($resource['resource_title']) ?></h3>
+                <p>Category: <?= htmlspecialchars($resource['resource_category']) ?></p>
+                <p>Link: <a href="<?= htmlspecialchars($resource['resource_link']) ?>" target="_blank"><?= htmlspecialchars($resource['resource_link']) ?></a></p>
+            </div>
+        <?php endforeach; ?>
     </div>
 
-    <div class="submit-resource" id="submitResource">
-        <h2>Submit a Resource</h2>
-        <form onsubmit="submitResource(event)">
-            <label for="resourceTitle">Resource Title:</label>
-            <input type="text" id="resourceTitle" name="resourceTitle" required>
-
-            <label for="category">Category:</label>
-            <select id="category" name="category" required>
-                <option value="research_papers">Research Papers</option>
-                <option value="study_guides">Study Guides</option>
-                <option value="templates">Templates</option>
-            </select>
-
-            <label for="author">Author:</label>
-            <input type="text" id="author" name="author" required>
-
-            <label for="rating">Rating (out of 5):</label>
-            <input type="number" id="rating" name="rating" min="0" max="5" step="0.1" required>
-
-            <label for="reviews">Reviews:</label>
-            <input type="number" id="reviews" name="reviews" min="0" required>
-
-            <label for="resourceFile">Upload File:</label>
-            <input type="file" id="resourceFile" name="resourceFile" accept=".pdf, .doc, .docx" required>
-
-            <button type="submit">Submit Resource</button>
-        </form>
-    </div>
+    <a href="submit_resources.php" class="submit-button" title="Submit Resources">
+    <i class="fas fa-plus"></i>
+</a>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -89,149 +273,6 @@
         function toggleDropdown() {
             var menuIcon = document.querySelector(".menu-icon.dropdown");
             menuIcon.classList.toggle("active");
-        }
-
-        function logout() {
-            // Implement your logout logic here
-            window.location.href = "index.html";
-
-            return false;
-            // Replace this with actual logout logic
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            // Sample data for resource library
-            const resourceData = {
-                'Research Papers': [
-                    {
-                        title: 'Research Paper 1',
-                        author: 'Mr. Bob',
-                        rating: 4.5,
-                        reviews: 10,
-                        fileUrl: 'files/paper_title_1.pdf', // Example file URL
-                    },
-                    {
-                        title: 'Research Paper 2',
-                        author: 'Ms. Jane',
-                        rating: 3.8,
-                        reviews: 8,
-                        fileUrl: 'files/paper_title_2.docx', // Example file URL
-                    },
-                    {
-                        title: 'Research Paper 1',
-                        author: 'Mr. Bob',
-                        rating: 4.5,
-                        reviews: 10,
-                        fileUrl: 'files/paper_title_1.pdf', // Example file URL
-                    },
-                    {
-                        title: 'Research Paper 1',
-                        author: 'Mr. Bob',
-                        rating: 4.5,
-                        reviews: 10,
-                        fileUrl: 'files/paper_title_1.pdf', // Example file URL
-                    },
-                    {
-                        title: 'Research Paper 1',
-                        author: 'Mr. Bob',
-                        rating: 4.5,
-                        reviews: 10,
-                        fileUrl: 'files/paper_title_1.pdf', // Example file URL
-                    },
-                    {
-                        title: 'Research Paper 1',
-                        author: 'Mr. Bob',
-                        rating: 4.5,
-                        reviews: 10,
-                        fileUrl: 'files/paper_title_1.pdf', // Example file URL
-                    },
-                    // Add more resources for 'Research Papers' as needed
-                ],
-                'Study Guides': [
-                    {
-                        title: 'Human Computer Interaction',
-                        author: 'Ms. Deli',
-                        rating: 4.5,
-                        reviews: 10,
-                        fileUrl: 'files/HCI-1.pptx', // Example file URL
-                    },
-                    {
-                        title: 'Data Structures and Algorithms',
-                        author: 'Mr. Ul',
-                        rating: 3.8,
-                        reviews: 8,
-                        fileUrl: 'files/dsa.pdf', // Example file URL
-                    },
-                    // Add more resources for 'Study Guides' as needed
-                ],
-                'Templates': [
-                {
-                        title: 'Shop Website',
-                        author: 'Ms. Angela',
-                        rating: 4.5,
-                        reviews: 10,
-                        fileUrl: 'files/files.pdf', // Example file URL
-                    },
-                    {
-                        title: 'Facebook Clone',
-                        author: 'Mr. Z',
-                        rating: 3.8,
-                        reviews: 8,
-                        fileUrl: 'files/files.pdf', // Example file URL
-                    },
-                ],
-                // Add more categories as needed
-            };
-
-            const resourceLibrary = document.getElementById('resourceLibrary');
-            const submitResource = document.getElementById('submitResource');
-
-            // Function to create resource cards
-            function createResourceCards(category, resources) {
-                const categoryHeader = document.createElement('h3');
-                categoryHeader.className = 'resource-category';
-                categoryHeader.textContent = category;
-                resourceLibrary.appendChild(categoryHeader);
-
-                resources.forEach(resource => {
-                    const resourceCard = document.createElement('div');
-                    resourceCard.className = 'resource';
-                    resourceCard.innerHTML = `
-                    <h4>${resource.title}</h4>
-                    <p>Author: ${resource.author}</p>
-                    <p>Rating: ${resource.rating}/5</p>
-                    <p>Reviews: ${resource.reviews}</p>
-                    <p>File: <a href="${resource.fileUrl}" target="_blank">View File</a></p>
-                `;
-                    resourceLibrary.appendChild(resourceCard);
-                });
-            }
-
-            // Initial resource cards creation
-            for (const category in resourceData) {
-                if (resourceData.hasOwnProperty(category)) {
-                    createResourceCards(category, resourceData[category]);
-                }
-            }
-        });
-
-        function toggleDropdown() {
-            var menuIcon = document.querySelector(".menu-icon.dropdown");
-            menuIcon.classList.toggle("active");
-        }
-
-        function logout() {
-            // Implement your logout logic here
-            window.location.href = "index.html";
-
-            return false;
-            // Replace this with actual logout logic
-        }
-
-        function submitResource(event) {
-            event.preventDefault();
-            // Handle form submission, including file upload, on the server side
-            // Update resourceData with the information of the uploaded file
         }
     </script>
 

@@ -1,7 +1,7 @@
 <?php
 // Replace these values with your actual database credentials
 $host = 'localhost';
-$dbname = 'ceh';
+$dbname = 'ceh1';
 $user = 'root';
 $password = '';
 

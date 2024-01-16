@@ -1,38 +1,64 @@
 <?php
-include 'server/connect.php';
+// user_registration.php
 
-if (isset($_POST['submit'])) {
-    $email = $_POST['email'];
-    $pass = md5($_POST['password']);
-    $cpass = md5($_POST['cpassword']);
+include 'connect.php';
+
+$errors = array();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $password = $_POST['password'];
+    $cpassword = $_POST['cpassword'];
     $user_type = $_POST['user_type'];
 
-    // Using prepared statements to prevent SQL injection
-    $select = "SELECT * FROM signup WHERE email = :email";
-    $stmt = $pdo->prepare($select);
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-
-    if ($stmt->rowCount() > 0) {
-        $error[] = 'User already exists!';
+    if (!$email) {
+        $errors[] = 'Invalid email address!';
     } else {
-        if ($pass != $cpass) {
-            $error[] = 'Passwords do not match!';
-        } else {
-            // Using prepared statements to prevent SQL injection
-            $insert = "INSERT INTO signup (email, password, user_type) VALUES (:email, :password, :user_type)";
-            $stmt = $pdo->prepare($insert);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':password', $pass);
-            $stmt->bindParam(':user_type', $user_type);
-            $stmt->execute();
+        $select = "SELECT * FROM users WHERE email = :email";
+        $stmt = $pdo->prepare($select);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
 
-            header('location: login.php');
-            exit();
+        if ($stmt->rowCount() > 0) {
+            $errors[] = 'Email already exists!';
+        } else {
+            if ($password != $cpassword) {
+                $errors[] = 'Passwords do not match!';
+            } else {
+                $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+                $insert = "INSERT INTO users (email, password, user_type) VALUES (:email, :password, :user_type)";
+                $stmt = $pdo->prepare($insert);
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
+                $stmt->bindParam(':user_type', $user_type, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() > 0) {
+                    session_start();
+                    $userId = $pdo->lastInsertId();
+                    $_SESSION['user_id'] = $userId;
+                    $_SESSION['user_email'] = $email;
+
+                    header('location: login.php');
+                    exit();
+                } else {
+                    $errors[] = 'Registration failed. Please try again.';
+                }
+            }
         }
     }
 }
+
+if (!empty($errors)) {
+    foreach ($errors as $error) {
+        echo '<p>Error: ' . htmlspecialchars($error) . '</p>';
+    }
+}
 ?>
+
+
+
 
 
 <!DOCTYPE html>
@@ -45,6 +71,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="css/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
+
 
 <body style="height: 100%;
   width: 100%;
@@ -67,7 +94,7 @@ if (isset($_POST['submit'])) {
         </div>
         <?php
                 if (isset($error)) {
-                    foreach ($error as $error) {
+                    foreach ($errors as $error) {
                         echo '<span class="error-msg">' . $error . '</span>';
                     }
                 }
@@ -104,8 +131,8 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 
-</body>
-<script>
+
+    <script>
         function togglePasswordVisibility(fieldId) {
             var passwordInput = document.getElementById(fieldId);
             var toggleIcon = passwordInput.nextElementSibling;
@@ -121,5 +148,6 @@ if (isset($_POST['submit'])) {
             }
         }
     </script>
+</body>
 
 </html>

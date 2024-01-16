@@ -41,22 +41,3 @@ document.addEventListener("DOMContentLoaded", function () {
     this.style.display = "none";
   });
 });
-
-function showAll(general) {
-  toggleCourseVisibility(general);
-}
-
-function showOtherCourses(course) {
-  toggleCourseVisibility(course);
-}
-
-function toggleCourseVisibility(course) {
-  var eventItems = document.querySelectorAll(".events li");
-  eventItems.forEach((item) => {
-    if (item.getAttribute("data-course") === course || course === "general") {
-      item.style.display = "block";
-    } else {
-      item.style.display = "none";
-    }
-  });
-}

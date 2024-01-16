@@ -1,31 +1,45 @@
 <?php
+include 'connect.php';
 session_start();
-include 'server/connect.php';
 
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
-    $password = md5($_POST['password']); // This should be improved to use bcrypt or another secure hashing algorithm
-    $userType = $_POST['user_type']; // Get the selected user type from the form
+    $password = $_POST['password'];
+    $userType = $_POST['user_type'];
 
-    $select = "SELECT * FROM signup WHERE email = :email AND user_type = :user_type";
+    $select = "SELECT * FROM users WHERE email = :email AND user_type = :user_type";
     $stmt = $pdo->prepare($select);
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':user_type', $userType);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':user_type', $userType, PDO::PARAM_STR);
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch();
 
-        if ($row['password'] == $password) {
-            if ($row['user_type'] == 'admin') {
-                $_SESSION['user_type'] = 'admin'; // Set the consistent session variable name
-                $_SESSION['admin_name'] = $row['name'];
-                header('location: admin_page.php');
-                exit();
-            } elseif ($row['user_type'] == 'user') {
-                $_SESSION['user_name'] = $row['name'];
-                header('location: user_home.php');
-                exit();
+        // Verify the entered password against the hashed password from the database
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['user_type'] = $userType;
+
+            if ($userType == 'admin' || $userType == 'user') {
+                // Fetch additional user details
+                $userId = $row['user_id'];
+                $username = $row['username'];
+                $user_name = $row['name'];
+
+                // Set the user details in the session
+                $_SESSION['user_id'] = $userId;
+                $_SESSION['username'] = $username;
+                $_SESSION['user_name'] = $user_name;
+
+                if ($userType == 'admin') {
+                    header('location: admin_page.php');
+                    session_regenerate_id(true); // Regenerate session ID
+                    exit();
+                } elseif ($userType == 'user') {
+                    header('location: user_home.php');
+                    session_regenerate_id(true); // Regenerate session ID
+                    exit();
+                }
             }
         } else {
             $error[] = 'Incorrect password!';
@@ -34,8 +48,17 @@ if (isset($_POST['submit'])) {
         $error[] = 'Incorrect email or user type!';
     }
 }
+
+// Display errors
+if (!empty($error)) {
+    foreach ($error as $err) {
+        echo '<p>' . $err . '</p>';
+    }
+}
 ?>
-<!-- Rest of your HTML code remains unchanged -->
+
+
+
 
 
 <!DOCTYPE html>
@@ -56,7 +79,7 @@ if (isset($_POST['submit'])) {
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url(img/cpsubg.jpeg);">
-    <div class="title">
+   <div class="title">
         <div class="logo"> <a href="index.html"><img src="img/collaborate_logo.png" alt="" width="200px"
                     height="200px"></a></div>
         <div class="text">
@@ -122,7 +145,6 @@ if (isset($_POST['submit'])) {
             }
         }
     </script>
-
 </body>
 
 </html>
