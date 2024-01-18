@@ -52,12 +52,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-// Display errors
-if (!empty($error)) {
-    foreach ($error as $err) {
-        echo '<p>' . $err . '</p>';
-    }
-}
+
 ?>
 
 
@@ -73,15 +68,29 @@ if (!empty($error)) {
     <title>Document</title>
     <link rel="stylesheet" href="css/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-</head>
-
-<body style="height: 100%;
+<style>
+    .error-msg {
+  color: #d9534f;
+  background-color: #f2dede;
+  border: 1px solid #d9534f;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: block;
+  border-radius: 5px;
+}
+body {height: 100%;
   width: 100%;
   min-height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url(img/cpsubg.jpeg);">
+  background-image: url(img/cpsubg.jpeg);
+}
+</style>
+</head>
+
+
+<body>
+  
    <div class="title">
         <div class="logo"> <a href="index.html"><img src="img/collaborate_logo.png" alt="" width="200px"
                     height="200px"></a></div>
@@ -96,13 +105,7 @@ if (!empty($error)) {
             <h1>Sign in</h1>
         </div>
 
-        <?php
-                if (!empty($error)) {
-                    foreach ($error as $error_message) {
-                        echo '<span class="error-msg">' . $error_message . '</span>';
-                    }
-                }
-                ?>
+      
         <div class="container">
             <form action="" method="POST">
             <select name="user_type" class="user_type">
@@ -126,11 +129,22 @@ if (!empty($error)) {
                 <input type="submit" name="submit" value="login now" class="form-btn">
             </form>
 
+            <?php
+if (!empty($error)) {
+    echo '<div class="error-container">';
+    foreach ($error as $error_message) {
+        echo '<span class="error-msg">' . $error_message . '</span>';
+    }
+    echo '</div>';
+}
+?>
+
             <div class="create-account">
                 Don't have an account? <a href="signup.php">Create Account</a>
             </div>
         </div>
     </div>
+
 
     <script>
         function togglePasswordVisibility() {

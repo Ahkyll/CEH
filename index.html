@@ -5,14 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CollaborateEdHub</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: "Arial", sans-serif;
+    }
+
+    body {
+        font-family: "Arial", sans-serif;
+        background-color: #f5f5f5;
+
+    }
+
     .hero-section {
         text-align: center;
-        padding: 90px 0;
+        padding: 18px 0;
         background-image: url("img/cpsubg.jpeg");
         background: no-repeat contain;
+    }
+
+    .header-buttons {
+        z-index: 1000;
+        position: absolute;
+        right: 10px;
+    }
+
+    button {
+        padding: 15px;
+        margin: 10px;
+        font-size: 15px;
+        background-color: #3282B8;
+
+
+    }
+
+    button:hover {
+        background-color: #0F4C75;
+        color: white;
+    }
+
+    .hero-section img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .tagline {
+        margin-top: 20px;
+        font-size: 35px;
+    }
+
+    .button i {
+        margin-left: 25px;
+        font-size: 25px;
     }
 </style>
 
@@ -26,15 +74,18 @@
     <div class="hero-section">
         <img src="img/collaborate_logo.png" alt="Collaboration Image">
         <div class="tagline">
-            <p>Empowering collaboration, fostering learning, building community.</p>
+            <p><b><i>Empowering collaboration, fostering learning, building community.</i></b></p>
         </div>
+
         <div class="button">
-            <button style="width: 200px; height: 50px; margin-top: 50px;">Get Started</button>
+            <a href="login.php">
+                <button style="width: 250px; height: 70px; margin-top: 50px; font-size: 25px;">
+                    Get Started <i class="fas fa-arrow-right"></i>
+                </button>
+            </a>
         </div>
+
     </div>
-
-
-
 
 </body>
 
