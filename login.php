@@ -29,7 +29,10 @@ if (isset($_POST['submit'])) {
                 // Set the user details in the session
                 $_SESSION['user_id'] = $userId;
                 $_SESSION['username'] = $username;
+                $_SESSION['profile_picture'] = $row['profile_picture']; // Corrected this line
                 $_SESSION['user_name'] = $user_name;
+                $_SESSION['event_image'] = $eventImage;
+                $_SESSION['faculty_image'] = $facultyImage;
 
                 if ($userType == 'admin') {
                     header('location: admin_page.php');

@@ -52,14 +52,21 @@ $faculty = $facultyStmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="profile-container">
     <div class="profile-header">
-        <img src="img/simpson v.png" alt="User Profile" class="profile-image">
+        <?php
+        if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
+            echo '<img src="' . htmlspecialchars($_SESSION['profile_picture']) . '" alt="User Profile" class="profile-image">';
+        } else {
+            echo '<img src="default_profile_image.png" alt="Default Profile Image" class="profile-image">';
+        }
+        ?>
         <div class="profile-name" id="profileName"><?= htmlspecialchars($_SESSION['user_name']) ?></div>
         <div class="username" id="profileUsername"><?= htmlspecialchars($_SESSION['username']) ?></div>
     </div>
     <br>
     <a href="logout.php" class="btn">Logout</a>
-    <a href="edit_profile.php" class="btn">Edit Profile</a> <!-- Add this line -->
+    <a href="edit_profile.php" class="btn">Edit Profile</a>
 </div>
+
             </div>
         </div>
 
@@ -80,7 +87,8 @@ $faculty = $facultyStmt->fetchAll(PDO::FETCH_ASSOC);
     </header>
 
 
-   <!-- Events Section -->
+  <!-- Events Section -->
+<!-- Events Section -->
 <div class="events">
     <h1>Events</h1>
     <form method="post">
@@ -99,7 +107,10 @@ $faculty = $facultyStmt->fetchAll(PDO::FETCH_ASSOC);
     <ul>
         <?php foreach ($events as $event) : ?>
             <li class="event-item" data-course="<?= htmlspecialchars($event['course_category']) ?>">
-                <img class="event-image" src="img/simpson-v.png" alt="<?= htmlspecialchars($event['event_name']) ?>">
+                <?php
+                $eventImage = isset($event['event_image']) ? htmlspecialchars($event['event_image']) : 'default_event_image.png';
+                ?>
+                <img class="event-image" src="img/<?= $eventImage ?>" alt="<?= htmlspecialchars($event['event_name']) ?>">
                 <div class="event-details">
                     <h3><?= htmlspecialchars($event['event_name']) ?></h3>
                     <p>Date: <?= htmlspecialchars($event['event_date']) ?></p>
@@ -111,7 +122,11 @@ $faculty = $facultyStmt->fetchAll(PDO::FETCH_ASSOC);
     </ul>
 </div>
 
+
+
+
 <!-- Faculty Section -->
+ <!-- Faculty Section -->
 <div class="faculty">
     <h1>Faculty Members</h1>
     <form method="post">
@@ -130,7 +145,10 @@ $faculty = $facultyStmt->fetchAll(PDO::FETCH_ASSOC);
     <ul>
         <?php foreach ($faculty as $facultyMember) : ?>
             <li class="faculty-member" data-department="<?= htmlspecialchars($facultyMember['faculty_department']) ?>">
-                <img class="faculty-image" src="" alt="<?= htmlspecialchars($facultyMember['faculty_name']) ?>">
+                <?php
+                $facultyImage = isset($facultyMember['faculty_image']) ? htmlspecialchars($facultyMember['faculty_image']) : 'default_faculty_image.png';
+                ?>
+                <img class="faculty-image" src="img/<?= $facultyImage ?>" alt="<?= htmlspecialchars($facultyMember['faculty_name']) ?>">
                 <div class="faculty-details">
                     <h3><?= htmlspecialchars($facultyMember['faculty_name']) ?></h3>
                     <p>Position: <?= htmlspecialchars($facultyMember['faculty_position']) ?></p>
@@ -140,6 +158,7 @@ $faculty = $facultyStmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach; ?>
     </ul>
 </div>
+
 
     <script src="js/home.js"></script>
 

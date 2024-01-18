@@ -24,18 +24,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Check if user_id is set before inserting
         if ($userId !== null) {
-            // Perform database update based on the submitted data
-            $stmt = $pdo->prepare("INSERT INTO events (event_name, event_date, event_details, course_category, user_id) VALUES (:name, :date, :details, :category, :user_id)");
-            $stmt->bindParam(':name', $eventName);
-            $stmt->bindParam(':date', $eventDate);
-            $stmt->bindParam(':details', $eventDetails);
-            $stmt->bindParam(':category', $courseCategory);
-            $stmt->bindParam(':user_id', $userId);
+            // File upload handling
+            $uploadDirectory = 'assets/img'; // Specify the directory for event files
+            $targetFile = $uploadDirectory . basename($_FILES['event_image']['name']);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
-            if ($stmt->execute()) {
-                $notification = 'Event uploaded successfully!';
+            // Check if the image file is a actual image or fake image
+            $check = getimagesize($_FILES['event_image']['tmp_name']);
+            if ($check !== false) {
+                $uploadOk = 1;
             } else {
-                $notification = 'Error uploading event. Please try again.';
+                $notification = "Error: File is not an image.";
+                $uploadOk = 0;
+            }
+
+            // Check file size (adjust as needed)
+            if ($_FILES['event_image']['size'] > 50000000) {
+                $notification = "Error: Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+
+            // Allow certain file formats
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            if (!in_array($imageFileType, $allowedExtensions)) {
+                $notification = "Error: Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $uploadOk = 0;
+            }
+
+            if ($uploadOk == 0) {
+                $notification = "Error: Your file was not uploaded.";
+            } else {
+                if (move_uploaded_file($_FILES['event_image']['tmp_name'], $targetFile)) {
+                    // Perform database update based on the submitted data
+                    $stmt = $pdo->prepare("INSERT INTO events (event_name, event_date, event_details, course_category, user_id, event_image) VALUES (:name, :date, :details, :category, :user_id, :event_image)");
+                    $stmt->bindParam(':name', $eventName);
+                    $stmt->bindParam(':date', $eventDate);
+                    $stmt->bindParam(':details', $eventDetails);
+                    $stmt->bindParam(':category', $courseCategory);
+                    $stmt->bindParam(':user_id', $userId);
+                    $stmt->bindParam(':event_image', $targetFile);
+
+                    if ($stmt->execute()) {
+                        $notification = 'Event uploaded successfully!';
+                    } else {
+                        $notification = 'Error uploading event. Please try again.';
+                    }
+                } else {
+                    $notification = "Error: There was an error uploading your file.";
+                }
             }
         } else {
             // Handle the case where user_id is not set (e.g., invalid session state)
@@ -52,17 +89,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Check if user_id is set before inserting
         if ($userId !== null) {
-            // Perform database update based on the submitted data
-            $stmt = $pdo->prepare("INSERT INTO faculty (faculty_name, faculty_position, faculty_department, user_id) VALUES (:name, :position, :department, :user_id)");
-            $stmt->bindParam(':name', $facultyName);
-            $stmt->bindParam(':position', $facultyPosition);
-            $stmt->bindParam(':department', $facultyDepartment);
-            $stmt->bindParam(':user_id', $userId);
+            // File upload handling
+            $uploadDirectory = 'assets/img'; // Specify the directory for faculty files
+            $targetFile = $uploadDirectory . basename($_FILES['faculty_image']['name']);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
-            if ($stmt->execute()) {
-                $notification = 'Faculty member uploaded successfully!';
+            // Check if the image file is a actual image or fake image
+            $check = getimagesize($_FILES['faculty_image']['tmp_name']);
+            if ($check !== false) {
+                $uploadOk = 1;
             } else {
-                $notification = 'Error uploading faculty member. Please try again.';
+                $notification = "Error: File is not an image.";
+                $uploadOk = 0;
+            }
+
+            // Check file size (adjust as needed)
+            if ($_FILES['faculty_image']['size'] > 50000000) {
+                $notification = "Error: Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+
+            // Allow certain file formats
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            if (!in_array($imageFileType, $allowedExtensions)) {
+                $notification = "Error: Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $uploadOk = 0;
+            }
+
+            if ($uploadOk == 0) {
+                $notification = "Error: Your file was not uploaded.";
+            } else {
+                if (move_uploaded_file($_FILES['faculty_image']['tmp_name'], $targetFile)) {
+                    // Perform database update based on the submitted data
+                    $stmt = $pdo->prepare("INSERT INTO faculty (faculty_name, faculty_position, faculty_department, user_id, faculty_image) VALUES (:name, :position, :department, :user_id, :faculty_image)");
+                    $stmt->bindParam(':name', $facultyName);
+                    $stmt->bindParam(':position', $facultyPosition);
+                    $stmt->bindParam(':department', $facultyDepartment);
+                    $stmt->bindParam(':user_id', $userId);
+                    $stmt->bindParam(':faculty_image', $targetFile);
+
+                    if ($stmt->execute()) {
+                        $notification = 'Faculty member uploaded successfully!';
+                    } else {
+                        $notification = 'Error uploading faculty member. Please try again.';
+                    }
+                } else {
+                    $notification = "Error: There was an error uploading your file.";
+                }
             }
         } else {
             // Handle the case where user_id is not set (e.g., invalid session state)
@@ -70,8 +144,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>
 
+// Handle username edit form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_username_submit'])) {
+    $newUsername = $_POST['new_username'];
+
+    // Get the user_id from the session
+    $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+
+    // Check if user_id is set before updating
+    if ($userId !== null) {
+        // Perform database update based on the submitted data
+        $updateStmt = $pdo->prepare("UPDATE users SET username = :username WHERE user_id = :user_id");
+        $updateStmt->bindParam(':username', $newUsername);
+        $updateStmt->bindParam(':user_id', $userId);
+
+        if ($updateStmt->execute()) {
+            $_SESSION['username'] = $newUsername; // Update session variable with the new username
+            $notification = 'Username updated successfully!';
+        } else {
+            $notification = 'Error updating username. Please try again.';
+        }
+    } else {
+        // Handle the case where user_id is not set (e.g., invalid session state)
+        $notification = 'Error: User ID is not set.';
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,8 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
 </head>
-    <style>
-        body {
+<style>
+          body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
@@ -90,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         h2 {
@@ -131,6 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin-right: 10px; /* Add margin between buttons */
         }
 
         button:hover {
@@ -173,13 +274,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             gap: 20px;
             max-width: 800px;
             width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .hidden-form {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        /* Responsive table styles */
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+        }
+
+        /* Add these new styles for side-by-side tables */
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px; /* Adjust as needed */
+        }
+
+        .table-container table {
+            width: 48%; /* Adjust as needed to leave some gap between tables */
         }
     </style>
+</head>
+
 <body>
 
-<h2>Welcome, <?php echo $_SESSION['admin_name']; ?>!</h2>
+    <h2>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h2>
 
-    <div class="form-container">
+    <button onclick="toggleFormVisibility('editUsernameForm')">Show/Hide Edit Username Form</button>
+    <button onclick="toggleFormVisibility('eventForm')">Show/Hide Event Form</button>
+    <button onclick="toggleFormVisibility('facultyForm')">Show/Hide Faculty Form</button>
+
+    <form method="post" action="" class="hidden-form" id="editUsernameForm">
+        <h3>Edit Username</h3>
+        <label for="new_username">New Username:</label>
+        <input type="text" name="new_username" required>
+        <button type="submit" name="edit_username_submit">Update Username</button>
+    </form>
+
+    <div class="form-container hidden-form" id="eventForm">
         <!-- Event Form -->
         <form method="post" action="" enctype="multipart/form-data">
             <!-- Event form elements -->
@@ -202,11 +368,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="BSAB">BSAB</option>
             </select>
 
+            <label for="event_image">Event Image:</label>
+            <input type="file" name="event_image" accept="image/*">
+
             <!-- Other form elements -->
 
-            <button type="submit" name="submit">Submit Event</button>
+            <button type="submit" name="event_submit">Submit Event</button>
         </form>
+    </div>
 
+    <div class="form-container hidden-form" id="facultyForm">
         <!-- Faculty Form -->
         <form method="post" action="" enctype="multipart/form-data">
             <!-- Faculty form elements -->
@@ -225,20 +396,87 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="BSHM">BSHM</option>
                 <option value="BSAB">BSAB</option>
             </select>
+            <label for="faculty_image">Faculty Image:</label>
+            <input type="file" name="faculty_image" accept="image/*" required>
 
             <button type="submit" name="faculty_submit">Submit Faculty</button>
         </form>
     </div>
 
-    <a href="logout.php">Logout</a>
+    <div class="table-container">
+    <div>
+        <h3>Faculty List</h3>
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Department</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+            <?php
+            // Fetch faculty data from the database
+            $facultyStmt = $pdo->query("SELECT * FROM faculty");
+            while ($facultyRow = $facultyStmt->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<td>{$facultyRow['faculty_name']}</td>";
+                echo "<td>{$facultyRow['faculty_position']}</td>";
+                echo "<td>{$facultyRow['faculty_department']}</td>";
+                echo "<td><img src='{$facultyRow['faculty_image']}' alt='Faculty Image' style='max-width: 100px;'></td>";
+                echo "<td><a href='edit.php?type=faculty&id={$facultyRow['faculty_id']}'>Edit</a></td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
+    </div>
 
+    <!-- Event Table Section -->
+    <div>
+        <h3>Event List</h3>
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Details</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+            <?php
+            // Fetch event data from the database
+            $eventStmt = $pdo->query("SELECT * FROM events");
+            while ($eventRow = $eventStmt->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<td>{$eventRow['event_name']}</td>";
+                echo "<td>{$eventRow['event_date']}</td>";
+                echo "<td>{$eventRow['event_details']}</td>";
+                echo "<td>{$eventRow['course_category']}</td>";
+                echo "<td><img src='{$eventRow['event_image']}' alt='Event Image' style='max-width: 100px;'></td>";
+                echo "<td><a href='edit.php?type=event&id={$eventRow['event_id']}'>Edit</a></td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
+    </div>
+</div>
+
+        </div>
+    </div>
+    <a href="logout.php">Logout</a>
     <!-- Notification -->
     <?php
     if (!empty($notification)) {
         echo '<div class="notification">' . htmlspecialchars($notification) . '</div>';
     }
     ?>
+    <script>
+        function toggleFormVisibility(formId) {
+            var form = document.getElementById(formId);
 
+            // Toggle visibility of the specified form
+            form.style.display = (form.style.display === "none") ? "block" : "none";
+        }
+    </script>
 </body>
 
 </html>
