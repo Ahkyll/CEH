@@ -195,3 +195,18 @@ select {
   border-radius: 4px;
   outline: none;
 }
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+.mySlides {
+  display: none;
+  width: 100%;
+}
+
+img.slide-image {
+  width: 100%;
+  height: auto;
+}

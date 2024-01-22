@@ -33,6 +33,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['event_image'] = $eventImage;
                 $_SESSION['faculty_image'] = $facultyImage;
+                $_SESSION['user_id'] and $_POST['resource_id'];
 
                 if ($userType == 'admin') {
                     header('location: admin_page.php');
@@ -70,11 +71,9 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
     .error-msg {
-  color: #d9534f;
-  background-color: #f2dede;
-  border: 1px solid #d9534f;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+
   display: block;
   border-radius: 5px;
 }
@@ -113,7 +112,15 @@ body {height: 100%;
                         <option value="admin">admin</option>
                     </select>
 
-                
+                    <?php
+if (!empty($error)) {
+    echo '<div class="error-container">';
+    foreach ($error as $error_message) {
+        echo '<span class="error-msg">' . $error_message . '</span>';
+    }
+    echo '</div>';
+}
+?>
                 <input type="text" id="email" placeholder="Email" name="email" required> <br>
                 <div class="password-container">
                     <label for="password" class="password-label">
@@ -126,21 +133,15 @@ body {height: 100%;
                     Forgot Password?
                 </a>
                 <br>
-                <input type="submit" name="submit" value="login now" class="form-btn">
+
+
+                <input type="submit" name="submit" value="Login now" class="form-btn">
             </form>
 
-            <?php
-if (!empty($error)) {
-    echo '<div class="error-container">';
-    foreach ($error as $error_message) {
-        echo '<span class="error-msg">' . $error_message . '</span>';
-    }
-    echo '</div>';
-}
-?>
+
 
             <div class="create-account">
-                Don't have an account? <a href="signup.php">Create Account</a>
+                Don't have an account? <a href="signup.php"><span>Create Account</span></a>
             </div>
         </div>
     </div>

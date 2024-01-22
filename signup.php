@@ -50,11 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-if (!empty($errors)) {
-    foreach ($errors as $error) {
-        echo '<p>Error: ' . htmlspecialchars($error) . '</p>';
-    }
-}
 ?>
 
 
@@ -92,13 +87,7 @@ if (!empty($errors)) {
         <div class="signin-text">
             <h1>Sign up</h1>
         </div>
-        <?php
-                if (isset($error)) {
-                    foreach ($errors as $error) {
-                        echo '<span class="error-msg">' . $error . '</span>';
-                    }
-                }
-                ?>
+  
 
 <div class="container">
             <form action="" method="POST">
@@ -106,6 +95,14 @@ if (!empty($errors)) {
                     <option value="user">user</option>
                     <option value="admin">admin</option>
                 </select>
+
+                <?php
+                if (isset($error)) {
+                    foreach ($errors as $error) {
+                        echo '<span class="error-msg">' . $error . '</span>';
+                    }
+                }
+                ?>
 
                 <input type="text" id="email" placeholder="Email" name="email" required> <br>
                 <div class="password-container">
