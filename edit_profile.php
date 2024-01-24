@@ -4,10 +4,7 @@ include 'connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the user is still an admin
-    if ($_SESSION['user_type'] !== 'user') {
-        header('location: login.php');
-        exit();
-    }
+
 
     // Process and update profile information
     $newUsername = $_POST['new_username'];

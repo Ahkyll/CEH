@@ -2,14 +2,6 @@
 session_start();
 include 'connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if the user is still an admin
-    if ($_SESSION['user_type'] !== 'user') {
-        header('location: login.php');
-        exit();
-    }
-}
-
 // Fetch events from the database based on course category
 $courseCategory = isset($_POST['course_category']) ? $_POST['course_category'] : 'ALL_CATEGORIES';
 
@@ -21,6 +13,7 @@ if ($courseCategory !== 'ALL_CATEGORIES') {
 $eventsStmt->execute();
 $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 
 <!DOCTYPE html>
@@ -233,6 +226,9 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
     width: 100%;
     height: auto;
     border: 3px solid black;
+    width: 280px;
+    height: 300px;
+    object-fit: cover;
 }
 
 .event-details {
@@ -300,6 +296,9 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
             <br>
             <a href="logout.php" class="btn">Logout</a>
             <a href="edit_profile.php" class="btn">Edit Profile</a>
+            <a href="edit_profile.php" class="btn">Profile dri ka edit</a>
+            <a href="edit_profile.php" class="btn">Messages</a>
+
         </div>
 
             </div>
@@ -309,14 +308,15 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="user_home.php">
                 <h1><span style="color: #0f96fe;">Home</span></h1>
             </a>
+    
             <a href="resources.php">
-                <h1>Resources</h1>
+                <h1>Resource Library</h1>
             </a>
             <a href="forum.php">
-                <h1>Forum</h1>
+                <h1>Discussion Forum</h1>
             </a>
             <a href="about.php">
-                <h1>About us</h1>
+                <h1>Settings</h1>
             </a>
         </nav>
     </header>
@@ -491,3 +491,5 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
 </body>
 
 </html>
+
+

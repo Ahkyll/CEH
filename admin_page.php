@@ -2,11 +2,6 @@
 session_start();
 include 'connect.php';
 
-// Check if the user is an admin
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-    header('location: login.php');
-    exit();
-}
 
 $notification = ''; // Initialize notification variable
 

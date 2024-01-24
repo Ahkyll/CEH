@@ -5,12 +5,10 @@ session_start();
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $userType = $_POST['user_type'];
 
-    $select = "SELECT * FROM users WHERE email = :email AND user_type = :user_type";
+    $select = "SELECT * FROM users WHERE email = :email";
     $stmt = $pdo->prepare($select);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-    $stmt->bindParam(':user_type', $userType, PDO::PARAM_STR);
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
@@ -18,43 +16,36 @@ if (isset($_POST['submit'])) {
 
         // Verify the entered password against the hashed password from the database
         if (password_verify($password, $row['password'])) {
-            $_SESSION['user_type'] = $userType;
 
-            if ($userType == 'admin' || $userType == 'user') {
-                // Fetch additional user details
-                $userId = $row['user_id'];
-                $username = $row['username'];
-                $user_name = $row['name'];
+            // Set the common user details in the session
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['profile_picture'] = $row['profile_picture'];
+            $_SESSION['user_name'] = $row['name'];
+            $_SESSION['event_image'] = $row['event_image']; // assuming these fields exist in your users table
+            $_SESSION['faculty_image'] = $row['faculty_image'];
 
-                // Set the user details in the session
-                $_SESSION['user_id'] = $userId;
-                $_SESSION['username'] = $username;
-                $_SESSION['profile_picture'] = $row['profile_picture']; // Corrected this line
-                $_SESSION['user_name'] = $user_name;
-                $_SESSION['event_image'] = $eventImage;
-                $_SESSION['faculty_image'] = $facultyImage;
-                $_SESSION['user_id'] and $_POST['resource_id'];
-
-                if ($userType == 'admin') {
-                    header('location: admin_page.php');
-                    session_regenerate_id(true); // Regenerate session ID
-                    exit();
-                } elseif ($userType == 'user') {
-                    header('location: user_home.php');
-                    session_regenerate_id(true); // Regenerate session ID
-                    exit();
-                }
+            // Check if the user is an admin based on a specific field in the database
+            if ($row['is_admin'] == 1) {
+                header('location: admin_page.php');
+            } else {
+                header('location: user_home.php');
             }
+
+            session_regenerate_id(true); // Regenerate session ID
+            exit();
         } else {
             $error[] = 'Incorrect password!';
         }
     } else {
-        $error[] = 'Incorrect email or user type!';
+        $error[] = 'Incorrect email!';
     }
+    // Log errors here
 }
-
-
 ?>
+
+
+
 
 
 
@@ -67,37 +58,135 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
-    .error-msg {
-  padding: 10px;
-  margin-bottom: 30px;
+     * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: "Arial", sans-serif;
+        }
 
-  display: block;
-  border-radius: 5px;
-}
-body {height: 100%;
-  width: 100%;
-  min-height: 100vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: url(img/cpsubg.jpeg);
-}
+        body {
+            height: 100%;
+            width: 100%;
+            min-height: 100vh;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url("img/cpsubg.jpeg");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .box {
+            position: relative;
+            background: linear-gradient(308deg, rgb(2, 0, 36) 0%, rgba(9, 9, 121, 0.845) 35%, rgb(0, 213, 255) 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .signin-text h1 {
+            margin: 20px 0;
+            font-size: 2em;
+        }
+
+        .user_type {
+            background-color: #0f96fe;
+            font-size: 15px;
+            width: 130px;
+            height: 40px;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .error-msg {
+            color: #d9534f;
+            background-color: #f2dede;
+            border: 1px solid #d9534f;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .password-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .password-label {
+            position: relative;
+        }
+
+        .password-label i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: black;
+        }
+
+        #togglePassword {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            font-size: 15px;
+            width: 70%;
+            height: 40px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 15px;
+            box-sizing: border-box;
+        }
+
+        .fpass {
+            color: white;
+            font-size: 15px;
+            position: absolute;
+            left: 65%;
+        }
+
+        .form-btn {
+            background-color: #0f96fe;
+            font-size: 20px;
+            padding: 10px;
+            width: 150px;
+            height: 40px;
+            margin: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .create-account {
+            margin: 20px;
+            color: white;
+            font-size: 20px;
+        }
+
+        .create-account a {
+            color: white;
+            font-size: 20px;
+        }
 </style>
+
 </head>
 
 
 <body>
   
-   <div class="title">
-        <div class="logo"> <a href="index.html"><img src="img/collaborate_logo.png" alt="" width="200px"
-                    height="200px"></a></div>
-        <div class="text">
-            <h1>Welcome to <br> Collaborate Ed Hub</h1>
-            <h6>A CENTRAL PHILIPPINE STATE UNIVERSITY STUDENT COLLABORATION SPACE</h6>
-        </div>
-    </div>
+  
 
     <div class="box">
         <div class="signin-text">
@@ -107,11 +196,7 @@ body {height: 100%;
       
         <div class="container">
             <form action="" method="POST">
-            <select name="user_type" class="user_type">
-                        <option value="user">user</option>
-                        <option value="admin">admin</option>
-                    </select>
-
+            
                     <?php
 if (!empty($error)) {
     echo '<div class="error-container">';
