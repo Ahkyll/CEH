@@ -24,6 +24,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['user_name'] = $row['name'];
             $_SESSION['event_image'] = $row['event_image']; // assuming these fields exist in your users table
             $_SESSION['faculty_image'] = $row['faculty_image'];
+            
 
             // Check if the user is an admin based on a specific field in the database
             if ($row['is_admin'] == 1) {
@@ -66,6 +67,7 @@ if (isset($_POST['submit'])) {
             box-sizing: border-box;
             text-decoration: none;
             font-family: "Arial", sans-serif;
+
         }
 
         body {
@@ -85,33 +87,14 @@ if (isset($_POST['submit'])) {
             position: relative;
             background: linear-gradient(308deg, rgb(2, 0, 36) 0%, rgba(9, 9, 121, 0.845) 35%, rgb(0, 213, 255) 100%);
             border-radius: 15px;
-            padding: 20px;
+            padding: 70px;
             text-align: center;
             color: white;
         }
 
         .signin-text h1 {
-            margin: 20px 0;
-            font-size: 2em;
-        }
-
-        .user_type {
-            background-color: #0f96fe;
-            font-size: 15px;
-            width: 130px;
-            height: 40px;
-            margin: 20px;
-            text-align: center;
-        }
-
-        .error-msg {
-            color: #d9534f;
-            background-color: #f2dede;
-            border: 1px solid #d9534f;
-            padding: 10px;
-            margin-bottom: 10px;
-            display: block;
-            border-radius: 5px;
+            margin: 0px 0px 50px 0px;
+            font-size: 3rem;
         }
 
         .password-container {
@@ -143,30 +126,33 @@ if (isset($_POST['submit'])) {
         input[type="text"],
         input[type="password"] {
             font-size: 15px;
-            width: 70%;
-            height: 40px;
+            width: 100%;
+            height: 50px;
             padding: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             border-radius: 15px;
             box-sizing: border-box;
         }
 
         .fpass {
             color: white;
-            font-size: 15px;
+            font-size: 17px;
             position: absolute;
-            left: 65%;
+            left: 60%;
         }
 
         .form-btn {
             background-color: #0f96fe;
             font-size: 20px;
-            padding: 10px;
             width: 150px;
-            height: 40px;
-            margin: 20px;
+            height: 50px;
+            margin: 40px 0px 30px 0px;
             border: none;
             cursor: pointer;
+            color: white;
+        }
+        .form-btn:hover {
+            background-color: #0F4C75;
         }
 
         .create-account {
@@ -178,6 +164,19 @@ if (isset($_POST['submit'])) {
         .create-account a {
             color: white;
             font-size: 20px;
+        }
+        .create-account span{
+            color:#0f96fe;
+        }
+
+        .error-msg {
+            color: #d9534f;
+            background-color: #f2dede;
+            border: 1px solid #d9534f;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: block;
+            border-radius: 5px;
         }
 </style>
 
@@ -198,9 +197,9 @@ if (isset($_POST['submit'])) {
             <form action="" method="POST">
             
                     <?php
-if (!empty($error)) {
-    echo '<div class="error-container">';
-    foreach ($error as $error_message) {
+             if (!empty($error)) {
+            echo '<div class="error-container">';
+            foreach ($error as $error_message) {
         echo '<span class="error-msg">' . $error_message . '</span>';
     }
     echo '</div>';

@@ -3,30 +3,38 @@ session_start();
 include 'connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if the user is still an admin
-
-
     // Process and update profile information
     $newUsername = $_POST['new_username'];
     $newName = $_POST['new_name'];
-    $newCourse = $_POST['new_course']; // Added
+    $newSection = $_POST['new_section']; // Added
     $newYear = $_POST['new_year']; // Added
     $userId = $_SESSION['user_id'];
 
     // File upload handling
-    $uploadDirectory = 'assets/img'; // Directory where uploaded files will be stored
+    $uploadDirectory = 'assets/img/profile'; // Directory where uploaded files will be stored
     $targetFile = $uploadDirectory . basename($_FILES['profile_picture']['name']);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
     // Check if the image file is a real image or fake image
-    if (isset($_POST['save_changes'])) { // Changed
-        $check = getimagesize($_FILES['profile_picture']['tmp_name']);
-        if ($check !== false) {
-            $uploadOk = 1;
+    if (isset($_POST['save_changes'])) {
+        if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === 0) {
+            $check = getimagesize($_FILES['profile_picture']['tmp_name']);
+
+            if ($check !== false) {
+                // File is an image, you can proceed with the upload
+                $uploadOk = 1;
+
+                // Your file upload and processing code goes here
+                $target_dir = 'assets/img/profile';
+                $target_file = $target_dir . basename($_FILES["profile_picture"]["name"]);
+                move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $target_file);
+            } else {
+                echo "Error: File is not an image.";
+                $uploadOk = 0;
+            }
         } else {
-            echo "Error: File is not an image.";
-            $uploadOk = 0;
+            echo "Error: No file uploaded or an upload error occurred.";
         }
     }
 
@@ -45,13 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($uploadOk == 0) {
         echo "Error: Your file was not uploaded.";
+        
+
     } else {
         if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $targetFile)) {
             // Update profile information in the database with the new file path, course, and year
-            $updateStmt = $pdo->prepare("UPDATE users SET username = :username, name = :name, course = :course, year = :year, profile_picture = :profile_picture WHERE user_id = :user_id");
+            $updateStmt = $pdo->prepare("UPDATE users SET username = :username, name = :name, section = :section, year = :year, profile_picture = :profile_picture WHERE user_id = :user_id");
             $updateStmt->bindParam(':username', $newUsername);
             $updateStmt->bindParam(':name', $newName);
-            $updateStmt->bindParam(':course', $newCourse);
+            $updateStmt->bindParam(':section', $newSection);
             $updateStmt->bindParam(':year', $newYear);
             $updateStmt->bindParam(':profile_picture', $targetFile);
             $updateStmt->bindParam(':user_id', $userId);
@@ -60,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Update session variables with the new data
             $_SESSION['username'] = $newUsername;
             $_SESSION['user_name'] = $newName;
-            $_SESSION['course'] = $newCourse;
+            $_SESSION['section'] = $newSection;
             $_SESSION['year'] = $newYear;
             $_SESSION['profile_picture'] = $targetFile;
 
@@ -72,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -141,19 +152,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="post" action="edit_profile.php" enctype="multipart/form-data">
         <h1>Edit Profile</h1>
         <label for="new_username">New Username:</label>
-        <input type="text" name="new_username" required>
+        <input type="text" name="new_username" >
 
         <label for="new_name">New Name:</label>
-        <input type="text" name="new_name" required>
+        <input type="text" name="new_name" >
 
-        <label for="new_course">New Course:</label>
-        <input type="text" name="new_course" required>
+        <label for="new_section">New Section:</label>
+        <input type="text" name="new_section" >
 
         <label for="new_year">New Year:</label>
-        <input type="text" name="new_year" required>
+        <input type="text" name="new_year" >
 
         <label for="profile_picture">Profile Picture:</label>
-        <input type="file" name="profile_picture" accept="image/*" required>
+        <input type="file" name="profile_picture" accept="image/*" >
 
         <button type="submit" name="save_changes">Save Changes</button> <!-- Changed -->
     </form>

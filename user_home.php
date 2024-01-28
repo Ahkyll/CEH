@@ -2,17 +2,11 @@
 session_start();
 include 'connect.php';
 
-// Fetch events from the database based on course category
-$courseCategory = isset($_POST['course_category']) ? $_POST['course_category'] : 'ALL_CATEGORIES';
-
-// Fetch events based on the selected course category
-$eventsStmt = $pdo->prepare("SELECT * FROM events" . ($courseCategory !== 'ALL_CATEGORIES' ? " WHERE course_category = :category" : ""));
-if ($courseCategory !== 'ALL_CATEGORIES') {
-    $eventsStmt->bindParam(':category', $courseCategory);
-}
+$eventsStmt = $pdo->prepare("SELECT * FROM events");
 $eventsStmt->execute();
 $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 
 
@@ -23,8 +17,11 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website</title>
+    <!-- Add this line in the <head> section of your HTML -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
-        * {
+        * { 
             list-style: none;
         }
 
@@ -47,7 +44,7 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
             border: 3px solid black;
         }
 
-        .menu-icon {
+        .profile-icon {
             cursor: pointer;
             font-size: 25px;
             margin: 0 10px;
@@ -73,7 +70,7 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
             right: 10px;
         }
 
-        .menu-icon.dropdown.active .dropdown-content {
+        .profile-icon.dropdown.active .dropdown-content {
             display: block;
         }
 
@@ -125,7 +122,8 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .slideshow-container {
-            max-width: 900px; /* Adjust the maximum width of the slideshow container */
+            max-width: 900px;
+            /* Adjust the maximum width of the slideshow container */
             position: relative;
             margin: auto;
             margin-top: 30px;
@@ -137,7 +135,8 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         img.slide-image {
-            width: 100%; /* Set the width of the slideshow images */
+            width: 100%;
+            /* Set the width of the slideshow images */
             height: auto;
         }
 
@@ -195,46 +194,49 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .events h1 {
-    color: #000000;
-    font-size: 30px;
-    margin-bottom: 20px;
-}
+            color: #000000;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
 
-.event-list {
-    list-style-type: none;
-    padding: 0;
-}
+        .event-list {
+            list-style-type: none;
+            padding: 0;
+        }
 
-.event-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around; /* Adjust as needed */
-    margin-bottom: 20px; /* Add some space between rows */
-}
+        .event-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            /* Adjust as needed */
+            margin-bottom: 20px;
+            /* Add some space between rows */
+        }
 
-.event-item {
-    width: 300px; /* Set the width of each event item as needed */
-    margin: 10px;
-    padding: 10px;
-    background-color: #0F4C75;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    border: 3px solid black;
-}
+        .event-item {
+            width: 300px;
+            /* Set the width of each event item as needed */
+            margin: 10px;
+            padding: 10px;
+            background-color: #0F4C75;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 3px solid black;
+        }
 
-.event-image {
-    width: 100%;
-    height: auto;
-    border: 3px solid black;
-    width: 280px;
-    height: 300px;
-    object-fit: cover;
-}
+        .event-image {
+            width: 100%;
+            height: auto;
+            border: 3px solid black;
+            width: 280px;
+            height: 300px;
+            object-fit: cover;
+        }
 
-.event-details {
-    margin-top: 10px;
-    color: white;
-}
+        .event-details {
+            margin-top: 10px;
+            color: white;
+        }
 
 
 
@@ -255,51 +257,65 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
             max-width: 80%;
             max-height: 80%;
         }
-        .btn {
-        background-color: #333;
-        color: #fff;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-radius: 5px;
-        display: inline-block;
-        margin-top: 20px;
-    }
 
+        .btn {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
 <body>
 
     <header>
-        <div class="menu-icon dropdown">&#9776;
+        <div class="profile-icon dropdown">
+            <?php
+if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
+    echo '<img src="' . htmlspecialchars($_SESSION['profile_picture']) . '" alt="User Profile" class="profile-image" style="width: 50px; height: 50px;">';
+} else {
+    echo '<img src="img\default_profile_image.jpg" alt="Default Profile Image" class="profile-image" style="width: 50px; height: 50px;">';
+}
+?>
+
             <div class="dropdown-content">
-                <span id="close-btn" onclick="toggleDropdown()">&#10006;</span>
+               
 
                 <div class="profile-container">
-             <div class="profile-header">
-        <?php
+                    <div class="profile-header">
+                        <?php
         if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
             echo '<img src="' . htmlspecialchars($_SESSION['profile_picture']) . '" alt="User Profile" class="profile-image">';
         } else {
-            echo '<img src="default_profile_image.png" alt="Default Profile Image" class="profile-image">';
+            echo '<img src="img\default_profile_image.jpg" alt="Default Profile Image" class="profile-image">';
         }
         ?>
-        <div class="profile-name" id="profileName"><?= htmlspecialchars($_SESSION['user_name']) ?></div>
-        <div class="username" id="profileUsername"><?= htmlspecialchars($_SESSION['username']) ?></div>
+                        <div class="profile-name" id="profileName">
+                            <?= htmlspecialchars($_SESSION['user_name']) ?>
+                        </div>
+                        <div class="username" id="profileUsername">
+                            <?= htmlspecialchars($_SESSION['username']) ?>
+                        </div>
 
-        <?php if (isset($_SESSION['year']) && isset($_SESSION['course'])) : ?>
-            <div class="year-course">
-                Year: <?= htmlspecialchars($_SESSION['year']) ?> | Course: <?= htmlspecialchars($_SESSION['course']) ?>
-            </div>
-        <?php endif; ?>
-    </div>
-            <br>
-            <a href="logout.php" class="btn">Logout</a>
-            <a href="edit_profile.php" class="btn">Edit Profile</a>
-            <a href="edit_profile.php" class="btn">Profile dri ka edit</a>
-            <a href="edit_profile.php" class="btn">Messages</a>
+                        <?php if (isset($_SESSION['year']) && isset($_SESSION['section'])) : ?>
+                        <div class="year-course">
+                            Year:
+                            <?= htmlspecialchars($_SESSION['year']) ?> | Section:
+                            <?= htmlspecialchars($_SESSION['section']) ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                    <br>
+                    <a href="logout.php" class="btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a href="edit_profile.php" class="btn"><i class="fas fa-user-edit"></i> Edit Profile</a>
+                    <a href="edit_profile.php" class="btn"><i class="fas fa-user"></i> Profile dri ka edit</a>
 
-        </div>
+
+                </div>
 
             </div>
         </div>
@@ -308,7 +324,7 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="user_home.php">
                 <h1><span style="color: #0f96fe;">Home</span></h1>
             </a>
-    
+
             <a href="resources.php">
                 <h1>Resource Library</h1>
             </a>
@@ -332,8 +348,6 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
             <img class="slide-image" src="img/collaborate_logo.png" alt="Slideshow Image 3">
         </div>
 
-        <!-- Add more slides as needed -->
-
         <!-- Navigation arrows for the slideshow -->
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -347,149 +361,143 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
+
+    
     <!-- Events Section -->
     <div class="events">
-        <h1>Events</h1>
-        <form method="post">
-            <label for="course_category">Filter by Department:</label>
-            <select name="course_category" onchange="this.form.submit()">
-                <option value="ALL_CATEGORIES">ALL CATEGORIES</option>
-                <option value="GENERAL">GENERAL</option>
-                <option value="BSIT">BSIT</option>
-                <option value="BEED">BEED</option>
-                <option value="BSCRIM">BSCRIM</option>
-                <option value="BSHM">BSHM</option>
-                <option value="BSAB">BSAB</option>
-                <!-- Add more categories as needed -->
-            </select>
-        </form>
+        <h1>Events Calendar</h1>
+
         <ul>
-        <div class="event-list">
-    <?php
-    $eventsInRow = 4; // Set the number of events in each row
-    $eventCount = 0;
-    foreach ($events as $event) :
-        if ($eventCount % $eventsInRow === 0) {
-            echo '<div class="event-row">';
-        }
-        ?>
-        <div class="event-item" data-course="<?= htmlspecialchars($event['course_category']) ?>">
-            <?php
+            <div class="event-list">
+                <?php
+                    $eventsInRow = 4; // Set the number of events in each row
+                    $eventCount = 0;
+                    foreach ($events as $event) :
+                        if ($eventCount % $eventsInRow === 0) {
+                        echo '<div class="event-row">';
+                         }
+                ?>
+                
+                <div class="event-item">
+                    <?php
             $eventImage = isset($event['event_image']) ? htmlspecialchars($event['event_image']) : 'default_event_image.png';
             $imagePath = "" . $eventImage;
             ?>
-            <img class="event-image" src="<?= $imagePath ?>" alt="<?= htmlspecialchars($event['event_name']) ?>">
-            <div class="event-details">
-                <h3><?= htmlspecialchars($event['event_name']) ?></h3>
-                <p>Date: <?= htmlspecialchars($event['event_date']) ?></p>
-                <p>Details: <?= htmlspecialchars($event['event_details']) ?></p>
-                <p>Category: <?= htmlspecialchars($event['course_category']) ?></p>
-            </div>
-        </div>
-        <?php
+                    <img class="event-image" src="<?= $imagePath ?>"
+                        alt="<?= htmlspecialchars($event['event_name']) ?>">
+                    <div class="event-details">
+                        <h3>
+                            <?= htmlspecialchars($event['event_name']) ?>
+                        </h3>
+                        <p>Date:
+                            <?= htmlspecialchars($event['event_date']) ?>
+                        </p>
+                        <p>Details:
+                            <?= htmlspecialchars($event['event_details']) ?>
+                        </p>
+                    </div>
+                </div>
+                <?php
         $eventCount++;
         if ($eventCount % $eventsInRow === 0) {
             echo '</div>';
         }
     endforeach;
     ?>
-</div>
+            </div>
         </ul>
     </div>
 
+    <footer>
+        
+    </footer>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            var menuIcon = document.querySelector(".menu-icon.dropdown");
-        menuIcon.addEventListener("click", function () {
-            toggleDropdown();
-        });
+            var menuIcon = document.querySelector(".profile-icon.dropdown");
+            menuIcon.addEventListener("click", function () {
+                toggleDropdown();
+            });
 
-        var closeBtn = document.getElementById("close-btn");
-        closeBtn.addEventListener("click", function () {
-            toggleDropdown();
-        });
-
-        function toggleDropdown() {
-            var menuIcon = document.querySelector(".menu-icon.dropdown");
-            menuIcon.classList.toggle("active");
-        }
-
-        // JavaScript for the slideshow
-        var slideIndex = 1;
-        showSlides(slideIndex);
-
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("dot");
-
-            if (n > slides.length) {
-                slideIndex = 1;
-            }
-            if (n < 1) {
-                slideIndex = slides.length;
+            function toggleDropdown() {
+                var menuIcon = document.querySelector(".profile-icon.dropdown");
+                menuIcon.classList.toggle("active");
             }
 
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
+            // JavaScript for the slideshow
+            var slideIndex = 1;
+            showSlides(slideIndex);
+
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
             }
 
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
+            function currentSlide(n) {
+                showSlides(slideIndex = n);
             }
 
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-        }
+            function showSlides(n) {
+                var i;
+                var slides = document.getElementsByClassName("mySlides");
+                var dots = document.getElementsByClassName("dot");
 
-        var eventImages = document.querySelectorAll(".event-image");
-        var enlargedImageContainer = document.createElement("div");
-        enlargedImageContainer.className = "enlarged-image-container";
-        enlargedImageContainer.innerHTML =
-            '<img class="enlarged-image" id="enlarged-image" alt="Enlarged Image">';
-        document.body.appendChild(enlargedImageContainer);
+                if (n > slides.length) {
+                    slideIndex = 1;
+                }
+                if (n < 1) {
+                    slideIndex = slides.length;
+                }
 
-        eventImages.forEach(function (image) {
-            image.addEventListener("click", function () {
-                var enlargedImage = document.getElementById("enlarged-image");
-                enlargedImage.src = this.src;
-                enlargedImageContainer.style.display = "flex";
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+
+                slides[slideIndex - 1].style.display = "block";
+                dots[slideIndex - 1].className += " active";
+            }
+
+            var eventImages = document.querySelectorAll(".event-image");
+            var enlargedImageContainer = document.createElement("div");
+            enlargedImageContainer.className = "enlarged-image-container";
+            enlargedImageContainer.innerHTML =
+                '<img class="enlarged-image" id="enlarged-image" alt="Enlarged Image">';
+            document.body.appendChild(enlargedImageContainer);
+
+            eventImages.forEach(function (image) {
+                image.addEventListener("click", function () {
+                    var enlargedImage = document.getElementById("enlarged-image");
+                    enlargedImage.src = this.src;
+                    enlargedImageContainer.style.display = "flex";
+                });
+            });
+
+            enlargedImageContainer.addEventListener("click", function (event) {
+                // Close the enlarged image only if the click is outside the image
+                if (event.target.id === "enlarged-image") {
+                    return;
+                }
+                this.style.display = "none";
+            });
+
+            // Navigation arrows event listeners
+            var prevArrow = document.querySelector(".prev");
+            var nextArrow = document.querySelector(".next");
+
+            prevArrow.addEventListener("click", function () {
+                plusSlides(-1);
+            });
+
+            nextArrow.addEventListener("click", function () {
+                plusSlides(1);
             });
         });
 
-        enlargedImageContainer.addEventListener("click", function (event) {
-            // Close the enlarged image only if the click is outside the image
-            if (event.target.id === "enlarged-image") {
-                return;
-            }
-            this.style.display = "none";
-        });
-
-        // Navigation arrows event listeners
-        var prevArrow = document.querySelector(".prev");
-        var nextArrow = document.querySelector(".next");
-
-        prevArrow.addEventListener("click", function () {
-            plusSlides(-1);
-        });
-
-        nextArrow.addEventListener("click", function () {
-            plusSlides(1);
-        });
-        });
-   
-</script>
+    </script>
 
 </body>
 
 </html>
-
-

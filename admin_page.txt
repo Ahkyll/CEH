@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $eventName = $_POST['event_name'];
         $eventDate = $_POST['event_date'];
         $eventDetails = $_POST['event_details'];
-        $courseCategory = $_POST['course_category'];
 
         // Get the user_id from the session
         $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
@@ -52,11 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 if (move_uploaded_file($_FILES['event_image']['tmp_name'], $targetFile)) {
                     // Perform database update based on the submitted data
-                    $stmt = $pdo->prepare("INSERT INTO events (event_name, event_date, event_details, course_category, user_id, event_image) VALUES (:name, :date, :details, :category, :user_id, :event_image)");
+                    $stmt = $pdo->prepare("INSERT INTO events (event_name, event_date, event_details,  user_id, event_image) VALUES (:name, :date, :details, :user_id, :event_image)");
                     $stmt->bindParam(':name', $eventName);
                     $stmt->bindParam(':date', $eventDate);
                     $stmt->bindParam(':details', $eventDetails);
-                    $stmt->bindParam(':category', $courseCategory);
                     $stmt->bindParam(':user_id', $userId);
                     $stmt->bindParam(':event_image', $targetFile);
 
@@ -360,7 +358,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
                 <th>Name</th>
                 <th>Date</th>
                 <th>Details</th>
-                <th>Category</th>
                 <th>Image</th>
                 <th>Action</th>
             </tr>
@@ -372,7 +369,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
                 echo "<td>{$eventRow['event_name']}</td>";
                 echo "<td>{$eventRow['event_date']}</td>";
                 echo "<td>{$eventRow['event_details']}</td>";
-                echo "<td>{$eventRow['course_category']}</td>";
                 echo "<td><img src='{$eventRow['event_image']}' alt='Event Image' style='max-width: 100px;'></td>";
                 echo "<td>";
                 echo "<a class='edit-button' href='edit.php?type=event&id={$eventRow['event_id']}'>Edit</a>";

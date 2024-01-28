@@ -63,12 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Registration Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        * {
+       * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             text-decoration: none;
             font-family: "Arial", sans-serif;
+
         }
 
         body {
@@ -88,38 +89,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             position: relative;
             background: linear-gradient(308deg, rgb(2, 0, 36) 0%, rgba(9, 9, 121, 0.845) 35%, rgb(0, 213, 255) 100%);
             border-radius: 15px;
-            padding: 20px;
+            width: 550px;
+            padding: 50px;
             text-align: center;
             color: white;
         }
 
         .signin-text h1 {
-            margin: 20px 0;
-            font-size: 2em;
-        }
-
-        .user_type {
-            background-color: #0f96fe;
-            font-size: 15px;
-            width: 130px;
-            height: 40px;
-            margin: 20px;
-            text-align: center;
-        }
-
-        .error-msg {
-            color: #d9534f;
-            background-color: #f2dede;
-            border: 1px solid #d9534f;
-            padding: 10px;
-            margin-bottom: 10px;
-            display: block;
-            border-radius: 5px;
-        }
-
-        .password-container {
-            position: relative;
-            margin-bottom: 20px;
+            margin: 0px 0px 50px 0px;
+            font-size: 3rem;
         }
 
         .password-label {
@@ -146,41 +124,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         input[type="text"],
         input[type="password"] {
             font-size: 15px;
-            width: 70%;
-            height: 40px;
+            width: 95%;
+            height: 50px;
             padding: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             border-radius: 15px;
-            box-sizing: border-box;
         }
 
-        .fpass {
-            color: white;
-            font-size: 15px;
-            position: absolute;
-            left: 65%;
-        }
 
         .form-btn {
             background-color: #0f96fe;
             font-size: 20px;
-            padding: 10px;
             width: 150px;
-            height: 40px;
-            margin: 20px;
+            height: 50px;
+            margin: 40px 0px 30px 0px;
             border: none;
             cursor: pointer;
+            color: white;
+        }
+        .form-btn:hover {
+            color: white;
+            background-color: #0F4C75;
         }
 
-        .create-account {
+        .exist-account {
             margin: 20px;
             color: white;
             font-size: 20px;
         }
 
-        .create-account a {
-            color: white;
-            font-size: 20px;
+        .exist-account span{
+            color:#0f96fe;
+        }
+
+        .error-msg {
+            color: #d9534f;
+            background-color: #f2dede;
+            border: 1px solid #d9534f;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: block;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -221,17 +205,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="submit" name="submit" value="Register Now" class="form-btn">
             </form>
 
-            <div class="create-account">
-                Already have an account? <a href="login.php">Sign in</a>
+            <div class="exist-account">
+                Already have an account? <a href="login.php"><span>Sign in</span></a>
             </div>
         </div>
     </div>
 
     <script>
-        function togglePasswordVisibility(fieldId) {
-            var passwordInput = document.getElementById(fieldId);
-            var toggleIcon = passwordInput.nextElementSibling;
+    function togglePasswordVisibility(fieldId) {
+        var passwordInput = document.getElementById(fieldId);
+        var toggleIcon = passwordInput.nextElementSibling;
 
+        if (fieldId === "password" || fieldId === "cpassword") {
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
                 toggleIcon.classList.remove("fa-eye-slash");
@@ -242,7 +227,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 toggleIcon.classList.add("fa-eye-slash");
             }
         }
-    </script>
+    }
+</script>   
 </body>
 
 </html>

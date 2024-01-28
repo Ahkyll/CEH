@@ -2,11 +2,6 @@
 session_start();
 include 'connect.php';
 
-// Check if the user is an admin
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-    header('location: login.php');
-    exit();
-}
 
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -20,7 +15,7 @@ if ($type === 'faculty') {
 
     if (!$record) {
         // Redirect if the faculty record is not found
-        header('location: admin_panel.php');
+        header('location: admin_page.php');
         exit();
     }
 
@@ -81,7 +76,6 @@ if ($type === 'faculty') {
         $newName = $_POST['new_name'];
         $newDate = $_POST['new_date'];
         $newDetails = $_POST['new_details'];
-        $newCategory = $_POST['new_category'];
 
         // Check if a new image file is uploaded
         if ($_FILES['new_image']['size'] > 0) {
@@ -101,11 +95,10 @@ if ($type === 'faculty') {
         }
 
         // Perform database update based on the submitted data
-        $updateStmt = $pdo->prepare("UPDATE events SET event_name = :name, event_date = :date, event_details = :details, course_category = :category, event_image = :image WHERE event_id = :id");
+        $updateStmt = $pdo->prepare("UPDATE events SET event_name = :name, event_date = :date, event_details = :details, event_image = :image WHERE event_id = :id");
         $updateStmt->bindParam(':name', $newName);
         $updateStmt->bindParam(':date', $newDate);
         $updateStmt->bindParam(':details', $newDetails);
-        $updateStmt->bindParam(':category', $newCategory);
         $updateStmt->bindParam(':image', $imagePath);
         $updateStmt->bindParam(':id', $id);
 
@@ -223,16 +216,6 @@ if ($type === 'faculty') {
             <label for="new_position">New Position:</label>
             <input type="text" name="new_position" value="<?php echo htmlspecialchars($record['faculty_position']); ?>" required>
 
-            <label for="new_department">New Department:</label>
-            <select name="new_department">
-                <option value="GENERAL" <?php echo ($record['faculty_department'] === 'GENERAL') ? 'selected' : ''; ?>>GENERAL</option>
-                <option value="BSIT" <?php echo ($record['faculty_department'] === 'BSIT') ? 'selected' : ''; ?>>BSIT</option>
-                <option value="BEED" <?php echo ($record['faculty_department'] === 'BEED') ? 'selected' : ''; ?>>BEED</option>
-                <option value="BSCRIM" <?php echo ($record['faculty_department'] === 'BSCRIM') ? 'selected' : ''; ?>>BSCRIM</option>
-                <option value="BSHM" <?php echo ($record['faculty_department'] === 'BSHM') ? 'selected' : ''; ?>>BSHM</option>
-                <option value="BSAB" <?php echo ($record['faculty_department'] === 'BSAB') ? 'selected' : ''; ?>>BSAB</option>
-            </select>
-
             <label for="new_image">New Image:</label>
             <input type="file" name="new_image">
 
@@ -247,16 +230,6 @@ if ($type === 'faculty') {
 
             <label for="new_details">New Details:</label>
             <textarea name="new_details" required><?php echo htmlspecialchars($record['event_details']); ?></textarea>
-
-            <label for="new_category">New Category:</label>
-            <select name="new_category">
-                <option value="GENERAL" <?php echo ($record['course_category'] === 'GENERAL') ? 'selected' : ''; ?>>GENERAL</option>
-                <option value="BSIT" <?php echo ($record['course_category'] === 'BSIT') ? 'selected' : ''; ?>>BSIT</option>
-                <option value="BEED" <?php echo ($record['course_category'] === 'BEED') ? 'selected' : ''; ?>>BEED</option>
-                <option value="BSCRIM" <?php echo ($record['course_category'] === 'BSCRIM') ? 'selected' : ''; ?>>BSCRIM</option>
-                <option value="BSHM" <?php echo ($record['course_category'] === 'BSHM') ? 'selected' : ''; ?>>BSHM</option>
-                <option value="BSAB" <?php echo ($record['course_category'] === 'BSAB') ? 'selected' : ''; ?>>BSAB</option>
-            </select>
 
             <label for="new_image">New Image:</label>
             <input type="file" name="new_image">
