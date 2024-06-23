@@ -118,36 +118,29 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
     body {
         font-family: "Arial", sans-serif;
         background-color: #f0f5f9;
-        /* Light blue-gray background */
     }
 
     header {
         background-color: #333;
-        /* Dark blue header */
         color: #ecf0f1;
-        /* White text */
         padding: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-bottom: 3px solid #34495e;
-        /* Slightly darker border */
     }
 
 
-    /* Dropdown styles */
     .dropdown-content {
         display: none;
         position: absolute;
         background-color: #ecf0f1;
-        /* Light gray dropdown background */
         min-width: 200px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         z-index: 1;
         padding: 10px;
         text-align: center;
         color: #333;
-        /* Dark text */
     }
 
 
@@ -163,7 +156,6 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border: 2px solid #34495e;
-        /* Slightly darker border */
     }
 
     .profile-image {
@@ -248,7 +240,6 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     #resourceForm button {
         background-color: #e74c3c;
-        /* Red color for Submit Resources button */
         color: #fff;
         padding: 10px;
         border: none;
@@ -258,8 +249,8 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     #resourceForm button:hover {
-        background-color: #c0392b;
-        /* Darker red color on hover */
+          background-color: #c0392b;
+
     }
 
     .resources {
@@ -299,7 +290,7 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     .bot-details {
         margin-top: 15px;
-        text-align: center; /* Center the text in the container */
+        text-align: center; 
     }
 
     .bot-details h3 {
@@ -310,7 +301,7 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
     .bot-details p {
         color: black;
         max-width: 300px;
-        max-height: 600px; /* Limit the height of the description */
+        max-height: 600px; 
         overflow: hidden;
     }
 
@@ -344,7 +335,7 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
     .btn {
-        background-color: #333;
+        background-color: #0f96fe;
         color: #fff;
         padding: 10px 20px;
         text-decoration: none;
@@ -363,7 +354,7 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
         position: fixed;
         bottom: 20px;
         right: 50px;
-        background-color: #e74c3c;
+        background-color: #0f96fe;
         color: #fff;
         border: none;
         border-radius: 50%;
@@ -380,7 +371,6 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
         margin-top: 30px;
         margin-bottom: 40px;
         text-align: center;
-        /* Center the search bar */
     }
 
     label {
@@ -402,9 +392,9 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
     .container {
         margin-top: 40px;
     position: relative;
-    width: 300px; /* Set a fixed width for the container */
-    height: 300px; /* Set a fixed height for the container */
-    overflow: hidden; /* Hide overflow content outside the container */
+    width: 300px; 
+    height: 300px; 
+    overflow: hidden; 
 }
 
 .overlay {
@@ -412,7 +402,7 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #008CBA;
+    background-color: #0f96fe;
     overflow: hidden;
     width: 0;
     height: 100%;
@@ -433,6 +423,11 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
+}
+
+.search_btn{
+    background-color: #0f96fe;
+    padding: 15px;
 }
 
 </style>
@@ -478,7 +473,6 @@ if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture']))
                     <br>
                     <a href="logout.php" class="btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     <a href="edit_profile.php" class="btn"><i class="fas fa-user-edit"></i> Edit Profile</a>
-                    <a href="edit_profile.php" class="btn"><i class="fas fa-user"></i> Profile dri ka edit</a>
 
 
                 </div>
@@ -492,7 +486,7 @@ if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture']))
             </a>
 
             <a href="resources.php">
-                <h1><span style="color: #0f96fe;">Resourc Library</span></h1>
+                <h1><span style="color: #0f96fe;">Resource Library</span></h1>
             </a>
             <a href="forum_display.php">
                 <h1>Discussion Forum</h1>
@@ -547,7 +541,7 @@ if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture']))
     <form method="get" action="resources.php">
         <label for="search">Search:</label>
         <input type="text" name="search" id="search" placeholder="Enter search term">
-        <button type="submit">Search</button>
+        <button type="submit" class="search_btn">Search</button>
     </form>
 
     <div class="resources">
@@ -571,18 +565,15 @@ if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture']))
                         </p>
                         <p>Uploader: <?= htmlspecialchars($resource['uploader_username']) ?></p>
                         <?php if ($resource['user_id'] == $_SESSION['user_id']) : ?>
-                            <!-- Add delete button with trash icon if the resource belongs to the logged-in user -->
-                            <button onclick="confirmDelete(<?= $resource['resource_id'] ?>)" class="delete-btn">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        <?php endif; ?>
+    <a href="delete_resources.php?resource_id=<?= $resource['resource_id'] ?>">
+        <i class="fas fa-trash"></i> Delete
+    </a>
+<?php endif; ?>
                     </div>
                 </div>
             </div>
             <div class="bot-details">
             <h3><?= htmlspecialchars($resource['resource_title']) ?></h3>
-            <br>
-            <p><?= htmlspecialchars($resource['resource_desc']) ?></p>
             </div>
             
             <div class="download-btn">
@@ -636,29 +627,7 @@ if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture']))
         form.style.display = 'none';
     }
 
-    function confirmDelete(resourceId) {
-        var confirmDelete = confirm("Are you sure you want to delete this resource?");
-
-        if (confirmDelete) {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-                    if (xhr.status == 200) {
-                        // Reload the page after successful deletion
-                        window.location.reload();
-                    } else {
-                        // Display an error message
-                        alert("Error: Unable to delete the resource.");
-                    }
-                }
-            };
-
-            // Send a POST request to your server-side script (delete_resource.php)
-            xhr.open("POST", "delete_resources.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("resource_id=" + resourceId);
-        }
-    }
+    
 </script>
 
 

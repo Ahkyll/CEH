@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
     $username = $_POST['username'];
+    $year = $_POST['year'];
 
     if (!$email) {
         $errors[] = 'Invalid email address!';
@@ -25,11 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-                $insert = "INSERT INTO users (email, password, username) VALUES (:email, :password, :username)";
+                $insert = "INSERT INTO users (email, password, username, year) VALUES (:email, :password, :username, :year)";
                 $stmt = $pdo->prepare($insert);
                 $stmt->bindParam(':email', $email, PDO::PARAM_STR);
                 $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
                 $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+                $stmt->bindParam(':year', $year, PDO::PARAM_STR);
                 $stmt->execute();
 
                 if ($stmt->rowCount() > 0) {
@@ -63,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Registration Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-       * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -142,19 +144,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             cursor: pointer;
             color: white;
         }
+
         .form-btn:hover {
             color: white;
             background-color: #0F4C75;
         }
 
         .exist-account {
-            margin: 20px;
             color: white;
             font-size: 20px;
         }
 
-        .exist-account span{
-            color:#0f96fe;
+        .exist-account span {
+            color: #0f96fe;
         }
 
         .error-msg {
@@ -165,6 +167,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 10px;
             display: block;
             border-radius: 5px;
+        }
+
+        .year-label {
+        font-size: 18px;
+        color: #fff;
+        margin-bottom: 10px;
+        display: block;
+        }
+
+        .year-dropdown {
+        width: 20%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        color: #333;
         }
     </style>
 </head>
@@ -184,51 +203,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
                 ?>
-
                 <input type="text" id="email" placeholder="Email" name="email" required> <br>
                 <input type="text" id="username" placeholder="Username" name="username" required> <br>
-
                 <div class="password-container">
                     <label for="password" class="password-label">
                         <input type="password" id="password" name="password" required placeholder="Password">
                         <i class="fas fa-eye-slash toggle-password" onclick="togglePasswordVisibility('password')"></i>
                     </label>
                 </div>
-
                 <div class="password-container">
                     <label for="cpassword" class="password-label">
-                        <input type="password" id="cpassword" name="cpassword" required placeholder="Confirm your password">
+                        <input type="password" id="cpassword" name="cpassword" required
+                            placeholder="Confirm your password">
                         <i class="fas fa-eye-slash toggle-password" onclick="togglePasswordVisibility('cpassword')"></i>
                     </label>
                 </div>
-
+                <label for="year" class="year-label">
+                    Select Year:
+                <select id="year" name="year" required class="year-dropdown">
+                            <option value="1st">1st</option>
+                            <option value="2nd">2nd</option>
+                            <option value="3rd">3rd</option>
+                            <option value="4th">4th</option>
+                </select>
+                </label>
+                <br>
                 <input type="submit" name="submit" value="Register Now" class="form-btn">
             </form>
-
-            <div class="exist-account">
-                Already have an account? <a href="login.php"><span>Sign in</span></a>
-            </div>
+                <div class="exist-account">Already have an account? <a href="login.php"><span>Sign in</span></a> </div>
         </div>
     </div>
 
     <script>
-    function togglePasswordVisibility(fieldId) {
-        var passwordInput = document.getElementById(fieldId);
-        var toggleIcon = passwordInput.nextElementSibling;
+        function togglePasswordVisibility(fieldId) {
+            var passwordInput = document.getElementById(fieldId);
+            var toggleIcon = passwordInput.nextElementSibling;
 
-        if (fieldId === "password" || fieldId === "cpassword") {
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                toggleIcon.classList.remove("fa-eye-slash");
-                toggleIcon.classList.add("fa-eye");
-            } else {
-                passwordInput.type = "password";
-                toggleIcon.classList.remove("fa-eye");
-                toggleIcon.classList.add("fa-eye-slash");
+            if (fieldId === "password" || fieldId === "cpassword") {
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    toggleIcon.classList.remove("fa-eye-slash");
+                    toggleIcon.classList.add("fa-eye");
+                } else {
+                    passwordInput.type = "password";
+                    toggleIcon.classList.remove("fa-eye");
+                    toggleIcon.classList.add("fa-eye-slash");
+                }
             }
         }
-    }
-</script>   
-</body>
 
+    </script>
+
+</body>
 </html>

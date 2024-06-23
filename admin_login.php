@@ -22,20 +22,19 @@ if (isset($_POST['submit'])) {
             $_SESSION['username'] = $row['username'];
             $_SESSION['profile_picture'] = $row['profile_picture'];
             $_SESSION['user_name'] = $row['name'];
-            $_SESSION['event_image'] = $row['event_image']; // assuming these fields exist in your users table
             $_SESSION['year'] = $row['year'];
 
-            
-
-            // Check if the user is an admin based on a specific field in the database
             if ($row['is_admin'] == 1) {
-                header('location: admin_dashboard.php');
+                header('location: admin_profile.php');
             } else {
-                header('location: user_home.php');
+                $error[] = 'Not an admin';
+              
             }
 
+           
             session_regenerate_id(true); // Regenerate session ID
-            exit();
+
+
         } else {
             $error[] = 'Incorrect password!';
         }
@@ -88,7 +87,7 @@ if (isset($_POST['submit'])) {
             position: relative;
             background: linear-gradient(308deg, rgb(2, 0, 36) 0%, rgba(9, 9, 121, 0.845) 35%, rgb(0, 213, 255) 100%);
             border-radius: 15px;
-            padding: 70px;
+            padding: 100px;
             text-align: center;
             color: white;
         }
@@ -190,7 +189,8 @@ if (isset($_POST['submit'])) {
 
     <div class="box">
         <div class="signin-text">
-            <h1>Sign in</h1>
+            <h1>Admin Sign in</h1>
+           
         </div>
 
       
@@ -214,7 +214,6 @@ if (isset($_POST['submit'])) {
                     </label>
                    
                 </div>
-
                 <br>
 
 
@@ -223,9 +222,6 @@ if (isset($_POST['submit'])) {
 
 
 
-            <div class="create-account">
-                Don't have an account? <a href="signup.php"><span>Create Account</span></a>
-            </div>
         </div>
     </div>
 

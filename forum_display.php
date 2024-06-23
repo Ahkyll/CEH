@@ -35,24 +35,117 @@ unset($post); // unset to avoid accidental usage
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discussion Forum</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f5f9;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
-        header {
-            background-color: #333;
-            color: #ecf0f1;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #34495e;
-        }
+
+    <style>
+         * {
+
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+text-decoration: none;
+}
+
+body {
+font-family: "Arial", sans-serif;
+background-color: #f0f5f9;
+}
+
+header {
+background-color: #333;
+color: #ecf0f1;
+padding: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 3px solid #34495e;
+}
+
+
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: #ecf0f1;
+min-width: 200px;
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+z-index: 1;
+padding: 10px;
+text-align: center;
+color: #333;
+}
+
+
+.profile-icon.dropdown.active .dropdown-content {
+display: block;
+}
+
+.profile-container {
+max-width: 800px;
+margin: 20px auto;
+padding: 20px;
+background-color: #ecf0f1;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+border: 2px solid #34495e;
+}
+
+.profile-image {
+width: 100px;
+height: 100px;
+border-radius: 50%;
+object-fit: cover;
+}
+
+.profile-name {
+margin-top: 10px;
+font-size: 30px;
+color: #333;
+}
+
+.username {
+font-size: 20px;
+color: #333;
+}
+
+nav {
+padding: 20px;
+text-align: center;
+}
+
+nav a {
+display: inline-block;
+margin: 0 10px;
+text-decoration: none;
+font-size: 15px;
+font-weight: bold;
+}
+
+nav a h1 {
+color: white;
+}
+
+nav h1:hover {
+color: #0f96fe;
+}
+.btn {
+        background-color: #0f96fe;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+   
+
+
+.head h1 {
+font-size: 50px;
+margin: 15px;
+text-align: center;
+}
 
         .forum-post {
             background-color: #ecf0f1;
@@ -146,62 +239,160 @@ unset($post); // unset to avoid accidental usage
         .create-post-form input[type="submit"]:hover {
             background-color: #c0392b;
         }
+        .create-post-form input[type="submit"],
+        .comment-form input[type="submit"],
+        .toggle-comments-btn {
+            background-color: #0f96fe;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Style for the button hover effect */
+        .create-post-form input[type="submit"]:hover,
+        .comment-form input[type="submit"]:hover,
+        .toggle-comments-btn:hover {
+            background-color: #0a7cbf;
+        }
+
+        .container button{
+            background-color: #0f96fe;
+            padding: 20px;
+        }
+
+        .comment-actions{
+            color: black;
+        }
+
     </style>
 </head>
 
 <body>
 
-    <header>
-        <!-- Your header content goes here -->
+<header>
+        <div class="profile-icon dropdown">
+            <?php
+if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
+    echo '<img src="' . htmlspecialchars($_SESSION['profile_picture']) . '" alt="User Profile" class="profile-image" style="width: 50px; height: 50px;">';
+} else {
+    echo '<img src="img\default_profile_image.jpg" alt="Default Profile Image" class="profile-image" style="width: 50px; height: 50px;">';
+}
+?>
+
+            <div class="dropdown-content">
+                <span id="close-btn" onclick="toggleDropdown()"></span>
+
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <?php
+        if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
+            echo '<img src="' . htmlspecialchars($_SESSION['profile_picture']) . '" alt="User Profile" class="profile-image">';
+        } else {
+            echo '<img src="img\default_profile_image.jpg" alt="Default Profile Image" class="profile-image">';
+        }
+        ?>
+                        <div class="profile-name" id="profileName">
+                            <?= htmlspecialchars($_SESSION['user_name']) ?>
+                        </div>
+                        <div class="username" id="profileUsername">
+                            <?= htmlspecialchars($_SESSION['username']) ?>
+                        </div>
+
+                        <?php if (isset($_SESSION['year']) && isset($_SESSION['section'])) : ?>
+                        <div class="year-course">
+                            Year:
+                            <?= htmlspecialchars($_SESSION['year']) ?> | Section:
+                            <?= htmlspecialchars($_SESSION['section']) ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                    <br>
+                    <a href="logout.php" class="btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a href="edit_profile.php" class="btn"><i class="fas fa-user-edit"></i> Edit Profile</a>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <nav>
+            <a href="user_home.php">
+                <h1>Home</h1>
+            </a>
+
+            <a href="resources.php">
+                <h1>Resource Library</h1>
+            </a>
+            <a href="forum_display.php">
+            <h1><span style="color: #0f96fe;">Discussion Forum</span></h1>
+            </a>
+            <a href="about.php">
+                <h1>About</h1>
+            </a>
+        </nav>
     </header>
-
     
-    <div class="container">
-    <button id="togglePostFormBtn">Create a New Post</button>
-    <div id="createPostForm" style="display: none;" class="create-post-form">
-        <h2>Create a New Post</h2>
-        <form action="add_post.php" method="post">
-            <label for="post-title">Post Title:</label>
-            <input type="text" id="post-title" name="post-title" required>
+   <div class="container">
+        <button id="togglePostFormBtn">Create a New Post</button>
+        <div id="createPostForm" style="display: none;" class="create-post-form">
+            <h2>Create a New Post</h2>
+            <form action="add_post.php" method="post">
+                <label for="post-title">Post Title:</label>
+                <input type="text" id="post-title" name="post-title" required>
 
-            <label for="post-content">Post Content:</label>
-            <textarea id="post-content" name="post-content" required></textarea>
+                <label for="post-content">Post Content:</label>
+                <textarea id="post-content" name="post-content" required></textarea>
 
-            <input type="submit" name="submit-post" value="Submit Post">
-        </form>
+                <input type="submit" name="submit-post" value="Submit Post">
+            </form>
+        </div>
     </div>
-</div>
-
 
     <?php foreach ($forumPosts as $post) : ?>
+        <!-- Inside the loop where you display forum posts and comments -->
         <div class="forum-post">
             <div class="post-content">
                 <p><?= htmlspecialchars($post['post_content']) ?></p>
             </div>
             <div class="post-details">
-    <img src="<?= htmlspecialchars($post['profile_picture']) ?>" alt="User Profile" class="profile-image">
-    Posted by: <?= htmlspecialchars($post['username']) ?> | Date: <?= date('F j, Y g:i a', strtotime($post['post_time'])) ?>
-</div>
-
+                <img src="<?= htmlspecialchars($post['profile_picture']) ?>" alt="User Profile" class="profile-image" style="width: 30px; height: 30px;">
+                Posted by: <?= htmlspecialchars($post['username']) ?> | Date: <?= date('F j, Y g:i a', strtotime($post['post_time'])) ?>
+                <div class="post-actions">
+                    <?php if ($post['user_id'] == $_SESSION['user_id']) : ?>
+                        <a href="delete_post.php?post_id=<?= $post['post_id'] ?>"> <i class="fas fa-trash" style="margin-left: 10px;"></i></a>
+                    <?php endif; ?>
+                </div>
+            </div>
 
             <!-- Display comments toggle button -->
-<?php if ($post['comments']) : ?>
-    <button class="toggle-comments-btn" onclick="toggleComments(this)">Toggle Comments</button>
+            <?php if ($post['comments']) : ?>
+                <button class="toggle-comments-btn" onclick="toggleComments(this)">Toggle Comments</button>
 
-    <!-- Display comments -->
-    <div class="comments-section" style="display: none;">
-        <p><strong>Comments:</strong></p>
-        <?php foreach ($post['comments'] as $comment) : ?>
-            <div class="comment">
-                <p><?= htmlspecialchars($comment['comment_content']) ?></p>
-                <div class="comment-details">
-                                <img src="<?= htmlspecialchars($comment['profile_picture']) ?>" alt="User Profile" class="profile-image">
+                <!-- Display comments -->
+                <div class="comments-section" style="display: none;">
+                    <p><strong>Comments:</strong></p>
+                    <?php foreach ($post['comments'] as $comment) : ?>
+                        <div class="comment">
+                            <p><?= htmlspecialchars($comment['comment_content']) ?></p>
+                            <div class="comment-details">
+                                <img src="<?= htmlspecialchars($comment['profile_picture']) ?>" alt="User Profile" class="profile-image" style="width: 30px; height: 30px;">
                                 Comment by: <?= htmlspecialchars($comment['username']) ?> | Date: <?= date('F j, Y g:i a', strtotime($comment['comment_time'])) ?>
+                                <div class="comment-actions">
+    <?php if ($comment['user_id'] == $_SESSION['user_id']) : ?>
+        <a href="delete_comment.php?comment_id=<?= $comment['comment_id'] ?>" class="delete-comment-btn">
+        <i class="fas fa-trash" style="margin-left: 10px;"></i>
+        </a>
+    <?php endif; ?>
+</div>
                             </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-<?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
 
             <!-- Comment Form -->
             <div class="comment-form">
@@ -217,29 +408,46 @@ unset($post); // unset to avoid accidental usage
     <?php endforeach; ?>
 
     <script>
-    function toggleComments(btn) {
-        const commentsSection = btn.nextElementSibling;
-        commentsSection.style.display = (commentsSection.style.display === 'none') ? 'block' : 'none';
 
-        // Prevent the default behavior (e.g., following a link or submitting a form)
-        if (event.preventDefault) {
-            event.preventDefault();
-        } else {
-            event.returnValue = false; // For older browsers
+        function toggleComments(btn) {
+            const commentsSection = btn.nextElementSibling;
+            commentsSection.style.display = (commentsSection.style.display === 'none') ? 'block' : 'none';
+
+            // Prevent the default behavior (e.g., following a link or submitting a form)
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false; // For older browsers
+            }
         }
-    }
-    document.getElementById("togglePostFormBtn").addEventListener("click", function () {
-        const postForm = document.getElementById("createPostForm");
-        postForm.style.display = (postForm.style.display === 'none') ? 'block' : 'none';
+        document.getElementById("togglePostFormBtn").addEventListener("click", function () {
+            const postForm = document.getElementById("createPostForm");
+            postForm.style.display = (postForm.style.display === 'none') ? 'block' : 'none';
+
+            
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        var menuIcon = document.querySelector(".profile-icon.dropdown");
+        menuIcon.addEventListener("click", function () {
+            toggleDropdown();
+        });
+
+        var submitButton = document.querySelector(".submit-button");
+        submitButton.addEventListener("click", function (event) {
+            toggleForm(event);
+        });
     });
-</script>
+
+    function toggleDropdown() {
+        var menuIcon = document.querySelector(".profile-icon.dropdown");
+        menuIcon.classList.toggle("active");
+    }
 
 
-   
-
-    <!-- Your footer content goes here -->
+    </script>
 
 </body>
-</html>
 
+</html>
 

@@ -2,7 +2,7 @@
 session_start();
 include 'connect.php';
 
-$eventsStmt = $pdo->prepare("SELECT * FROM events");
+$eventsStmt = $pdo->prepare("SELECT * FROM events ORDER BY event_date");
 $eventsStmt->execute();
 $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -17,113 +17,101 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website</title>
-    <!-- Add this line in the <head> section of your HTML -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        * { 
-            list-style: none;
-        }
+         * {
 
-        body {
-            font-family: "Arial", sans-serif;
-            background-color: rgb(26, 25, 25);
-            margin: 0;
-            padding: 0;
-            color: black;
-            text-decoration: none;
-        }
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+text-decoration: none;
+}
 
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 3px solid black;
-        }
+body {
+font-family: "Arial", sans-serif;
+background-color:#34495e;
+}
 
-        .profile-icon {
-            cursor: pointer;
-            font-size: 25px;
-            margin: 0 10px;
-            color: white;
-        }
+header {
+background-color: #333;
+color: #ecf0f1;
+padding: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 3px solid #34495e;
+}
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            padding: 10px;
-            text-align: center;
-        }
 
-        #close-btn {
-            cursor: pointer;
-            font-size: 18px;
-            position: absolute;
-            top: 5px;
-            right: 10px;
-        }
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: #ecf0f1;
+min-width: 200px;
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+z-index: 1;
+padding: 10px;
+text-align: center;
+color: #333;
+}
 
-        .profile-icon.dropdown.active .dropdown-content {
-            display: block;
-        }
 
-        .profile-container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ebe2e2;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid black;
-        }
+.profile-icon.dropdown.active .dropdown-content {
+display: block;
+}
 
-        .profile-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+.profile-container {
+max-width: 800px;
+margin: 20px auto;
+padding: 20px;
+background-color: #ecf0f1;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+border: 2px solid #34495e;
+}
 
-        .profile-name {
-            margin-top: 10px;
-            font-size: 30px;
-            color: black;
-        }
+.profile-image {
+width: 100px;
+height: 100px;
+border-radius: 50%;
+object-fit: cover;
+}
 
-        .username {
-            font-size: 20px;
-        }
+.profile-name {
+margin-top: 10px;
+font-size: 30px;
+color: #333;
+}
 
-        nav {
-            text-align: center;
-        }
+.username {
+font-size: 20px;
+color: #333;
+}
 
-        nav a {
-            display: inline-block;
-            margin: 0 10px;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: bold;
-        }
+nav {
+padding: 20px;
+text-align: center;
+}
 
-        nav a h1 {
-            color: white;
-        }
+nav a {
+display: inline-block;
+margin: 0 10px;
+text-decoration: none;
+font-size: 15px;
+font-weight: bold;
+}
 
-        nav h1:hover {
-            color: #0f96fe;
-        }
+nav a h1 {
+color: white;
+}
+
+nav h1:hover {
+color: #0f96fe;
+}
 
         .slideshow-container {
             max-width: 900px;
-            /* Adjust the maximum width of the slideshow container */
             position: relative;
             margin: auto;
             margin-top: 30px;
@@ -136,7 +124,6 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
 
         img.slide-image {
             width: 100%;
-            /* Set the width of the slideshow images */
             height: auto;
         }
 
@@ -208,14 +195,11 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
-            /* Adjust as needed */
             margin-bottom: 20px;
-            /* Add some space between rows */
         }
 
         .event-item {
             width: 300px;
-            /* Set the width of each event item as needed */
             margin: 10px;
             padding: 10px;
             background-color: #0F4C75;
@@ -259,8 +243,7 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .btn {
-            background-color: #333;
-            color: #fff;
+           background-color: #0f96fe; color: #fff;
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 5px;
@@ -272,7 +255,7 @@ $events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
 
-    <header>
+<header>
         <div class="profile-icon dropdown">
             <?php
 if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
@@ -283,7 +266,7 @@ if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture']))
 ?>
 
             <div class="dropdown-content">
-               
+                <span id="close-btn" onclick="toggleDropdown()"></span>
 
                 <div class="profile-container">
                     <div class="profile-header">
@@ -312,7 +295,6 @@ if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture']))
                     <br>
                     <a href="logout.php" class="btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     <a href="edit_profile.php" class="btn"><i class="fas fa-user-edit"></i> Edit Profile</a>
-                    <a href="edit_profile.php" class="btn"><i class="fas fa-user"></i> Profile dri ka edit</a>
 
 
                 </div>
@@ -322,17 +304,17 @@ if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture']))
 
         <nav>
             <a href="user_home.php">
-                <h1><span style="color: #0f96fe;">Home</span></h1>
+            <h1><span style="color: #0f96fe;">Home</span></h1>
             </a>
 
             <a href="resources.php">
                 <h1>Resource Library</h1>
             </a>
-            <a href="forum.php">
+            <a href="forum_display.php">
                 <h1>Discussion Forum</h1>
             </a>
             <a href="about.php">
-                <h1>Settings</h1>
+                <h1>About</h1>
             </a>
         </nav>
     </header>
@@ -408,95 +390,93 @@ if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture']))
         </ul>
     </div>
 
-    <footer>
-        
-    </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var menuIcon = document.querySelector(".profile-icon.dropdown");
-            menuIcon.addEventListener("click", function () {
-                toggleDropdown();
-            });
+    document.addEventListener("DOMContentLoaded", function () {
+        var profileIcon = document.querySelector(".profile-icon.dropdown");
+        profileIcon.addEventListener("click", function () {
+            toggleDropdown();
+        });
 
-            function toggleDropdown() {
-                var menuIcon = document.querySelector(".profile-icon.dropdown");
-                menuIcon.classList.toggle("active");
+        function toggleDropdown() {
+            var profileIcon = document.querySelector(".profile-icon.dropdown");
+            profileIcon.classList.toggle("active");
+        }
+
+        // JavaScript for the slideshow
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+
+            if (n > slides.length) {
+                slideIndex = 1;
+            }
+            if (n < 1) {
+                slideIndex = slides.length;
             }
 
-            // JavaScript for the slideshow
-            var slideIndex = 1;
-            showSlides(slideIndex);
-
-            function plusSlides(n) {
-                showSlides(slideIndex += n);
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
             }
 
-            function currentSlide(n) {
-                showSlides(slideIndex = n);
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
             }
 
-            function showSlides(n) {
-                var i;
-                var slides = document.getElementsByClassName("mySlides");
-                var dots = document.getElementsByClassName("dot");
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
 
-                if (n > slides.length) {
-                    slideIndex = 1;
-                }
-                if (n < 1) {
-                    slideIndex = slides.length;
-                }
+        var eventImages = document.querySelectorAll(".event-image");
+        var enlargedImageContainer = document.createElement("div");
+        enlargedImageContainer.className = "enlarged-image-container";
+        enlargedImageContainer.innerHTML =
+            '<img class="enlarged-image" id="enlarged-image" alt="Enlarged Image">';
+        document.body.appendChild(enlargedImageContainer);
 
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-
-                slides[slideIndex - 1].style.display = "block";
-                dots[slideIndex - 1].className += " active";
-            }
-
-            var eventImages = document.querySelectorAll(".event-image");
-            var enlargedImageContainer = document.createElement("div");
-            enlargedImageContainer.className = "enlarged-image-container";
-            enlargedImageContainer.innerHTML =
-                '<img class="enlarged-image" id="enlarged-image" alt="Enlarged Image">';
-            document.body.appendChild(enlargedImageContainer);
-
-            eventImages.forEach(function (image) {
-                image.addEventListener("click", function () {
-                    var enlargedImage = document.getElementById("enlarged-image");
-                    enlargedImage.src = this.src;
-                    enlargedImageContainer.style.display = "flex";
-                });
-            });
-
-            enlargedImageContainer.addEventListener("click", function (event) {
-                // Close the enlarged image only if the click is outside the image
-                if (event.target.id === "enlarged-image") {
-                    return;
-                }
-                this.style.display = "none";
-            });
-
-            // Navigation arrows event listeners
-            var prevArrow = document.querySelector(".prev");
-            var nextArrow = document.querySelector(".next");
-
-            prevArrow.addEventListener("click", function () {
-                plusSlides(-1);
-            });
-
-            nextArrow.addEventListener("click", function () {
-                plusSlides(1);
+        eventImages.forEach(function (image) {
+            image.addEventListener("click", function () {
+                var enlargedImage = document.getElementById("enlarged-image");
+                enlargedImage.src = this.src;
+                enlargedImageContainer.style.display = "flex";
             });
         });
 
-    </script>
+        enlargedImageContainer.addEventListener("click", function (event) {
+            // Close the enlarged image only if the click is outside the image
+            if (event.target.id === "enlarged-image") {
+                return;
+            }
+            this.style.display = "none";
+        });
+
+        // Navigation arrows event listeners
+        var prevArrow = document.querySelector(".prev");
+        var nextArrow = document.querySelector(".next");
+
+        prevArrow.addEventListener("click", function () {
+            plusSlides(-1);
+        });
+
+        nextArrow.addEventListener("click", function () {
+            plusSlides(1);
+        });
+    });
+
+</script>
+
 
 </body>
 

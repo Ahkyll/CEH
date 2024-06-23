@@ -6,35 +6,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Process and update profile information
     $newUsername = $_POST['new_username'];
     $newName = $_POST['new_name'];
-    $newSection = $_POST['new_section']; // Added
-    $newYear = $_POST['new_year']; // Added
+    $newSection = $_POST['new_section'];
+    $newYear = $_POST['new_year'];
     $userId = $_SESSION['user_id'];
 
     // File upload handling
-    $uploadDirectory = 'assets/img/profile'; // Directory where uploaded files will be stored
-    $targetFile = $uploadDirectory . basename($_FILES['profile_picture']['name']);
+    $uploadDirectory = 'assets/img/profile';
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+    $targetFile = '';
 
-    // Check if the image file is a real image or fake image
-    if (isset($_POST['save_changes'])) {
-        if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === 0) {
-            $check = getimagesize($_FILES['profile_picture']['tmp_name']);
+    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === 0) {
+        $check = getimagesize($_FILES['profile_picture']['tmp_name']);
 
-            if ($check !== false) {
-                // File is an image, you can proceed with the upload
-                $uploadOk = 1;
-
-                // Your file upload and processing code goes here
-                $target_dir = 'assets/img/profile';
-                $target_file = $target_dir . basename($_FILES["profile_picture"]["name"]);
-                move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $target_file);
-            } else {
-                echo "Error: File is not an image.";
-                $uploadOk = 0;
-            }
+        if ($check !== false) {
+            // File is an image, you can proceed with the upload
+            $target_dir = 'assets/img/profile';
+            $targetFile = $target_dir . basename($_FILES["profile_picture"]["name"]);
+            move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $targetFile);
         } else {
-            echo "Error: No file uploaded or an upload error occurred.";
+            echo "Error: File is not an image.";
+            $uploadOk = 0;
         }
     }
 
@@ -46,42 +37,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Allow certain file formats
     $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-    if (!in_array($imageFileType, $allowedExtensions)) {
+    if (!empty($targetFile) && !in_array(strtolower(pathinfo($targetFile, PATHINFO_EXTENSION)), $allowedExtensions)) {
         echo "Error: Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
         $uploadOk = 0;
     }
 
     if ($uploadOk == 0) {
         echo "Error: Your file was not uploaded.";
-        
-
     } else {
-        if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $targetFile)) {
-            // Update profile information in the database with the new file path, course, and year
-            $updateStmt = $pdo->prepare("UPDATE users SET username = :username, name = :name, section = :section, year = :year, profile_picture = :profile_picture WHERE user_id = :user_id");
-            $updateStmt->bindParam(':username', $newUsername);
-            $updateStmt->bindParam(':name', $newName);
-            $updateStmt->bindParam(':section', $newSection);
-            $updateStmt->bindParam(':year', $newYear);
+        // Update profile information in the database with the new file path, course, and year
+        $updateStmt = $pdo->prepare("UPDATE users SET 
+            username = COALESCE(NULLIF(:username, ''), username),
+            name = COALESCE(NULLIF(:name, ''), name),
+            section = COALESCE(NULLIF(:section, ''), section),
+            year = COALESCE(NULLIF(:year, ''), year)" . (!empty($targetFile) ? ', profile_picture = :profile_picture' : '') . "
+            WHERE user_id = :user_id");
+
+        $updateStmt->bindParam(':username', $newUsername);
+        $updateStmt->bindParam(':name', $newName);
+        $updateStmt->bindParam(':section', $newSection);
+        $updateStmt->bindParam(':year', $newYear);
+        if (!empty($targetFile)) {
             $updateStmt->bindParam(':profile_picture', $targetFile);
-            $updateStmt->bindParam(':user_id', $userId);
-            $updateStmt->execute();
-
-            // Update session variables with the new data
-            $_SESSION['username'] = $newUsername;
-            $_SESSION['user_name'] = $newName;
-            $_SESSION['section'] = $newSection;
-            $_SESSION['year'] = $newYear;
-            $_SESSION['profile_picture'] = $targetFile;
-
-            header('location: user_home.php');
-            exit();
-        } else {
-            echo "Error: There was an error uploading your file.";
         }
+        $updateStmt->bindParam(':user_id', $userId);
+        $updateStmt->execute();
+
+        // Update session variables with the new data
+        $_SESSION['username'] = $newUsername;
+        $_SESSION['user_name'] = $newName;
+        $_SESSION['section'] = $newSection;
+        $_SESSION['year'] = $newYear;
+        $_SESSION['profile_picture'] = $targetFile;
+
+        header('location: user_home.php');
+        exit();
     }
 }
 ?>
+
+
+
 
 
 
@@ -94,6 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Edit Profile</title>
     <style>
         body {
+            background: url("img/cpsubg.jpeg") no-repeat center center fixed;
+            background-size: cover;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
@@ -107,14 +105,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         form {
             max-width: 400px;
             background-color: #fff;
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(308deg, rgb(2, 0, 36) 0%, rgba(9, 9, 121, 0.845) 35%, rgb(0, 213, 255) 100%);
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            color:black;
         }
 
         label {
@@ -133,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         button {
-            background-color: #333;
+            background-color: #0f96fe;
             color: #fff;
             padding: 10px 20px;
             border: none;
@@ -142,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         button:hover {
-            background-color: #555;
+            background-color:cornflowerblue;
         }
     </style>
 </head>

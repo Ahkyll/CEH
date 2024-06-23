@@ -100,112 +100,95 @@ include 'connect.php';
 
         /* Header styles */
         header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 3px solid black;
-        }
+background-color: #333;
+/* Dark blue header */
+color: #ecf0f1;
+/* White text */
+padding: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 3px solid #34495e;
+/* Slightly darker border */
+}
 
-        .menu-icon {
-            cursor: pointer;
-            font-size: 25px;
-            margin: 0 10px;
-            color: white;
-        }
 
-        /* Dropdown styles */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            padding: 10px;
-            text-align: center;
-        }
+/* Dropdown styles */
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: #ecf0f1;
+/* Light gray dropdown background */
+min-width: 200px;
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+z-index: 1;
+padding: 10px;
+text-align: center;
+color: #333;
+/* Dark text */
+}
 
-        .dropdown-content img {
-            max-width: 100px;
-            max-height: 100px;
-            margin-bottom: 10px;
-        }
 
-        #close-btn {
-            cursor: pointer;
-            font-size: 18px;
-            position: absolute;
-            top: 5px;
-            right: 10px;
-        }
+.profile-icon.dropdown.active .dropdown-content {
+display: block;
+}
 
-        .menu-icon.dropdown.active .dropdown-content {
-            display: block;
-        }
+.profile-container {
+max-width: 800px;
+margin: 20px auto;
+padding: 20px;
+background-color: #ecf0f1;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+border: 2px solid #34495e;
+/* Slightly darker border */
+}
 
-        .profile-container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ebe2e2;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid black;
-        }
+.profile-image {
+width: 100px;
+height: 100px;
+border-radius: 50%;
+object-fit: cover;
+}
 
-        .profile-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+.profile-name {
+margin-top: 10px;
+font-size: 30px;
+color: #333;
+}
 
-        .profile-name {
-            margin-top: 10px;
-            font-size: 30px;
-            color: black;
-        }
+.username {
+font-size: 20px;
+color: #333;
+}
 
-        .username {
-            font-size: 20px;
-        }
+nav {
+padding: 20px;
+text-align: center;
+}
 
-        button.btn {
-            background-color: #0f96fe;
-            font-size: 20px;
-            padding: 10px;
-            width: 150px;
-            height: 50px;
-            margin: 30px;
-            border: #ccc;
-            border: 3px solid black;
-            text-decoration: none;
-            color: white;
-            display: inline-block;
-            text-align: center;
-        }
+nav a {
+display: inline-block;
+margin: 0 10px;
+text-decoration: none;
+font-size: 15px;
+font-weight: bold;
+}
 
-        /* Navigation styles */
-        nav {
-            padding: 20px;
-            text-align: center;
-        }
+nav a h1 {
+color: white;
+}
 
-        nav a {
-            display: inline-block;
-            margin: 0 10px;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: bold;
-            color: white;
-        }
+nav h1:hover {
+color: #0f96fe;
+}
 
-        nav a h1:hover {
-            color: #0f96fe;
-        }
+.head h1 {
+font-size: 50px;
+margin: 15px;
+text-align: center;
+}
+
         /* CTA Section Styles */
         .cta-section {
             background-color: #0f96fe;
@@ -233,22 +216,64 @@ include 'connect.php';
         .cta-button:hover {
             background-color: #ddd;
         }
-
-        /* Form Section Styles */
         .form-container {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 
-            2;
-        }
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+.form-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-container input,
+.form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-container button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.form-container button:hover {
+    background-color: #555;
+}
+
+.form-container a {
+    color: #0f96fe;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.form-container a:hover {
+    text-decoration: underline;
+}
         .btn {
-        background-color: #333;
+        background-color: #0f96fe;
         color: #fff;
         padding: 10px 20px;
         text-decoration: none;
@@ -256,37 +281,58 @@ include 'connect.php';
         display: inline-block;
         margin-top: 20px;
     }
+
+   
+
     </style>
 </head>
 
 <body>
 
-    <header>
-        <div class="menu-icon dropdown">&#9776;
+<header>
+        <div class="profile-icon dropdown">
+            <?php
+if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
+    echo '<img src="' . htmlspecialchars($_SESSION['profile_picture']) . '" alt="User Profile" class="profile-image" style="width: 50px; height: 50px;">';
+} else {
+    echo '<img src="img\default_profile_image.jpg" alt="Default Profile Image" class="profile-image" style="width: 50px; height: 50px;">';
+}
+?>
+
             <div class="dropdown-content">
-                <span id="close-btn" onclick="toggleDropdown()">&#10006;</span>
+                <span id="close-btn" onclick="toggleDropdown()"></span>
+
                 <div class="profile-container">
-                <div class="profile-header">
-        <?php
+                    <div class="profile-header">
+                        <?php
         if (isset($_SESSION['profile_picture']) && !empty($_SESSION['profile_picture'])) {
             echo '<img src="' . htmlspecialchars($_SESSION['profile_picture']) . '" alt="User Profile" class="profile-image">';
         } else {
-            echo '<img src="default_profile_image.png" alt="Default Profile Image" class="profile-image">';
+            echo '<img src="img\default_profile_image.jpg" alt="Default Profile Image" class="profile-image">';
         }
         ?>
-        <div class="profile-name" id="profileName"><?= htmlspecialchars($_SESSION['user_name']) ?></div>
-        <div class="username" id="profileUsername"><?= htmlspecialchars($_SESSION['username']) ?></div>
+                        <div class="profile-name" id="profileName">
+                            <?= htmlspecialchars($_SESSION['user_name']) ?>
+                        </div>
+                        <div class="username" id="profileUsername">
+                            <?= htmlspecialchars($_SESSION['username']) ?>
+                        </div>
 
-        <?php if (isset($_SESSION['year']) && isset($_SESSION['course'])) : ?>
-            <div class="year-course">
-                Year: <?= htmlspecialchars($_SESSION['year']) ?> | Course: <?= htmlspecialchars($_SESSION['course']) ?>
-            </div>
-        <?php endif; ?>
-    </div>
+                        <?php if (isset($_SESSION['year']) && isset($_SESSION['section'])) : ?>
+                        <div class="year-course">
+                            Year:
+                            <?= htmlspecialchars($_SESSION['year']) ?> | Section:
+                            <?= htmlspecialchars($_SESSION['section']) ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
                     <br>
-                    <a href="logout.php" class="btn">Logout</a>
-                    <a href="edit_profile.php" class="btn">Edit Profile</a>
+                    <a href="logout.php" class="btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a href="edit_profile.php" class="btn"><i class="fas fa-user-edit"></i> Edit Profile</a>
+
+
                 </div>
+
             </div>
         </div>
 
@@ -294,14 +340,16 @@ include 'connect.php';
             <a href="user_home.php">
                 <h1>Home</h1>
             </a>
+
             <a href="resources.php">
-                <h1>Resources</h1>
+            <h1>Resource Library</h1>
+                
             </a>
-            <a href="forum.php">
-                <h1>Forum</h1>
+            <a href="forum_display.php">
+                <h1>Discussion Forum</h1>
             </a>
             <a href="about.php">
-                <h1><span style="color: #0f96fe;">About Us</span></h1>
+            <h1><span style="color: #0f96fe;">About </span></h1>
             </a>
         </nav>
     </header>
@@ -311,8 +359,7 @@ include 'connect.php';
         <p>Welcome to Collaborate Ed Hub, your one-stop destination for collaborative learning and resource sharing. We
             believe in the power of education and collaboration to shape a better future.</p>
         <p>Collaborate Ed Hub provides a platform for educators, students, and enthusiasts to share knowledge,
-            resources, and ideas. Whether you're a teacher looking for teaching materials or a student seeking
-            supplementary resources, Collaborate Ed Hub is here to support your educational journey.</p>
+            resources, and ideas. Sudent seeking supplementary resources, Collaborate Ed Hub is here to support your educational journey.</p>
     </section>
 
     <section class="cta-section">
@@ -343,60 +390,31 @@ include 'connect.php';
     <footer>
         &copy; 2024 Collaborate Ed Hub. All rights reserved.
     </footer>
-
-    <script>
+<script>
     document.addEventListener("DOMContentLoaded", function () {
-        var menuIcon = document.querySelector(".menu-icon.dropdown");
-        menuIcon.addEventListener("click", function () {
-            toggleDropdown();
-        });
-
-        var closeBtn = document.getElementById("close-btn");
-        closeBtn.addEventListener("click", function () {
-            toggleDropdown();
-        });
+    var menuIcon = document.querySelector(".profile-icon.dropdown");
+    menuIcon.addEventListener("click", function () {
+        toggleDropdown();
     });
 
-    function toggleDropdown() {
-        var menuIcon = document.querySelector(".menu-icon.dropdown");
-        menuIcon.classList.toggle("active");
-    }
+    var submitButton = document.querySelector(".submit-button");
+    submitButton.addEventListener("click", function (event) {
+        toggleForm(event);
+    });
+});
 
-    function toggleForm() {
-        var formContainer = document.getElementById('contactForm');
-        formContainer.style.display = (formContainer.style.display === 'none' || formContainer.style.display === '') ? 'block' : 'none';
-    }
+function toggleDropdown() {
+    var menuIcon = document.querySelector(".profile-icon.dropdown");
+    menuIcon.classList.toggle("active");
+}
+function toggleForm() {
+    var formContainer = document.querySelector(".form-container");
+    formContainer.style.display = (formContainer.style.display === 'none' || formContainer.style.display === '') ? 'block' : 'none';
+}
 
-    function confirmDelete(resourceId) {
-        var confirmDelete = confirm("Are you sure you want to delete this resource?");
-        if (confirmDelete) {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-                    try {
-                        var response = JSON.parse(xhr.responseText);
 
-                        if (response.success) {
-                            // Reload the page after successful deletion
-                            window.location.reload();
-                        } else {
-                            // Display an error message
-                            alert("Error: " + response.error);
-                        }
-                    } catch (error) {
-                        console.error("Error parsing JSON response: " + error);
-                    }
-                }
-            };
 
-            // Send a POST request to your server-side script (delete_resource.php)
-            xhr.open("POST", "delete_resources.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("resource_id=" + resourceId);
-        }
-    }
-</script>
-
+    </script>
 </body>
 
 </html>
